@@ -2,152 +2,121 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>VSSV Aditya Ram | Python, Analytics & Cloud</title>
+  <title>VSSV Aditya Ram | Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #ffffff;
-      color: #222;
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-      line-height: 1.6;
+      height: 100vh;
+      font-family: "Georgia", serif;
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
 
-    h1 {
-      margin-bottom: 5px;
+    .book {
+      width: 360px;
+      height: 500px;
+      background: #fdfcf9;
+      border-radius: 6px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.25),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+      position: relative;
+      transition: transform 1s ease, box-shadow 1s ease;
     }
 
-    h2 {
-      margin-top: 50px;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 8px;
+    .cover {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.9),
+        rgba(245,245,245,0.95)
+      );
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 30px;
+      border-radius: 6px;
+      transition: opacity 0.8s ease;
     }
 
-    h3 {
-      margin-bottom: 5px;
+    .cover h1 {
+      font-size: 26px;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
     }
 
-    .subtitle {
+    .cover p {
+      font-size: 14px;
       color: #555;
-      font-size: 18px;
-      margin-bottom: 25px;
-    }
-
-    .project {
       margin-bottom: 30px;
-      padding-left: 15px;
-      border-left: 4px solid #2c3e50;
     }
 
-    .tech {
+    .open-btn {
+      padding: 12px 26px;
+      border: none;
+      background: #111;
+      color: #fff;
       font-size: 14px;
-      color: #555;
-      margin-top: 5px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
-    a {
-      color: #1a73e8;
-      text-decoration: none;
+    .open-btn:hover {
+      transform: scale(1.05);
+      background: #333;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .book.open {
+      transform: scale(1.05);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
     }
 
-    footer {
-      margin-top: 60px;
-      font-size: 14px;
-      color: #666;
+    .book.open .cover {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 20px;
+      font-size: 11px;
+      color: #777;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <h1>VSSV Aditya Ram</h1>
-  <p class="subtitle">
-    Python Developer | Data Analytics & Cloud Projects
-  </p>
-
-  <p>
-    I am a Python-focused developer with a strong interest in data analytics and
-    cloud-based data workflows. This portfolio showcases personal and
-    internship-based projects built using Python, SQL, and analytics tools.
-  </p>
-
-  <!-- PROJECTS -->
-  <h2>Projects</h2>
-
-  <div class="project">
-    <h3>IoT Digital Twin Sensor Framework <small>(Internship Project)</small></h3>
-    <p>
-      Built an end-to-end edge-to-cloud analytics framework for collecting,
-      processing, and analyzing sensor data. Worked on Python-based data handling
-      logic to process sensor streams received from edge devices via
-      BLE/Bluetooth and integrate them into cloud-based analytics workflows.
-    </p>
-    <p class="tech">
-      <b>Tech:</b> Python, BLE/Bluetooth, Edge–Cloud Architecture, Android, Data Analytics
-    </p>
+  <div class="book" id="book">
+    <div class="cover">
+      <h1>PORTFOLIO</h1>
+      <p>VSSV Aditya Ram</p>
+      <button class="open-btn" onclick="openBook()">Open Portfolio</button>
+      <div class="hint">Click to begin the journey</div>
+    </div>
   </div>
 
-  <div class="project">
-    <h3>Exploratory Data Analysis – Cars & Products <small>(Personal Project)</small></h3>
-    <p>
-      Performed data cleaning, preprocessing, and exploratory data analysis on
-      large datasets containing automotive and product data. Identified trends,
-      correlations, and insights using visualizations to support data-driven
-      decision making.
-    </p>
-    <p class="tech">
-      <b>Tech:</b> Python, Pandas, Matplotlib, Seaborn
-    </p>
-  </div>
-
-  <div class="project">
-    <h3>Data Analytics & Visualization Projects <small>(Internship)</small></h3>
-    <p>
-      Analyzed multiple real-world datasets to study engagement and performance
-      metrics. Built Python-based visualizations and analytical summaries that
-      contributed to improved reporting and insights.
-    </p>
-    <p class="tech">
-      <b>Tech:</b> Python, Matplotlib, Google Colab, Excel, Power BI
-    </p>
-  </div>
-
-  <!-- SKILLS -->
-  <h2>Skills</h2>
-  <p>
-    <b>Languages:</b> Python, SQL<br />
-    <b>Libraries:</b> Pandas, NumPy, Matplotlib, Seaborn<br />
-    <b>Analytics & Tools:</b> Power BI, Excel, Google Colab<br />
-    <b>Cloud Exposure:</b> Cloud-based data workflows and analytics pipelines
-  </p>
-
-  <!-- CONTACT -->
-  <h2>Contact</h2>
-  <p>
-    📧 Email:
-    <a href="mailto:vssv.aditya@gmail.com">vssv.aditya@gmail.com</a><br />
-    💻 GitHub:
-    <a href="https://github.com/v-adityaram" target="_blank">
-      github.com/v-adityaram
-    </a><br />
-    🔗 LinkedIn:
-    <a href="https://www.linkedin.com/in/vssv-aditya-ram-16721a14b/" target="_blank">
-      LinkedIn Profile
-    </a>
-  </p>
-
-  <!-- FOOTER -->
-  <footer>
-    © 2025 VSSV Aditya Ram · Personal Portfolio
-  </footer>
+  <script>
+    function openBook() {
+      document.getElementById("book").classList.add("open");
+    }
+  </script>
 
 </body>
 </html>
