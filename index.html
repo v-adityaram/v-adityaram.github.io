@@ -6,7 +6,6 @@
   <title>VSSV Aditya Ram | Portfolio</title>
 
   <style>
-    /* ===== RESET ===== */
     * {
       box-sizing: border-box;
     }
@@ -30,38 +29,36 @@
       background: #ffffff;
       border-radius: 18px;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr auto; /* TOP / MID / BOTTOM / FIXED */
       align-items: center;
       text-align: center;
-      padding: 26px;
+      padding: 28px;
+
       animation: fadeIn 1.2s ease;
     }
 
-    /* ===== TEXT ===== */
+    /* ===== TOP ===== */
     h1 {
       font-size: clamp(28px, 6vw, 42px);
       letter-spacing: 1px;
       margin: 0;
+      align-self: end; /* push slightly upward */
     }
 
+    /* ===== MIDDLE ===== */
     h2 {
       font-size: clamp(16px, 3vw, 20px);
       font-weight: normal;
-      margin-top: 12px;
+      margin: 0;
       opacity: 0.75;
     }
 
-    .hint {
-      margin-top: auto;
-      font-size: 14px;
-      opacity: 0.5;
-    }
-
-    /* ===== BUTTON ===== */
+    /* ===== BUTTON (BOTTOM SECTION) ===== */
     .open-btn {
-      margin-top: 32px;
+      justify-self: center;
+      margin-top: 8px;
       padding: 14px 36px;
       font-size: 16px;
       border-radius: 999px;
@@ -77,7 +74,14 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     }
 
-    /* ===== DESKTOP SCALING ===== */
+    /* ===== FIXED FOOTER (DO NOT MOVE) ===== */
+    .hint {
+      font-size: 14px;
+      opacity: 0.5;
+      padding-top: 10px;
+    }
+
+    /* ===== DESKTOP ===== */
     @media (min-width: 900px) {
       .book {
         width: 60vw;
@@ -85,13 +89,8 @@
         aspect-ratio: 4 / 3;
         padding: 52px;
       }
-
-      .hint {
-        font-size: 15px;
-      }
     }
 
-    /* ===== ANIMATION ===== */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -108,13 +107,18 @@
 <body>
 
   <div class="book">
+    <!-- TOP -->
     <h1>PORTFOLIO</h1>
+
+    <!-- MIDDLE -->
     <h2>VSSV Aditya Ram</h2>
 
+    <!-- BOTTOM -->
     <button class="open-btn">
       Open Portfolio
     </button>
 
+    <!-- FIXED -->
     <div class="hint">
       Click to begin the journey
     </div>
