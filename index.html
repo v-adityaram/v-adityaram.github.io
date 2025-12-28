@@ -2,121 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VSSV Aditya Ram | Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
+    /* ===== RESET ===== */
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
     body {
+      margin: 0;
       height: 100vh;
-      font-family: "Georgia", serif;
-      background: linear-gradient(135deg, #ece9e6, #ffffff);
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      background: radial-gradient(circle at top, #f6f1ec, #e9e1d8);
+      font-family: "Georgia", serif;
+      color: #111;
     }
 
+    /* ===== BOOK CARD ===== */
     .book {
-      width: 360px;
-      height: 500px;
-      background: #fdfcf9;
-      border-radius: 6px;
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.25),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-      position: relative;
-      transition: transform 1s ease, box-shadow 1s ease;
-    }
-
-    .cover {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(255,255,255,0.9),
-        rgba(245,245,245,0.95)
-      );
-      backdrop-filter: blur(6px);
+      width: 85vw;
+      max-width: 360px;
+      aspect-ratio: 3 / 4.5;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 30px;
-      border-radius: 6px;
-      transition: opacity 0.8s ease;
+      padding: 26px;
+      animation: fadeIn 1.2s ease;
     }
 
-    .cover h1 {
-      font-size: 26px;
+    /* ===== TEXT ===== */
+    h1 {
+      font-size: clamp(28px, 6vw, 42px);
       letter-spacing: 1px;
-      margin-bottom: 10px;
+      margin: 0;
     }
 
-    .cover p {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 30px;
-    }
-
-    .open-btn {
-      padding: 12px 26px;
-      border: none;
-      background: #111;
-      color: #fff;
-      font-size: 14px;
-      letter-spacing: 1px;
-      cursor: pointer;
-      border-radius: 20px;
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .open-btn:hover {
-      transform: scale(1.05);
-      background: #333;
-    }
-
-    .book.open {
-      transform: scale(1.05);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-    }
-
-    .book.open .cover {
-      opacity: 0;
-      pointer-events: none;
+    h2 {
+      font-size: clamp(16px, 3vw, 20px);
+      font-weight: normal;
+      margin-top: 12px;
+      opacity: 0.75;
     }
 
     .hint {
-      position: absolute;
-      bottom: 20px;
-      font-size: 11px;
-      color: #777;
+      margin-top: auto;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    /* ===== BUTTON ===== */
+    .open-btn {
+      margin-top: 32px;
+      padding: 14px 36px;
+      font-size: 16px;
+      border-radius: 999px;
+      border: none;
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .open-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    }
+
+    /* ===== DESKTOP SCALING ===== */
+    @media (min-width: 900px) {
+      .book {
+        width: 60vw;
+        max-width: 720px;
+        aspect-ratio: 4 / 3;
+        padding: 52px;
+      }
+
+      .hint {
+        font-size: 15px;
+      }
+    }
+
+    /* ===== ANIMATION ===== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="book" id="book">
-    <div class="cover">
-      <h1>PORTFOLIO</h1>
-      <p>VSSV Aditya Ram</p>
-      <button class="open-btn" onclick="openBook()">Open Portfolio</button>
-      <div class="hint">Click to begin the journey</div>
+  <div class="book">
+    <h1>PORTFOLIO</h1>
+    <h2>VSSV Aditya Ram</h2>
+
+    <button class="open-btn">
+      Open Portfolio
+    </button>
+
+    <div class="hint">
+      Click to begin the journey
     </div>
   </div>
-
-  <script>
-    function openBook() {
-      document.getElementById("book").classList.add("open");
-    }
-  </script>
 
 </body>
 </html>
