@@ -90,9 +90,7 @@ NLP-based semantic search and recommendation system supporting:
 
 ## Frontend
 
-* HTML5
-* CSS3
-* JavaScript
+* Streamlit
 
 ## AI / ML
 
