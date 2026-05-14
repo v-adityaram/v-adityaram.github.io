@@ -1,110 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>VSSV Aditya Ram | Portfolio</title>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Georgia", serif;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle at top, #f7efe6, #e9dfd3, #ddd2c4);
-}
-
-.book {
-  width: min(92vw, 1000px);
-  height: 85vh;
-  background: #ffffff;
-  border-radius: 32px;
-  padding: 32px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
-}
-
-.zone {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.zone.top { flex: 0 0 32%; }
-.zone.middle { flex: 0 0 22%; }
-.zone.bottom { flex: 0 0 22%; }
-
-h1 {
-  font-size: clamp(2.4rem, 4vw, 4rem);
-  letter-spacing: 2px;
-}
-
-h2 {
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
-  opacity: 0.75;
-}
-
-.open-btn {
-  background: linear-gradient(145deg, #111, #000);
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 16px 44px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.open-btn:hover {
-  transform: translateY(-2px);
-}
-
-.hint {
-  margin-top: auto;
-  font-size: 0.9rem;
-  opacity: 0.55;
-}
-
-@media (max-width: 600px) {
-  .book {
-    height: 88vh;
-    padding: 24px 16px;
-  }
-  .zone.top { flex-basis: 50%; }
-  .zone.middle { flex-basis: 0%; }
-  .zone.bottom { flex-basis: 25%; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VSSV Aditya Ram - Enterprise AI Engineer portfolio covering intelligent automation, RAG, OCR, cloud AI, research intelligence, and applied AI systems.">
+  <title>VSSV Aditya Ram | Enterprise AI Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="book">
-    <div class="zone top">
-      <h1>PORTFOLIO</h1>
-    </div>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
+      <span class="brand-mark">VAR</span>
+      <span>VSSV Aditya Ram</span>
+    </a>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" data-theme-toggle>
+      <span class="theme-toggle-track">
+        <span class="theme-toggle-thumb"></span>
+      </span>
+      <span class="theme-toggle-label" data-theme-label>Dark</span>
+    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="site-nav" id="site-nav" data-nav>
+      <a href="#home">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
+    </nav>
+  </header>
 
-    <div class="zone middle">
-      <h2>VSSV Aditya Ram</h2>
-    </div>
+  <main>
+    <section class="hero section-pad" id="home">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">AI engineering - automation - cloud intelligence</p>
+          <h1>Enterprise AI Engineer | Intelligent Automation | Applied AI Systems</h1>
+          <p class="hero-text">Building enterprise-grade AI platforms using Generative AI, NLP, OCR, cloud infrastructure, knowledge graphs, and intelligent workflow automation.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="projects.html">View Projects</a>
+            <a class="btn btn-secondary" href="assets/Resume.pdf" download>Download Resume</a>
+          </div>
+          <div class="metric-row" aria-label="Portfolio highlights">
+            <div>
+              <strong>AI + Cloud</strong>
+              <span>Azure OpenAI, SQL, OCR</span>
+            </div>
+            <div>
+              <strong>Systems</strong>
+              <span>RAG, workflows, AI systems</span>
+            </div>
+            <div>
+              <strong>Focus</strong>
+              <span>Enterprise automation</span>
+            </div>
+          </div>
+        </div>
 
-    <div class="zone bottom">
-      <button class="open-btn" onclick="location.href='portfolio.html'">
-        Open Portfolio
-      </button>
-    </div>
+        <div class="hero-visual reveal" aria-label="AI workflow visualization">
+          <div class="visual-shell">
+            <div class="visual-header">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>enterprise-ai-pipeline</p>
+            </div>
+            <div class="pipeline">
+              <div class="node node-large">LangChain</div>
+              <div class="node">FastAPI</div>
+              <div class="node node-accent">OCR</div>
+              <div class="node">NLP</div>
+              <div class="node node-accent">RAG</div>
+              <div class="node">SQL</div>
+              <div class="node node-large">ERP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <p class="hint">Click to begin the journey</p>
-  </div>
+    <section class="section-pad" id="about">
+      <div class="section-heading reveal">
+        <p class="eyebrow">About</p>
+        <h2>Engineering intelligent systems that move from prototype to workflow.</h2>
+      </div>
+      <div class="about-grid">
+        <article class="glass-card about-card reveal">
+          <img src="assets/profile.jpg" alt="VSSV Aditya Ram" class="profile-photo">
+          <div>
+            <h3>Computer Science Engineer</h3>
+            <p>I am focused on building enterprise AI systems, intelligent automation platforms, cloud-based analytics solutions, and multimodal AI applications.</p>
+            <p>My experience spans RAG, biomedical intelligence systems, OCR pipelines, Azure infrastructure, NLP systems, and intelligent workflow engineering.</p>
+          </div>
+        </article>
+        <article class="glass-card education-card reveal">
+          <span class="card-kicker">Education</span>
+          <h3>B.Tech in Computer Science Engineering</h3>
+          <p>GITAM University</p>
+          <div class="education-meta">
+            <span>2021 - 2025</span>
+            <span>CGPA: 8.11</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad" id="skills">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Skills</p>
+        <h2>AI, cloud, backend, data, and interface engineering in one stack.</h2>
+      </div>
+      <div class="skill-grid">
+        <article class="glass-card reveal">
+          <h3>AI / ML</h3>
+          <div class="tag-list">
+            <span>Generative AI</span><span>GPT-4o</span><span>LangChain</span><span>RAG</span><span>NLP</span><span>OCR</span><span>Biomedical NLP</span><span>Knowledge Graphs</span><span>Semantic Search</span><span>Document Intelligence</span>
+          </div>
+        </article>
+        <article class="glass-card reveal">
+          <h3>Cloud</h3>
+          <div class="tag-list">
+            <span>Microsoft Azure</span><span>Azure SQL</span><span>Azure OpenAI</span><span>Azure Document Intelligence</span>
+          </div>
+        </article>
+        <article class="glass-card reveal">
+          <h3>Backend</h3>
+          <div class="tag-list">
+            <span>Python</span><span>FastAPI</span><span>SQL</span><span>SQLite</span><span>API Integration</span><span>Workflow Automation</span>
+          </div>
+        </article>
+        <article class="glass-card reveal">
+          <h3>Interface & Analytics</h3>
+          <div class="tag-list">
+            <span>Streamlit</span><span>Pandas</span><span>Dashboard Engineering</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad" id="featured">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Featured Enterprise Projects</p>
+        <h2>Project work shaped around automation, intelligence, and decision systems.</h2>
+      </div>
+      <div class="project-grid">
+        <article class="project-card reveal">
+          <div class="project-body">
+            <span class="card-kicker">AutoCat</span>
+            <h3>Intelligent Email Document Processing Platform</h3>
+            <p>Enterprise AI document automation for invoices, tax documents, spam emails, scanned PDFs, and ERP routing using OCR, classification, confidence scoring, and manual review workflows.</p>
+            <div class="tag-list compact">
+              <span>Python</span><span>Streamlit</span><span>Azure OpenAI</span><span>Azure SQL</span><span>OCR</span>
+            </div>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-body">
+            <span class="card-kicker">PAPERBRIEF AI</span>
+            <h3>Biomedical Research Intelligence Platform</h3>
+            <p>Transforms biomedical PDFs into conversational research environments using RAG, biomedical NLP, semantic retrieval, GPT-4o reasoning, and knowledge graph generation.</p>
+            <div class="tag-list compact">
+              <span>LangChain</span><span>PyMuPDF</span><span>NetworkX</span><span>Plotly</span><span>RAG</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="section-cta reveal">
+        <a class="btn btn-secondary" href="projects.html">Explore Detailed Projects</a>
+      </div>
+    </section>
+
+    <section class="section-pad" id="experience">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Experience</p>
+        <h2>Industry exposure across AI engineering, ML systems, and analytics operations.</h2>
+      </div>
+      <div class="timeline-list">
+        <article class="timeline-card reveal">
+          <span>Current</span>
+          <h3>Systems Engineer Digital - Tata Consultancy Services</h3>
+          <p>Working in AI and intelligent automation-focused engineering environments involving enterprise AI workflows, intelligent processing systems, cloud-based automation, and applied AI engineering.</p>
+        </article>
+        <article class="timeline-card reveal">
+          <span>Internship</span>
+          <h3>Machine Learning Intern - Tech Mahindra</h3>
+          <p>Worked on computer vision systems involving OpenCV, MediaPipe, gesture recognition, and AI-assisted human interaction systems.</p>
+        </article>
+        <article class="timeline-card reveal">
+          <span>Operations</span>
+          <h3>Ozibook</h3>
+          <p>Led analytical and operational initiatives involving Python-based dataset analysis, social media engagement optimization, workflow coordination, and data visualization.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad architecture-section" id="architecture">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Technical Architecture</p>
+        <h2>Workflow thinking for enterprise AI systems.</h2>
+      </div>
+      <div class="architecture-grid">
+        <article class="glass-card workflow-card reveal">
+          <h3>Document Automation</h3>
+          <div class="workflow-line">
+            <span>PDF</span><span>OCR</span><span>NLP</span><span>Classification</span><span>Routing</span>
+          </div>
+        </article>
+        <article class="glass-card workflow-card reveal">
+          <h3>Research Intelligence</h3>
+          <div class="workflow-line">
+            <span>PDF</span><span>Chunking</span><span>Embeddings</span><span>RAG</span><span>Answer</span>
+          </div>
+        </article>
+        <article class="glass-card workflow-card reveal">
+          <h3>Email to ERP</h3>
+          <div class="workflow-line">
+            <span>Email</span><span>Attachment</span><span>Extraction</span><span>Validation</span><span>ERP</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad" id="certifications">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Certifications & Recognition</p>
+        <h2>Signals of continuous learning and applied execution.</h2>
+      </div>
+      <div class="cert-grid">
+        <article class="glass-card cert-feature reveal">
+          <span class="card-kicker">PwC Launchpad</span>
+          <h3>PwC Launchpad - Python & Salesforce Platform Training</h3>
+          <p>Completed a 1.5-year training program focused on Python fundamentals, Salesforce platform concepts, and applied CRM ecosystem exposure.</p>
+          <strong>Recognized in the top 5 from my campus.</strong>
+        </article>
+        <article class="glass-card reveal">
+          <span class="card-kicker">Runner-Up</span>
+          <h3>TCS Internal Hackathon</h3>
+          <p>Built a retail sentiment analysis and product intelligence system using Streamlit, Altair, OpenAI API, LangChain, and RAG architecture.</p>
+          <strong>Delivered insights on customer sentiment, product performance gaps, and actionable business recommendations.</strong>
+        </article>
+        <article class="glass-card reveal">
+          <span class="card-kicker">Champion</span>
+          <h3>LIREL Champion - TCS</h3>
+          <p>Recognized for excellence and performance among peers within the organization.</p>
+          <strong>Selected as a standout performer for consistent contribution and execution.</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-pad contact-section" id="contact">
+      <div class="contact-grid">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Open to AI engineering, automation, cloud, and data roles.</h2>
+          <p class="section-copy">The fastest way to reach me is email or LinkedIn. This contact form opens your email app with the message details, so you can review and send it directly.</p>
+          <div class="social-row">
+            <a href="mailto:vssv.aditya@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/vssv-aditya-ram-16721a14b/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/v-adityaram" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://leetcode.com/u/vaditya/" target="_blank" rel="noreferrer">LeetCode</a>
+          </div>
+        </div>
+        <form class="contact-form reveal" data-contact-form>
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name" required>
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@company.com" required>
+          </label>
+          <label>
+            Inquiry Type
+            <select name="inquiry">
+              <option>Recruiting</option>
+              <option>Project Collaboration</option>
+              <option>Research</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" placeholder="Tell me what you are building or hiring for." required></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>VSSV Aditya Ram - Enterprise AI Portfolio</p>
+    <a href="#home">Back to top</a>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

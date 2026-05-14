@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detailed enterprise AI projects by VSSV Aditya Ram, including AutoCat, PAPERBRIEF AI, and NLP search systems.">
+  <title>Projects | VSSV Aditya Ram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
+      <span class="brand-mark">VAR</span>
+      <span>VSSV Aditya Ram</span>
+    </a>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" data-theme-toggle>
+      <span class="theme-toggle-track">
+        <span class="theme-toggle-thumb"></span>
+      </span>
+      <span class="theme-toggle-label" data-theme-label>Dark</span>
+    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="site-nav" id="site-nav" data-nav>
+      <a href="index.html#home">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero section-pad">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Project Portfolio</p>
+        <h1>Enterprise AI, research intelligence, automation, and NLP systems.</h1>
+        <p class="section-copy">A deeper look at the work behind the portfolio: workflows, architectures, technology choices, and implementation highlights.</p>
+      </div>
+      <div class="filter-bar reveal" aria-label="Project filters">
+        <button class="filter-btn active" type="button" data-filter="all">All</button>
+        <button class="filter-btn" type="button" data-filter="ai">AI</button>
+        <button class="filter-btn" type="button" data-filter="cloud">Cloud</button>
+        <button class="filter-btn" type="button" data-filter="data">Data</button>
+        <button class="filter-btn" type="button" data-filter="systems">Systems</button>
+      </div>
+    </section>
+
+    <section class="project-detail-list section-pad compact-top">
+      <article class="project-detail reveal" data-category="ai cloud systems">
+        <div class="detail-media workflow-media autocat-visual" aria-label="AutoCat workflow">
+          <span>Email Inbox</span>
+          <span>OCR Extraction</span>
+          <span>AI Confidence Score</span>
+          <span>ERP Routing</span>
+        </div>
+        <div class="detail-content">
+          <span class="card-kicker">Project 01</span>
+          <h2>AutoCat - Intelligent Email Document Processing Platform</h2>
+          <p>Enterprise AI-powered document automation platform designed to process invoices, tax documents, spam emails, scanned PDFs, and ERP workflows using OCR, AI classification, confidence scoring, and cloud-based routing systems.</p>
+          <div class="feature-columns">
+            <div>
+              <h3>Key Features</h3>
+              <ul>
+                <li>AI document classification</li>
+                <li>OCR fallback pipelines</li>
+                <li>Confidence-based routing</li>
+                <li>ERP workflow automation</li>
+                <li>Manual review workflows</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Architecture</h3>
+              <p>Email ingestion to attachment rendering, OCR extraction, AI classification, confidence scoring, Azure SQL logging, and routing into enterprise workflows.</p>
+              <div class="tag-list compact">
+                <span>Python</span><span>Streamlit</span><span>Azure OpenAI</span><span>Azure SQL</span><span>Azure Document Intelligence</span><span>PyMuPDF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-detail reveal" data-category="ai data systems">
+        <div class="detail-media workflow-media paperbrief-visual" aria-label="PAPERBRIEF AI workflow">
+          <span>Research PDF</span>
+          <span>Text Chunking</span>
+          <span>RAG Retrieval</span>
+          <span>Knowledge Graph</span>
+        </div>
+        <div class="detail-content">
+          <span class="card-kicker">Project 02</span>
+          <h2>PAPERBRIEF AI - Biomedical Research Intelligence Platform</h2>
+          <p>AI-powered scientific research intelligence platform that transforms biomedical PDFs into conversational research environments using RAG, biomedical NLP, GPT-4o, semantic retrieval, and knowledge graph generation.</p>
+          <div class="feature-columns">
+            <div>
+              <h3>Key Features</h3>
+              <ul>
+                <li>Conversational scientific chat</li>
+                <li>Biomedical NLP and semantic retrieval</li>
+                <li>Knowledge graph generation</li>
+                <li>Paper comparison engine</li>
+                <li>Scientific analytics dashboard</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Architecture</h3>
+              <p>PDF parsing, chunking, embeddings, retrieval, GPT-4o answer synthesis, graph extraction, comparison analytics, and dashboard visualization.</p>
+              <div class="tag-list compact">
+                <span>Python</span><span>GPT-4o</span><span>LangChain</span><span>Streamlit</span><span>NetworkX</span><span>Plotly</span><span>RAG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-detail reveal" data-category="ai data">
+        <div class="detail-media workflow-media seo-visual" aria-label="SEO NLP workflow">
+          <span>User Query</span>
+          <span>NLP Cleanup</span>
+          <span>Semantic Ranking</span>
+          <span>Recommendation</span>
+        </div>
+        <div class="detail-content">
+          <span class="card-kicker">Project 03</span>
+          <h2>SEO Using NLP - Intelligent Search Optimization Engine</h2>
+          <p>AI-powered search optimization engine using NLP techniques including spell correction, semantic matching, feature extraction, and intelligent product recommendation workflows.</p>
+          <div class="feature-columns">
+            <div>
+              <h3>Key Features</h3>
+              <ul>
+                <li>Spell correction and query cleanup</li>
+                <li>Semantic matching logic</li>
+                <li>Feature extraction workflows</li>
+                <li>Product recommendation support</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Tech Stack</h3>
+              <div class="tag-list compact">
+                <span>Python</span><span>NLP</span><span>Pandas</span><span>Search</span><span>Recommendation Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>VSSV Aditya Ram - Project Showcase</p>
+    <a href="index.html#contact">Contact</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
