@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Budget Planning Assistant live project page for VSSV Aditya Ram.">
+  <title>AI Budget Planning Assistant | VSSV Aditya Ram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
+      <span class="brand-mark">VAR</span>
+      <span>VSSV Aditya Ram</span>
+    </a>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" data-theme-toggle>
+      <span class="theme-toggle-track">
+        <span class="theme-toggle-thumb"></span>
+      </span>
+      <span class="theme-toggle-label" data-theme-label>Dark</span>
+    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="site-nav" id="site-nav" data-nav>
+      <a href="index.html#home">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero section-pad">
+      <div class="section-heading reveal">
+        <div class="project-live-row">
+          <span class="project-live-badge"><span class="project-live-dot"></span>Live Project</span>
+        </div>
+        <p class="eyebrow">Interactive Demo</p>
+        <h1>AI Budget Planning Assistant</h1>
+        <p class="section-copy">Plan monthly spending, decide whether savings should go toward RD and SIP buckets, and export a workbook that feels like a real tracker rather than a raw dump.</p>
+      </div>
+    </section>
+
+    <section class="section-pad compact-top budget-demo-page">
+      <div class="budget-top-grid reveal">
+        <article class="budget-panel budget-input-panel">
+          <div class="budget-panel-heading">
+            <span class="card-kicker">Planner Input</span>
+            <h2>Income and Monthly Spend Setup</h2>
+            <p class="section-copy">Add income, list categories, choose whether to structure savings, and decide if the export should include daily and yearly tracking sheets.</p>
+          </div>
+
+          <div class="budget-field-group">
+            <label class="budget-label" for="incomeInput">Monthly income</label>
+            <div class="budget-input-wrap budget-input-wrap-strong">
+              <span class="budget-prefix">Rs.</span>
+              <input id="incomeInput" class="budget-input" type="number" min="0" step="100" value="50000">
+            </div>
+          </div>
+
+          <div class="budget-field-group">
+            <span class="budget-label">Savings preferences</span>
+            <div class="budget-choice-grid">
+              <label class="budget-choice">
+                <input type="checkbox" id="investRd">
+                <span>
+                  <strong>Do you want to invest in RD?</strong>
+                  <small>Allocate part of savings to a disciplined recurring-deposit bucket.</small>
+                </span>
+              </label>
+              <label class="budget-choice">
+                <input type="checkbox" id="investSip">
+                <span>
+                  <strong>Do you want to invest in SIPs?</strong>
+                  <small>Allocate part of savings to a beginner-friendly long-term SIP bucket.</small>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="budget-field-group">
+            <div class="budget-row-header">
+              <label class="budget-label">Expense rows</label>
+              <button class="btn btn-secondary budget-inline-btn" type="button" id="addExpenseRow">+ Add Expense</button>
+            </div>
+            <div id="expenseRows" class="budget-row-list"></div>
+          </div>
+
+          <div class="budget-action-row">
+            <button class="btn btn-primary" type="button" id="processBudget">Process Budget</button>
+            <button class="btn btn-secondary" type="button" id="resetBudget">Reset Starter Data</button>
+          </div>
+        </article>
+
+        <aside class="budget-side-grid reveal">
+          <div class="budget-metric-grid">
+            <article class="budget-metric-card">
+              <span class="budget-metric-label">Monthly Savings</span>
+              <strong id="metricSavings">Rs. 0</strong>
+            </article>
+            <article class="budget-metric-card">
+              <span class="budget-metric-label">Savings Rate</span>
+              <strong id="metricRate">0%</strong>
+            </article>
+            <article class="budget-metric-card">
+              <span class="budget-metric-label">Top Expense</span>
+              <strong id="metricTopCategory">-</strong>
+            </article>
+          </div>
+
+          <article class="budget-panel budget-guidance-panel">
+            <span class="card-kicker">Savings Guidance</span>
+            <h3>What this planner recommends</h3>
+            <div id="guidanceSummary" class="budget-summary-note"></div>
+            <div id="guidanceChips" class="budget-guidance-chips"></div>
+          </article>
+
+          <article class="budget-panel budget-export-panel">
+            <span class="card-kicker">Excel Pack</span>
+            <h3>Download your planning workbook</h3>
+            <p class="section-copy">The export includes a cleaner monthly tracker with an in-sheet daily log, a yearly overview with month tabs if you want it, and a friendlier linked-insights sheet.</p>
+            <div class="budget-choice-grid">
+              <label class="budget-choice budget-choice-inline">
+                <input type="checkbox" id="includeYearlyTracker">
+                <span>
+                  <strong>Do you want a yearly financial tracker?</strong>
+                  <small>Create a year overview plus month tabs. The current month tab will stay linked to the monthly tracker.</small>
+                </span>
+              </label>
+            </div>
+            <div class="budget-action-row compact-actions">
+              <button class="btn btn-primary" type="button" id="exportExcel">Export Excel Pack</button>
+              <a class="btn btn-secondary" href="projects.html">Back to Projects</a>
+            </div>
+            <p class="budget-export-note">No database needed for version 1. Everything here runs locally in the browser for testing.</p>
+          </article>
+        </aside>
+      </div>
+
+      <div class="budget-results-grid reveal">
+        <article class="budget-panel budget-table-panel">
+          <span class="card-kicker">Budget Summary</span>
+          <h3>Monthly planning snapshot</h3>
+          <div class="budget-table-wrap">
+            <table class="budget-table" id="summaryTable"></table>
+          </div>
+        </article>
+
+        <article class="budget-panel budget-chart-panel">
+          <span class="card-kicker">Category Breakdown</span>
+          <h3>Where the money is going</h3>
+          <div class="chart-shell">
+            <canvas id="categoryChart" height="280"></canvas>
+          </div>
+        </article>
+
+        <article class="budget-panel budget-table-panel">
+          <span class="card-kicker">Expense Table</span>
+          <h3>Current monthly entries</h3>
+          <div class="budget-table-wrap">
+            <table class="budget-table" id="expenseTable"></table>
+          </div>
+        </article>
+
+        <article class="budget-panel budget-chart-panel">
+          <span class="card-kicker">Spend vs Save</span>
+          <h3>Balance view</h3>
+          <div class="chart-shell">
+            <canvas id="balanceChart" height="280"></canvas>
+          </div>
+        </article>
+
+        <article class="budget-panel budget-narrative-panel">
+          <span class="card-kicker">Planning Notes</span>
+          <h3>Actionable next-step guidance</h3>
+          <div id="narrativeOutput" class="budget-narrative"></div>
+        </article>
+
+        <article class="budget-panel budget-chart-panel">
+          <span class="card-kicker">Savings Layout</span>
+          <h3 id="savingsChartTitle">How savings are structured</h3>
+          <div class="chart-shell">
+            <canvas id="savingsChart" height="280"></canvas>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>VSSV Aditya Ram - Live Project</p>
+    <a href="index.html#contact">Contact</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    const starterRows = [
+      { category: "Rent", amount: 18000 },
+      { category: "Subscriptions", amount: 1200 },
+      { category: "Self Care", amount: 2500 },
+      { category: "Miscellaneous", amount: 3000 }
+    ];
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const currentMonthIndex = new Date().getMonth();
+    const currentMonthName = monthNames[currentMonthIndex];
+    const currentMonthShort = monthShortNames[currentMonthIndex];
+
+    const expenseRowsEl = document.getElementById("expenseRows");
+    const incomeInput = document.getElementById("incomeInput");
+    const investRdInput = document.getElementById("investRd");
+    const investSipInput = document.getElementById("investSip");
+    const includeYearlyTrackerInput = document.getElementById("includeYearlyTracker");
+    const processBudgetBtn = document.getElementById("processBudget");
+    const addExpenseRowBtn = document.getElementById("addExpenseRow");
+    const resetBudgetBtn = document.getElementById("resetBudget");
+    const exportExcelBtn = document.getElementById("exportExcel");
+    const summaryTable = document.getElementById("summaryTable");
+    const expenseTable = document.getElementById("expenseTable");
+    const metricSavings = document.getElementById("metricSavings");
+    const metricRate = document.getElementById("metricRate");
+    const metricTopCategory = document.getElementById("metricTopCategory");
+    const guidanceSummary = document.getElementById("guidanceSummary");
+    const guidanceChips = document.getElementById("guidanceChips");
+    const narrativeOutput = document.getElementById("narrativeOutput");
+    const savingsChartTitle = document.getElementById("savingsChartTitle");
+
+    let categoryChart;
+    let balanceChart;
+    let savingsChart;
+    let lastPlan = null;
+
+    function formatINR(value) {
+      return new Intl.NumberFormat("en-IN", {
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0
+      }).format(Math.max(0, Number(value) || 0));
+    }
+
+    function formatPercent(value) {
+      return `${value.toFixed(1)}%`;
+    }
+
+    function getThemeColors() {
+      const styles = getComputedStyle(document.documentElement);
+      return {
+        text: styles.getPropertyValue("--text").trim(),
+        muted: styles.getPropertyValue("--muted").trim(),
+        line: styles.getPropertyValue("--line").trim(),
+        cyan: styles.getPropertyValue("--cyan").trim(),
+        teal: styles.getPropertyValue("--teal").trim(),
+        violet: styles.getPropertyValue("--violet").trim(),
+        green: styles.getPropertyValue("--green").trim(),
+        yellow: document.documentElement.dataset.theme === "light" ? "#f59e0b" : "#fde68a",
+        accentHex: (document.documentElement.dataset.theme === "light" ? "#0284C7" : "#38BDF8").replace("#", "").toUpperCase(),
+        softFill: document.documentElement.dataset.theme === "light" ? "EAF4FB" : "1E293B",
+        warmFill: document.documentElement.dataset.theme === "light" ? "FFF7D6" : "172554",
+        bodyText: document.documentElement.dataset.theme === "light" ? "1E293B" : "F8FAFC",
+        border: document.documentElement.dataset.theme === "light" ? "D7E3F0" : "334155"
+      };
+    }
+
+    function createExpenseRow(category = "", amount = "") {
+      const row = document.createElement("div");
+      row.className = "budget-row";
+      row.innerHTML = `
+        <input class="budget-input" type="text" placeholder="Category" value="${category}">
+        <div class="budget-input-wrap">
+          <span class="budget-prefix">Rs.</span>
+          <input class="budget-input budget-input-number" type="number" min="0" step="100" placeholder="0" value="${amount}">
+        </div>
+        <button class="budget-remove-btn" type="button" aria-label="Remove expense row">-</button>
+      `;
+
+      row.querySelector(".budget-remove-btn").addEventListener("click", () => {
+        if (expenseRowsEl.children.length > 1) {
+          row.remove();
+          processBudget();
+        }
+      });
+
+      return row;
+    }
+
+    function loadStarterRows() {
+      expenseRowsEl.innerHTML = "";
+      starterRows.forEach((item) => {
+        expenseRowsEl.appendChild(createExpenseRow(item.category, item.amount));
+      });
+      incomeInput.value = 50000;
+      investRdInput.checked = false;
+      investSipInput.checked = false;
+      includeYearlyTrackerInput.checked = false;
+      processBudget();
+    }
+
+    function collectBudgetData() {
+      const income = Number(incomeInput.value) || 0;
+      const expenses = Array.from(expenseRowsEl.querySelectorAll(".budget-row")).map((row) => {
+        const inputs = row.querySelectorAll("input");
+        return {
+          category: (inputs[0].value || "Untitled").trim() || "Untitled",
+          amount: Math.max(0, Number(inputs[1].value) || 0)
+        };
+      }).filter((item) => item.category && item.amount >= 0);
+
+      return {
+        income,
+        expenses,
+        preferences: {
+          rd: investRdInput.checked,
+          sip: investSipInput.checked,
+          yearlyTracker: includeYearlyTrackerInput.checked
+        }
+      };
+    }
+
+    function buildSavingsPlan(savings, preferences) {
+      if (savings <= 0) {
+        return {
+          buckets: [{ label: "Savings Reserve", amount: 0, purpose: "No savings available for allocation this month." }]
+        };
+      }
+
+      const buckets = [];
+
+      if (preferences.rd && preferences.sip) {
+        const rdAmount = Math.round(savings * 0.40);
+        const sipAmount = Math.round(savings * 0.40);
+        const flexAmount = Math.max(0, savings - rdAmount - sipAmount);
+        buckets.push(
+          { label: "RD", amount: rdAmount, purpose: "Disciplined lower-volatility saving bucket." },
+          { label: "SIP", amount: sipAmount, purpose: "Beginner-friendly long-term investing bucket." },
+          { label: "Flexible Savings", amount: flexAmount, purpose: "A flexible cushion for spending changes, short-term needs, or quick rebalancing." }
+        );
+      } else if (preferences.rd) {
+        const rdAmount = Math.round(savings * 0.80);
+        const flexAmount = Math.max(0, savings - rdAmount);
+        buckets.push(
+          { label: "RD", amount: rdAmount, purpose: "Disciplined lower-volatility saving bucket." },
+          { label: "Flexible Savings", amount: flexAmount, purpose: "A flexible cushion for spending changes, short-term needs, or quick rebalancing." }
+        );
+      } else if (preferences.sip) {
+        const sipAmount = Math.round(savings * 0.80);
+        const flexAmount = Math.max(0, savings - sipAmount);
+        buckets.push(
+          { label: "SIP", amount: sipAmount, purpose: "Beginner-friendly long-term investing bucket." },
+          { label: "Flexible Savings", amount: flexAmount, purpose: "A flexible cushion for spending changes, short-term needs, or quick rebalancing." }
+        );
+      } else {
+        buckets.push({ label: "Total Savings", amount: savings, purpose: "Keep savings as one whole pool for this month." });
+      }
+
+      return { buckets };
+    }
+
+    function buildNarrative(data) {
+      const totalExpenses = data.expenses.reduce((sum, item) => sum + item.amount, 0);
+      const savings = Math.max(0, data.income - totalExpenses);
+      const savingsRate = data.income > 0 ? (savings / data.income) * 100 : 0;
+      const sortedExpenses = [...data.expenses].sort((a, b) => b.amount - a.amount);
+      const topExpense = sortedExpenses[0] || { category: "None", amount: 0 };
+      const savingsPlan = buildSavingsPlan(savings, data.preferences);
+
+      let healthBand = "watch zone";
+      if (savingsRate >= 35) {
+        healthBand = "strong savings zone";
+      } else if (savingsRate >= 20) {
+        healthBand = "balanced planning zone";
+      }
+
+      let allocationLine = `You chose not to split savings into RD or SIP this month, so the planner is keeping Rs. ${formatINR(savings)} as one whole savings pool.`;
+      if (data.preferences.rd && data.preferences.sip) {
+        const rdBucket = savingsPlan.buckets.find((item) => item.label === "RD");
+        const sipBucket = savingsPlan.buckets.find((item) => item.label === "SIP");
+        const flexBucket = savingsPlan.buckets.find((item) => item.label === "Flexible Savings");
+        allocationLine = `This layout allocates Rs. ${formatINR(rdBucket.amount)} to RD, Rs. ${formatINR(sipBucket.amount)} to SIP, and keeps Rs. ${formatINR(flexBucket.amount)} in flexible savings.`;
+      } else if (data.preferences.rd || data.preferences.sip) {
+        const selectedBucket = savingsPlan.buckets.find((item) => item.label === "RD" || item.label === "SIP");
+        const flexBucket = savingsPlan.buckets.find((item) => item.label === "Flexible Savings");
+        allocationLine = `This layout allocates Rs. ${formatINR(selectedBucket.amount)} to ${selectedBucket.label} and keeps Rs. ${formatINR(flexBucket.amount)} in flexible savings.`;
+      }
+
+      const guidance = [
+        `Your biggest monthly spend is ${topExpense.category} at Rs. ${formatINR(topExpense.amount)}.`,
+        `This month you are saving Rs. ${formatINR(savings)}, which puts you in a ${healthBand}.`,
+        allocationLine,
+        `In the workbook, Website Summary holds the export snapshot, Monthly Tracker stays the core working sheet, the daily log sits inside that monthly sheet, and Year Overview can roll the current month forward automatically.`
+      ];
+
+      return {
+        totalExpenses,
+        savings,
+        savingsRate,
+        topExpense,
+        savingsPlan,
+        guidance,
+        chipText: savingsPlan.buckets.map((bucket) => `${bucket.label}: Rs. ${formatINR(bucket.amount)}`)
+      };
+    }
+
+    function renderTable(tableEl, headers, rows) {
+      const head = `
+        <thead>
+          <tr>${headers.map((header) => `<th>${header}</th>`).join("")}</tr>
+        </thead>
+      `;
+      const body = `
+        <tbody>
+          ${rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}
+        </tbody>
+      `;
+      tableEl.innerHTML = head + body;
+    }
+
+    function destroyCharts() {
+      [categoryChart, balanceChart, savingsChart].forEach((chart) => {
+        if (chart) {
+          chart.destroy();
+        }
+      });
+    }
+
+    function renderCharts(data, analysis) {
+      destroyCharts();
+      const colors = getThemeColors();
+      const bucketColors = [colors.teal, colors.cyan, colors.violet, colors.yellow, colors.green];
+
+      categoryChart = new Chart(document.getElementById("categoryChart"), {
+        type: "bar",
+        data: {
+          labels: data.expenses.map((item) => item.category),
+          datasets: [{
+            data: data.expenses.map((item) => item.amount),
+            backgroundColor: [colors.cyan, colors.teal, colors.violet, colors.yellow, colors.green, "#fb7185"],
+            borderRadius: 8,
+            maxBarThickness: 56
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: colors.muted }, grid: { display: false } },
+            y: { ticks: { color: colors.muted }, grid: { color: colors.line } }
+          }
+        }
+      });
+
+      balanceChart = new Chart(document.getElementById("balanceChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["Expenses", "Savings"],
+          datasets: [{
+            data: [analysis.totalExpenses, analysis.savings],
+            backgroundColor: [colors.violet, colors.cyan],
+            borderWidth: 0,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: colors.muted } } }
+        }
+      });
+
+      savingsChart = new Chart(document.getElementById("savingsChart"), {
+        type: "bar",
+        data: {
+          labels: analysis.savingsPlan.buckets.map((item) => item.label),
+          datasets: [{
+            data: analysis.savingsPlan.buckets.map((item) => item.amount),
+            backgroundColor: bucketColors.slice(0, analysis.savingsPlan.buckets.length),
+            borderRadius: 8,
+            maxBarThickness: 56
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: colors.muted }, grid: { display: false } },
+            y: { ticks: { color: colors.muted }, grid: { color: colors.line } }
+          }
+        }
+      });
+    }
+
+    function processBudget() {
+      const data = collectBudgetData();
+      const analysis = buildNarrative(data);
+      lastPlan = { data, analysis };
+
+      metricSavings.textContent = `Rs. ${formatINR(analysis.savings)}`;
+      metricRate.textContent = formatPercent(analysis.savingsRate);
+      metricTopCategory.textContent = analysis.topExpense.category;
+      savingsChartTitle.textContent = data.preferences.rd || data.preferences.sip ? "How savings are structured" : "Savings kept as one pool";
+
+      guidanceSummary.innerHTML = `<p><strong>Planning read:</strong> ${analysis.guidance[0]} ${analysis.guidance[1]}</p>`;
+      guidanceChips.innerHTML = analysis.chipText.map((item) => `<span>${item}</span>`).join("");
+      narrativeOutput.innerHTML = analysis.guidance.map((item) => `<p>${item}</p>`).join("");
+
+      const summaryRows = [
+        ["Income", `Rs. ${formatINR(data.income)}`],
+        ["Total Expenses", `Rs. ${formatINR(analysis.totalExpenses)}`],
+        ["Monthly Savings", `Rs. ${formatINR(analysis.savings)}`],
+        ["Savings Rate", formatPercent(analysis.savingsRate)]
+      ];
+
+      analysis.savingsPlan.buckets.forEach((bucket) => {
+        summaryRows.push([bucket.label, `Rs. ${formatINR(bucket.amount)}`]);
+      });
+
+      renderTable(summaryTable, ["Section", "Amount"], summaryRows);
+      renderTable(expenseTable, ["Category", "Amount"], data.expenses.map((item) => [item.category, `Rs. ${formatINR(item.amount)}`]));
+      renderCharts(data, analysis);
+    }
+
+    function sheetRef(name, cell) {
+      return `'${name}'!${cell}`;
+    }
+
+    function styleCell(cell, colors, options = {}) {
+      cell.font = options.font || { name: "Inter", size: 11, color: { argb: colors.bodyText } };
+      cell.fill = options.fill || { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFFF" } };
+      cell.border = options.border || {
+        top: { style: "thin", color: { argb: colors.border } },
+        left: { style: "thin", color: { argb: colors.border } },
+        bottom: { style: "thin", color: { argb: colors.border } },
+        right: { style: "thin", color: { argb: colors.border } }
+      };
+      if (options.alignment) {
+        cell.alignment = options.alignment;
+      }
+      if (options.numFmt) {
+        cell.numFmt = options.numFmt;
+      }
+    }
+
+    function addListValidation(sheet, startRow, endRow, column, categories) {
+      const formulaString = `"${categories.join(",")}"`;
+      for (let row = startRow; row <= endRow; row += 1) {
+        sheet.getCell(`${column}${row}`).dataValidation = {
+          type: "list",
+          allowBlank: true,
+          formulae: [formulaString]
+        };
+      }
+    }
+
+    function buildDailyDates(count) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      return Array.from({ length: count }, (_, index) => new Date(year, month, index + 1));
+    }
+
+    function createTrackerSheet(workbook, plan, title, options = {}) {
+      const colors = getThemeColors();
+      const sheet = workbook.addWorksheet(title, {
+        properties: { defaultRowHeight: 20 },
+        views: [{ showGridLines: false }]
+      });
+      const categories = plan.data.expenses.map((item) => item.category);
+      const monthlyTitle = "Monthly Tracker";
+      const dailyDates = buildDailyDates(7);
+      const dailyTitleRow = 12 + categories.length;
+      const dailyHeaderRow = dailyTitleRow + 1;
+      const dailyDataStart = dailyHeaderRow + 1;
+      const dailyDataEnd = dailyDataStart + dailyDates.length - 1;
+      const bucketStartRow = dailyDataEnd + 2;
+      const plannedTotal = plan.data.expenses.reduce((sum, item) => sum + item.amount, 0);
+      const actualTotalFormula = `SUM(C10:C${9 + categories.length})`;
+      const actualTotalResult = 0;
+      const savingsResult = plan.data.income - plannedTotal;
+
+      sheet.columns = [
+        { width: 18 }, { width: 14 }, { width: 14 }, { width: 14 }, { width: 16 }, { width: 28 }
+      ];
+
+      sheet.mergeCells("A1:F2");
+      const titleCell = sheet.getCell("A1");
+      titleCell.value = `${title} Financial Tracker`;
+      titleCell.font = { name: "Inter", size: 18, bold: true, color: { argb: "0F172A" } };
+      titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: colors.warmFill } };
+      titleCell.alignment = { vertical: "middle" };
+
+      sheet.getCell("A4").value = "Month";
+      sheet.getCell("B4").value = options.monthLabel || currentMonthName;
+      sheet.getCell("D4").value = "Income";
+      sheet.getCell("E4").value = options.linkToMonthly
+        ? { formula: `${sheetRef(monthlyTitle, "E4")}`, result: plan.data.income }
+        : plan.data.income;
+      styleCell(sheet.getCell("A4"), colors, { font: { name: "Inter", size: 11, bold: true } });
+      styleCell(sheet.getCell("B4"), colors);
+      styleCell(sheet.getCell("D4"), colors, { font: { name: "Inter", size: 11, bold: true } });
+      styleCell(sheet.getCell("E4"), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+
+      sheet.getCell("A5").value = "Total Budgeted";
+      sheet.getCell("B5").value = { formula: `SUM(B10:B${9 + categories.length})`, result: plannedTotal };
+      sheet.getCell("D5").value = "Actual Total";
+      sheet.getCell("E5").value = options.linkToMonthly
+        ? { formula: `${sheetRef(monthlyTitle, "E5")}`, result: actualTotalResult }
+        : { formula: actualTotalFormula, result: actualTotalResult };
+      sheet.getCell("A6").value = "Savings";
+      sheet.getCell("B6").value = options.linkToMonthly
+        ? { formula: `${sheetRef(monthlyTitle, "B6")}`, result: savingsResult }
+        : { formula: `IF(E4=\"\",\"\",IF(E5=0,E4-B5,E4-E5))`, result: savingsResult };
+      ["A5", "D5", "A6"].forEach((ref) => styleCell(sheet.getCell(ref), colors, { font: { name: "Inter", size: 11, bold: true } }));
+      styleCell(sheet.getCell("B5"), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+      styleCell(sheet.getCell("E5"), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+      styleCell(sheet.getCell("B6"), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+
+      const headers = ["Category", "Planned", "Actual", "Variance", "Status", "Notes"];
+      headers.forEach((header, index) => {
+        const cell = sheet.getCell(9, index + 1);
+        cell.value = header;
+        styleCell(cell, colors, {
+          font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+          fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } },
+          alignment: { horizontal: "center" }
+        });
+      });
+
+      plan.data.expenses.forEach((item, index) => {
+        const row = 10 + index;
+        const monthlyRow = 10 + index;
+
+        if (options.linkToMonthly) {
+          sheet.getCell(`A${row}`).value = { formula: sheetRef(monthlyTitle, `A${monthlyRow}`), result: item.category };
+          sheet.getCell(`B${row}`).value = { formula: sheetRef(monthlyTitle, `B${monthlyRow}`), result: item.amount };
+          sheet.getCell(`C${row}`).value = { formula: sheetRef(monthlyTitle, `C${monthlyRow}`), result: 0 };
+          sheet.getCell(`D${row}`).value = { formula: sheetRef(monthlyTitle, `D${monthlyRow}`), result: -item.amount };
+          sheet.getCell(`E${row}`).value = { formula: sheetRef(monthlyTitle, `E${monthlyRow}`), result: "Within Plan" };
+          sheet.getCell(`F${row}`).value = { formula: sheetRef(monthlyTitle, `F${monthlyRow}`), result: "" };
+        } else {
+          sheet.getCell(`A${row}`).value = item.category;
+          sheet.getCell(`B${row}`).value = item.amount;
+
+          sheet.getCell(`C${row}`).value = { formula: `SUMIF($B$${dailyDataStart}:$B$${dailyDataEnd},A${row},$D$${dailyDataStart}:$D$${dailyDataEnd})`, result: 0 };
+
+          sheet.getCell(`D${row}`).value = { formula: `IF(OR(B${row}=\"\",C${row}=\"\"),\"\",C${row}-B${row})`, result: -item.amount };
+          sheet.getCell(`E${row}`).value = { formula: `IF(C${row}=\"\",\"Pending\",IF(C${row}<=B${row},\"Within Plan\",\"Over Plan\"))`, result: "Within Plan" };
+          sheet.getCell(`F${row}`).value = "";
+        }
+
+        ["A", "B", "C", "D", "E", "F"].forEach((col) => {
+          const numFmt = ["B", "C", "D"].includes(col) ? "\"Rs.\" #,##0" : undefined;
+          styleCell(sheet.getCell(`${col}${row}`), colors, {
+            numFmt,
+            alignment: col === "E" ? { horizontal: "center" } : undefined
+          });
+        });
+      });
+
+      sheet.getCell(`A${dailyTitleRow}`).value = "Daily Spending Log";
+      sheet.getCell(`A${dailyTitleRow}`).font = { name: "Inter", size: 12, bold: true, color: { argb: colors.accentHex } };
+      const dailyHeaders = ["Date", "Category", "Description", "Actual", "Notes"];
+      dailyHeaders.forEach((header, index) => {
+        const cell = sheet.getCell(dailyHeaderRow, index + 1);
+        cell.value = header;
+        styleCell(cell, colors, {
+          font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+          fill: { type: "pattern", pattern: "solid", fgColor: { argb: "EEF8F1" } }
+        });
+      });
+      addListValidation(sheet, dailyDataStart, dailyDataEnd, "B", categories);
+      dailyDates.forEach((date, index) => {
+        const row = dailyDataStart + index;
+        sheet.getCell(`A${row}`).value = date;
+        sheet.getCell(`B${row}`).value = "";
+        sheet.getCell(`C${row}`).value = "";
+        sheet.getCell(`D${row}`).value = "";
+        sheet.getCell(`E${row}`).value = "";
+        ["A", "B", "C", "D", "E"].forEach((col) => {
+          styleCell(sheet.getCell(`${col}${row}`), colors, {
+            numFmt: col === "A" ? "dd-mmm" : col === "D" ? "\"Rs.\" #,##0" : undefined
+          });
+        });
+      });
+
+      sheet.getCell(`A${bucketStartRow}`).value = "Savings Buckets";
+      sheet.getCell(`A${bucketStartRow}`).font = { name: "Inter", size: 12, bold: true, color: { argb: colors.accentHex } };
+      sheet.getCell(`A${bucketStartRow + 1}`).value = "Bucket";
+      sheet.getCell(`B${bucketStartRow + 1}`).value = "Amount";
+      sheet.getCell(`C${bucketStartRow + 1}`).value = "Why this bucket exists";
+      sheet.mergeCells(`C${bucketStartRow + 1}:F${bucketStartRow + 1}`);
+      ["A", "B", "C", "D", "E", "F"].forEach((col, index) => {
+        const cellRef = index < 2 ? `${col}${bucketStartRow + 1}` : `C${bucketStartRow + 1}`;
+        styleCell(sheet.getCell(cellRef), colors, {
+          font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+          fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
+        });
+      });
+
+      plan.analysis.savingsPlan.buckets.forEach((bucket, index) => {
+        const row = bucketStartRow + 2 + index;
+        sheet.getCell(`A${row}`).value = bucket.label;
+        sheet.getCell(`B${row}`).value = bucket.amount;
+        sheet.getCell(`C${row}`).value = bucket.purpose;
+        sheet.mergeCells(`C${row}:F${row}`);
+        styleCell(sheet.getCell(`A${row}`), colors);
+        styleCell(sheet.getCell(`B${row}`), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+        styleCell(sheet.getCell(`C${row}`), colors, { alignment: { wrapText: true, vertical: "top" } });
+        sheet.getRow(row).height = 34;
+      });
+
+      return sheet;
+    }
+
+    function createWebsiteSummarySheet(workbook, plan) {
+      const colors = getThemeColors();
+      const sheet = workbook.addWorksheet("Website Summary", {
+        properties: { defaultRowHeight: 20 },
+        views: [{ showGridLines: false }]
+      });
+
+      sheet.pageSetup = { orientation: "landscape", fitToPage: true, fitToWidth: 1, fitToHeight: 1 };
+      sheet.columns = [
+        { width: 22 }, { width: 16 }, { width: 16 }, { width: 16 },
+        { width: 18 }, { width: 18 }, { width: 18 }, { width: 18 }
+      ];
+
+      sheet.mergeCells("A1:H2");
+      const titleCell = sheet.getCell("A1");
+      titleCell.value = "Website Summary";
+      titleCell.font = { name: "Inter", size: 20, bold: true, color: { argb: "0F172A" } };
+      titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: colors.warmFill } };
+      titleCell.alignment = { vertical: "middle" };
+
+      sheet.mergeCells("A3:H3");
+      sheet.getCell("A3").value = `Snapshot from the website view | Generated on ${new Date().toLocaleString("en-IN")}`;
+      sheet.getCell("A3").font = { name: "Inter", size: 11, color: { argb: "475569" } };
+
+      sheet.getCell("A5").value = "Summary Numbers";
+      sheet.getCell("A5").font = { name: "Inter", size: 13, bold: true, color: { argb: colors.accentHex } };
+      sheet.getRow(6).values = ["Section", "Amount"];
+      ["A6", "B6"].forEach((ref) => styleCell(sheet.getCell(ref), colors, {
+        font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+        fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
+      }));
+
+      const summaryRows = [
+        ["Income", plan.data.income],
+        ["Total Expenses", plan.analysis.totalExpenses],
+        ["Monthly Savings", plan.analysis.savings],
+        ["Savings Rate %", Number(plan.analysis.savingsRate.toFixed(1))]
+      ];
+
+      plan.analysis.savingsPlan.buckets.forEach((bucket) => {
+        summaryRows.push([bucket.label, bucket.amount]);
+      });
+
+      summaryRows.forEach((row, index) => {
+        const excelRow = 7 + index;
+        sheet.getCell(`A${excelRow}`).value = row[0];
+        sheet.getCell(`B${excelRow}`).value = row[1];
+        styleCell(sheet.getCell(`A${excelRow}`), colors);
+        styleCell(sheet.getCell(`B${excelRow}`), colors, {
+          alignment: { horizontal: "right" },
+          numFmt: row[0] === "Savings Rate %" ? "0.0" : "\"Rs.\" #,##0"
+        });
+      });
+
+      sheet.getCell("D5").value = "Expense Numbers";
+      sheet.getCell("D5").font = { name: "Inter", size: 13, bold: true, color: { argb: colors.accentHex } };
+      sheet.getRow(6).getCell(4).value = "Category";
+      sheet.getRow(6).getCell(5).value = "Amount";
+      ["D6", "E6"].forEach((ref) => styleCell(sheet.getCell(ref), colors, {
+        font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+        fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
+      }));
+
+      plan.data.expenses.forEach((item, index) => {
+        const row = 7 + index;
+        sheet.getCell(`D${row}`).value = item.category;
+        sheet.getCell(`E${row}`).value = item.amount;
+        styleCell(sheet.getCell(`D${row}`), colors);
+        styleCell(sheet.getCell(`E${row}`), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+      });
+
+      sheet.getCell("D14").value = "Spend vs Save Numbers";
+      sheet.getCell("D14").font = { name: "Inter", size: 13, bold: true, color: { argb: colors.accentHex } };
+      sheet.getCell("D15").value = "Expenses";
+      sheet.getCell("E15").value = plan.analysis.totalExpenses;
+      sheet.getCell("D16").value = "Savings";
+      sheet.getCell("E16").value = plan.analysis.savings;
+      ["D15", "E15", "D16", "E16"].forEach((ref) => styleCell(sheet.getCell(ref), colors, {
+        numFmt: ref.startsWith("E") ? "\"Rs.\" #,##0" : undefined,
+        alignment: ref.startsWith("E") ? { horizontal: "right" } : undefined
+      }));
+
+      sheet.getCell("G5").value = "Savings Buckets";
+      sheet.getCell("G5").font = { name: "Inter", size: 13, bold: true, color: { argb: colors.accentHex } };
+      sheet.getRow(6).getCell(7).value = "Bucket";
+      sheet.getRow(6).getCell(8).value = "Amount";
+      ["G6", "H6"].forEach((ref) => styleCell(sheet.getCell(ref), colors, {
+        font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+        fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
+      }));
+
+      plan.analysis.savingsPlan.buckets.forEach((bucket, index) => {
+        const row = 7 + index;
+        sheet.getCell(`G${row}`).value = bucket.label;
+        sheet.getCell(`H${row}`).value = bucket.amount;
+        styleCell(sheet.getCell(`G${row}`), colors);
+        styleCell(sheet.getCell(`H${row}`), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+      });
+
+      const categoryImage = workbook.addImage({
+        base64: categoryChart.toBase64Image(),
+        extension: "png"
+      });
+      const balanceImage = workbook.addImage({
+        base64: balanceChart.toBase64Image(),
+        extension: "png"
+      });
+      const savingsImage = workbook.addImage({
+        base64: savingsChart.toBase64Image(),
+        extension: "png"
+      });
+
+      sheet.addImage(categoryImage, { tl: { col: 0.2, row: 16 }, ext: { width: 360, height: 230 } });
+      sheet.addImage(balanceImage, { tl: { col: 4.15, row: 16.45 }, ext: { width: 240, height: 180 } });
+      sheet.addImage(savingsImage, { tl: { col: 6.0, row: 16 }, ext: { width: 300, height: 230 } });
+
+      sheet.getCell("A29").value = "Category chart snapshot from website";
+      sheet.getCell("D29").value = "Spend vs Save snapshot from website";
+      sheet.getCell("G29").value = "Savings structure snapshot from website";
+      ["A29", "D29", "G29"].forEach((ref) => {
+        sheet.getCell(ref).font = { name: "Inter", size: 10, italic: true, color: { argb: "64748B" } };
+      });
+    }
+
+    function createYearOverviewSheet(workbook, monthSheetNames) {
+      const colors = getThemeColors();
+      const sheet = workbook.addWorksheet("Year Overview", {
+        properties: { defaultRowHeight: 20 },
+        views: [{ showGridLines: false }]
+      });
+
+      sheet.columns = [
+        { width: 14 }, { width: 14 }, { width: 14 }, { width: 14 }, { width: 14 }, { width: 24 }
+      ];
+      sheet.mergeCells("A1:F2");
+      sheet.getCell("A1").value = "Yearly Financial Tracker";
+      sheet.getCell("A1").font = { name: "Inter", size: 18, bold: true, color: { argb: "0F172A" } };
+      sheet.getCell("A1").fill = { type: "pattern", pattern: "solid", fgColor: { argb: colors.warmFill } };
+
+      ["Month", "Income", "Planned", "Actual", "Savings", "Notes"].forEach((header, index) => {
+        const cell = sheet.getCell(4, index + 1);
+        cell.value = header;
+        styleCell(cell, colors, {
+          font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+          fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
+        });
+      });
+
+      monthShortNames.forEach((shortName, index) => {
+        const row = 5 + index;
+        sheet.getCell(`A${row}`).value = monthNames[index];
+        sheet.getCell(`B${row}`).value = { formula: sheetRef(shortName, "E4") };
+        sheet.getCell(`C${row}`).value = { formula: sheetRef(shortName, "B5") };
+        sheet.getCell(`D${row}`).value = { formula: sheetRef(shortName, "E5") };
+        sheet.getCell(`E${row}`).value = { formula: sheetRef(shortName, "B6") };
+        sheet.getCell(`F${row}`).value = index === currentMonthIndex ? "Linked to Monthly Tracker" : "";
+        ["A", "B", "C", "D", "E", "F"].forEach((col) => {
+          styleCell(sheet.getCell(`${col}${row}`), colors, {
+            numFmt: ["B", "C", "D", "E"].includes(col) ? "\"Rs.\" #,##0" : undefined
+          });
+        });
+      });
+    }
+
+    function createLiveChartSheet(workbook, plan) {
+      const colors = getThemeColors();
+      const sheet = workbook.addWorksheet("Live Chart", {
+        properties: { defaultRowHeight: 20 },
+        views: [{ showGridLines: false }]
+      });
+
+      sheet.columns = [
+        { width: 24 }, { width: 16 }, { width: 28 }, { width: 30 }
+      ];
+      sheet.mergeCells("A1:D2");
+      sheet.getCell("A1").value = "Linked Insights";
+      sheet.getCell("A1").font = { name: "Inter", size: 18, bold: true, color: { argb: "0F172A" } };
+      sheet.getCell("A1").fill = { type: "pattern", pattern: "solid", fgColor: { argb: colors.warmFill } };
+      sheet.getCell("A3").value = "This sheet pulls linked workbook numbers into one easy read instead of raw bar strings.";
+      sheet.getCell("A3").font = { name: "Inter", size: 10, italic: true, color: { argb: "64748B" } };
+
+      ["Metric", "Live Value", "What it means", "Source Sheet"].forEach((header, index) => {
+        const cell = sheet.getCell(5, index + 1);
+        cell.value = header;
+        styleCell(cell, colors, {
+          font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+          fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
+        });
+      });
+
+      const metrics = [
+        ["Budgeted this month", { formula: sheetRef("Monthly Tracker", "B5"), result: plan.analysis.totalExpenses }, "Total of all monthly category budgets", "Monthly Tracker"],
+        ["Actual this month", { formula: sheetRef("Monthly Tracker", "E5"), result: 0 }, "Total logged spend from the in-sheet daily section", "Monthly Tracker"],
+        ["Expected savings", { formula: sheetRef("Monthly Tracker", "B6"), result: plan.analysis.savings }, "Income minus budgeted or actual spend", "Monthly Tracker"],
+        ["Current month yearly view", plan.data.preferences.yearlyTracker ? { formula: sheetRef(currentMonthShort, "E5"), result: 0 } : { formula: sheetRef("Monthly Tracker", "E5"), result: 0 }, "How the current month rolls into yearly tracking", plan.data.preferences.yearlyTracker ? currentMonthShort : "Monthly Tracker"],
+        ["Current month yearly savings", plan.data.preferences.yearlyTracker ? { formula: sheetRef(currentMonthShort, "B6"), result: plan.analysis.savings } : { formula: sheetRef("Monthly Tracker", "B6"), result: plan.analysis.savings }, "Savings view carried into yearly tracking", plan.data.preferences.yearlyTracker ? currentMonthShort : "Monthly Tracker"]
+      ];
+
+      metrics.forEach((metric, index) => {
+        const row = 6 + index;
+        sheet.getCell(`A${row}`).value = metric[0];
+        sheet.getCell(`B${row}`).value = metric[1];
+        sheet.getCell(`C${row}`).value = metric[2];
+        sheet.getCell(`D${row}`).value = metric[3];
+        const pastelFills = ["FDEAD7", "E7F3FF", "EEE7FF", "E8F7EF", "FFF4CC"];
+        ["A", "B", "C", "D"].forEach((col) => {
+          styleCell(sheet.getCell(`${col}${row}`), colors, {
+            fill: { type: "pattern", pattern: "solid", fgColor: { argb: pastelFills[index % pastelFills.length] } },
+            numFmt: col === "B" ? "\"Rs.\" #,##0" : undefined,
+            alignment: col === "B" ? { horizontal: "right" } : { wrapText: true, vertical: "top" }
+          });
+        });
+      });
+    }
+
+    async function exportWorkbook() {
+      if (!lastPlan) {
+        processBudget();
+      }
+
+      const workbook = new ExcelJS.Workbook();
+      workbook.creator = "VSSV Aditya Ram Portfolio Demo";
+      workbook.created = new Date();
+      workbook.modified = new Date();
+      workbook.calcProperties.fullCalcOnLoad = true;
+
+      createWebsiteSummarySheet(workbook, lastPlan);
+
+      createTrackerSheet(workbook, lastPlan, "Monthly Tracker", {
+        monthLabel: currentMonthName
+      });
+
+      if (lastPlan.data.preferences.yearlyTracker) {
+        monthShortNames.forEach((shortName, index) => {
+          createTrackerSheet(workbook, lastPlan, shortName, {
+            monthLabel: monthNames[index],
+            dailyPlanner: false,
+            linkToMonthly: index === currentMonthIndex
+          });
+        });
+        createYearOverviewSheet(workbook, monthShortNames);
+      }
+
+      createLiveChartSheet(workbook, lastPlan);
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      });
+
+      if (window.saveAs) {
+        window.saveAs(blob, "ai-budget-planning-pack.xlsx");
+      } else {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "ai-budget-planning-pack.xlsx";
+        link.click();
+        URL.revokeObjectURL(link.href);
+      }
+    }
+
+    addExpenseRowBtn.addEventListener("click", () => {
+      expenseRowsEl.appendChild(createExpenseRow("", ""));
+    });
+
+    [investRdInput, investSipInput, includeYearlyTrackerInput].forEach((input) => {
+      input.addEventListener("change", processBudget);
+    });
+
+    processBudgetBtn.addEventListener("click", processBudget);
+    resetBudgetBtn.addEventListener("click", loadStarterRows);
+    exportExcelBtn.addEventListener("click", exportWorkbook);
+
+    const themeObserver = new MutationObserver(() => {
+      if (lastPlan) {
+        renderCharts(lastPlan.data, lastPlan.analysis);
+      }
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    loadStarterRows();
+  </script>
+</body>
+</html>

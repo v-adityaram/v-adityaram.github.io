@@ -85,6 +85,7 @@ filterButtons.forEach((button) => {
 });
 
 const contactForm = document.querySelector("[data-contact-form]");
+const clickableCards = document.querySelectorAll("[data-card-link]");
 
 if (contactForm) {
   contactForm.addEventListener("submit", (event) => {
@@ -104,3 +105,26 @@ if (contactForm) {
     window.location.href = `mailto:vssv.aditya@gmail.com?subject=${subject}&body=${body}`;
   });
 }
+
+clickableCards.forEach((card) => {
+  const href = card.getAttribute("data-card-link");
+
+  if (!href) return;
+
+  card.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (target instanceof Element && target.closest("a, button, input, select, textarea")) {
+      return;
+    }
+
+    window.location.href = href;
+  });
+
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      window.location.href = href;
+    }
+  });
+});
