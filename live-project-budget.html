@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="top">
   <header class="site-header" data-header>
     <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
       <span class="brand-mark">VAR</span>
@@ -63,6 +63,13 @@
             <div class="budget-input-wrap budget-input-wrap-strong">
               <span class="budget-prefix">Rs.</span>
               <input id="incomeInput" class="budget-input" type="number" min="0" step="100" value="50000">
+            </div>
+          </div>
+
+          <div class="budget-field-group">
+            <label class="budget-label" for="startDateInput">Planning start date</label>
+            <div class="budget-input-wrap">
+              <input id="startDateInput" class="budget-input" type="date">
             </div>
           </div>
 
@@ -129,7 +136,7 @@
             <p class="section-copy">The export includes a cleaner monthly tracker with an in-sheet daily log, a yearly overview with month tabs if you want it, and a friendlier linked-insights sheet.</p>
             <div class="budget-choice-grid">
               <label class="budget-choice budget-choice-inline">
-                <input type="checkbox" id="includeYearlyTracker">
+                <input type="checkbox" id="includeYearlyTracker" checked>
                 <span>
                   <strong>Do you want a yearly financial tracker?</strong>
                   <small>Create a year overview plus month tabs. The current month tab will stay linked to the monthly tracker.</small>
@@ -199,6 +206,9 @@
     <p>VSSV Aditya Ram - Live Project</p>
     <a href="index.html#contact">Contact</a>
   </footer>
+  <div class="back-to-top-wrap">
+    <a class="back-to-top-link" href="#top">Back to top</a>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
@@ -220,6 +230,7 @@
 
     const expenseRowsEl = document.getElementById("expenseRows");
     const incomeInput = document.getElementById("incomeInput");
+    const startDateInput = document.getElementById("startDateInput");
     const investRdInput = document.getElementById("investRd");
     const investSipInput = document.getElementById("investSip");
     const includeYearlyTrackerInput = document.getElementById("includeYearlyTracker");
@@ -241,6 +252,29 @@
     let balanceChart;
     let savingsChart;
     let lastPlan = null;
+
+    function getTodayIsoDate() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function parseStartDate(dateString) {
+      const safeValue = dateString || getTodayIsoDate();
+      const [year, month, day] = safeValue.split("-").map(Number);
+      return new Date(year, (month || 1) - 1, day || 1);
+    }
+
+    function getStartDateMeta(dateString) {
+      const date = parseStartDate(dateString);
+      const monthIndex = date.getMonth();
+      return {
+        date,
+        year: date.getFullYear(),
+        monthIndex,
+        monthName: monthNames[monthIndex],
+        monthShort: monthShortNames[monthIndex],
+        day: date.getDate()
+      };
+    }
 
     function formatINR(value) {
       return new Intl.NumberFormat("en-IN", {
@@ -300,9 +334,10 @@
         expenseRowsEl.appendChild(createExpenseRow(item.category, item.amount));
       });
       incomeInput.value = 50000;
+      startDateInput.value = getTodayIsoDate();
       investRdInput.checked = false;
       investSipInput.checked = false;
-      includeYearlyTrackerInput.checked = false;
+      includeYearlyTrackerInput.checked = true;
       processBudget();
     }
 
@@ -320,6 +355,7 @@
         income,
         expenses,
         preferences: {
+          startDate: startDateInput.value || getTodayIsoDate(),
           rd: investRdInput.checked,
           sip: investSipInput.checked,
           yearlyTracker: includeYearlyTrackerInput.checked
@@ -397,7 +433,7 @@
         `Your biggest monthly spend is ${topExpense.category} at Rs. ${formatINR(topExpense.amount)}.`,
         `This month you are saving Rs. ${formatINR(savings)}, which puts you in a ${healthBand}.`,
         allocationLine,
-        `In the workbook, Website Summary holds the export snapshot, Monthly Tracker stays the core working sheet, the daily log sits inside that monthly sheet, and Year Overview can roll the current month forward automatically.`
+        `In the workbook, Website Summary holds the export snapshot, the active month sheet carries both the budget table and daily log, and Year Overview rolls those month tabs together when yearly tracking is enabled.`
       ];
 
       return {
@@ -563,11 +599,14 @@
       }
     }
 
-    function buildDailyDates(count) {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth();
-      return Array.from({ length: count }, (_, index) => new Date(year, month, index + 1));
+    function buildMonthDateLabels(monthIndex, year = new Date().getFullYear(), startDay = 1) {
+      const totalDays = new Date(year, monthIndex + 1, 0).getDate();
+      const shortMonth = monthShortNames[monthIndex];
+      const safeStartDay = Math.max(1, Math.min(startDay, totalDays));
+      return Array.from({ length: totalDays - safeStartDay + 1 }, (_, index) => {
+        const day = String(safeStartDay + index).padStart(2, "0");
+        return `${day}-${shortMonth}`;
+      });
     }
 
     function createTrackerSheet(workbook, plan, title, options = {}) {
@@ -577,8 +616,11 @@
         views: [{ showGridLines: false }]
       });
       const categories = plan.data.expenses.map((item) => item.category);
-      const monthlyTitle = "Monthly Tracker";
-      const dailyDates = buildDailyDates(7);
+      const sourceSheetName = options.sourceSheetName || null;
+      const monthIndex = Number.isInteger(options.monthIndex) ? options.monthIndex : currentMonthIndex;
+      const monthYear = Number.isInteger(options.year) ? options.year : new Date().getFullYear();
+      const startDay = Number.isInteger(options.startDay) ? options.startDay : 1;
+      const dailyDates = buildMonthDateLabels(monthIndex, monthYear, startDay);
       const dailyTitleRow = 12 + categories.length;
       const dailyHeaderRow = dailyTitleRow + 1;
       const dailyDataStart = dailyHeaderRow + 1;
@@ -595,7 +637,7 @@
 
       sheet.mergeCells("A1:F2");
       const titleCell = sheet.getCell("A1");
-      titleCell.value = `${title} Financial Tracker`;
+      titleCell.value = `${options.monthLabel || title} Financial Tracker`;
       titleCell.font = { name: "Inter", size: 18, bold: true, color: { argb: "0F172A" } };
       titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: colors.warmFill } };
       titleCell.alignment = { vertical: "middle" };
@@ -603,8 +645,8 @@
       sheet.getCell("A4").value = "Month";
       sheet.getCell("B4").value = options.monthLabel || currentMonthName;
       sheet.getCell("D4").value = "Income";
-      sheet.getCell("E4").value = options.linkToMonthly
-        ? { formula: `${sheetRef(monthlyTitle, "E4")}`, result: plan.data.income }
+      sheet.getCell("E4").value = sourceSheetName
+        ? { formula: `${sheetRef(sourceSheetName, "E4")}`, result: plan.data.income }
         : plan.data.income;
       styleCell(sheet.getCell("A4"), colors, { font: { name: "Inter", size: 11, bold: true } });
       styleCell(sheet.getCell("B4"), colors);
@@ -614,12 +656,12 @@
       sheet.getCell("A5").value = "Total Budgeted";
       sheet.getCell("B5").value = { formula: `SUM(B10:B${9 + categories.length})`, result: plannedTotal };
       sheet.getCell("D5").value = "Actual Total";
-      sheet.getCell("E5").value = options.linkToMonthly
-        ? { formula: `${sheetRef(monthlyTitle, "E5")}`, result: actualTotalResult }
+      sheet.getCell("E5").value = sourceSheetName
+        ? { formula: `${sheetRef(sourceSheetName, "E5")}`, result: actualTotalResult }
         : { formula: actualTotalFormula, result: actualTotalResult };
       sheet.getCell("A6").value = "Savings";
-      sheet.getCell("B6").value = options.linkToMonthly
-        ? { formula: `${sheetRef(monthlyTitle, "B6")}`, result: savingsResult }
+      sheet.getCell("B6").value = sourceSheetName
+        ? { formula: `${sheetRef(sourceSheetName, "B6")}`, result: savingsResult }
         : { formula: `IF(E4=\"\",\"\",IF(E5=0,E4-B5,E4-E5))`, result: savingsResult };
       ["A5", "D5", "A6"].forEach((ref) => styleCell(sheet.getCell(ref), colors, { font: { name: "Inter", size: 11, bold: true } }));
       styleCell(sheet.getCell("B5"), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
@@ -641,13 +683,13 @@
         const row = 10 + index;
         const monthlyRow = 10 + index;
 
-        if (options.linkToMonthly) {
-          sheet.getCell(`A${row}`).value = { formula: sheetRef(monthlyTitle, `A${monthlyRow}`), result: item.category };
-          sheet.getCell(`B${row}`).value = { formula: sheetRef(monthlyTitle, `B${monthlyRow}`), result: item.amount };
-          sheet.getCell(`C${row}`).value = { formula: sheetRef(monthlyTitle, `C${monthlyRow}`), result: 0 };
-          sheet.getCell(`D${row}`).value = { formula: sheetRef(monthlyTitle, `D${monthlyRow}`), result: -item.amount };
-          sheet.getCell(`E${row}`).value = { formula: sheetRef(monthlyTitle, `E${monthlyRow}`), result: "Within Plan" };
-          sheet.getCell(`F${row}`).value = { formula: sheetRef(monthlyTitle, `F${monthlyRow}`), result: "" };
+        if (sourceSheetName) {
+          sheet.getCell(`A${row}`).value = { formula: sheetRef(sourceSheetName, `A${monthlyRow}`), result: item.category };
+          sheet.getCell(`B${row}`).value = { formula: sheetRef(sourceSheetName, `B${monthlyRow}`), result: item.amount };
+          sheet.getCell(`C${row}`).value = { formula: sheetRef(sourceSheetName, `C${monthlyRow}`), result: 0 };
+          sheet.getCell(`D${row}`).value = { formula: sheetRef(sourceSheetName, `D${monthlyRow}`), result: -item.amount };
+          sheet.getCell(`E${row}`).value = { formula: sheetRef(sourceSheetName, `E${monthlyRow}`), result: "Within Plan" };
+          sheet.getCell(`F${row}`).value = { formula: sheetRef(sourceSheetName, `F${monthlyRow}`), result: "" };
         } else {
           sheet.getCell(`A${row}`).value = item.category;
           sheet.getCell(`B${row}`).value = item.amount;
@@ -680,16 +722,16 @@
         });
       });
       addListValidation(sheet, dailyDataStart, dailyDataEnd, "B", categories);
-      dailyDates.forEach((date, index) => {
+      dailyDates.forEach((dateLabel, index) => {
         const row = dailyDataStart + index;
-        sheet.getCell(`A${row}`).value = date;
+        sheet.getCell(`A${row}`).value = dateLabel;
         sheet.getCell(`B${row}`).value = "";
         sheet.getCell(`C${row}`).value = "";
         sheet.getCell(`D${row}`).value = "";
         sheet.getCell(`E${row}`).value = "";
         ["A", "B", "C", "D", "E"].forEach((col) => {
           styleCell(sheet.getCell(`${col}${row}`), colors, {
-            numFmt: col === "A" ? "dd-mmm" : col === "D" ? "\"Rs.\" #,##0" : undefined
+            numFmt: col === "D" ? "\"Rs.\" #,##0" : undefined
           });
         });
       });
@@ -738,7 +780,7 @@
 
       sheet.mergeCells("A1:H2");
       const titleCell = sheet.getCell("A1");
-      titleCell.value = "Website Summary";
+      titleCell.value = "Website Summary (Monthly)";
       titleCell.font = { name: "Inter", size: 20, bold: true, color: { argb: "0F172A" } };
       titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: colors.warmFill } };
       titleCell.alignment = { vertical: "middle" };
@@ -794,17 +836,6 @@
         styleCell(sheet.getCell(`E${row}`), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
       });
 
-      sheet.getCell("D14").value = "Spend vs Save Numbers";
-      sheet.getCell("D14").font = { name: "Inter", size: 13, bold: true, color: { argb: colors.accentHex } };
-      sheet.getCell("D15").value = "Expenses";
-      sheet.getCell("E15").value = plan.analysis.totalExpenses;
-      sheet.getCell("D16").value = "Savings";
-      sheet.getCell("E16").value = plan.analysis.savings;
-      ["D15", "E15", "D16", "E16"].forEach((ref) => styleCell(sheet.getCell(ref), colors, {
-        numFmt: ref.startsWith("E") ? "\"Rs.\" #,##0" : undefined,
-        alignment: ref.startsWith("E") ? { horizontal: "right" } : undefined
-      }));
-
       sheet.getCell("G5").value = "Savings Buckets";
       sheet.getCell("G5").font = { name: "Inter", size: 13, bold: true, color: { argb: colors.accentHex } };
       sheet.getRow(6).getCell(7).value = "Bucket";
@@ -822,12 +853,19 @@
         styleCell(sheet.getCell(`H${row}`), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
       });
 
+      const spendSaveTitleRow = 8 + plan.analysis.savingsPlan.buckets.length;
+      sheet.getCell(`G${spendSaveTitleRow}`).value = "Spend vs Save";
+      sheet.getCell(`G${spendSaveTitleRow}`).font = { name: "Inter", size: 13, bold: true, color: { argb: colors.accentHex } };
+      sheet.getCell(`G${spendSaveTitleRow + 1}`).value = "Expenses";
+      sheet.getCell(`H${spendSaveTitleRow + 1}`).value = plan.analysis.totalExpenses;
+      sheet.getCell(`G${spendSaveTitleRow + 2}`).value = "Savings";
+      sheet.getCell(`H${spendSaveTitleRow + 2}`).value = plan.analysis.savings;
+      [`G${spendSaveTitleRow + 1}`, `H${spendSaveTitleRow + 1}`, `G${spendSaveTitleRow + 2}`, `H${spendSaveTitleRow + 2}`].forEach((ref) => styleCell(sheet.getCell(ref), colors));
+      styleCell(sheet.getCell(`H${spendSaveTitleRow + 1}`), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+      styleCell(sheet.getCell(`H${spendSaveTitleRow + 2}`), colors, { numFmt: "\"Rs.\" #,##0", alignment: { horizontal: "right" } });
+
       const categoryImage = workbook.addImage({
         base64: categoryChart.toBase64Image(),
-        extension: "png"
-      });
-      const balanceImage = workbook.addImage({
-        base64: balanceChart.toBase64Image(),
         extension: "png"
       });
       const savingsImage = workbook.addImage({
@@ -835,19 +873,17 @@
         extension: "png"
       });
 
-      sheet.addImage(categoryImage, { tl: { col: 0.2, row: 16 }, ext: { width: 360, height: 230 } });
-      sheet.addImage(balanceImage, { tl: { col: 4.15, row: 16.45 }, ext: { width: 240, height: 180 } });
-      sheet.addImage(savingsImage, { tl: { col: 6.0, row: 16 }, ext: { width: 300, height: 230 } });
+      sheet.addImage(categoryImage, { tl: { col: 0.2, row: 16 }, ext: { width: 390, height: 235 } });
+      sheet.addImage(savingsImage, { tl: { col: 4.45, row: 16 }, ext: { width: 350, height: 235 } });
 
-      sheet.getCell("A29").value = "Category chart snapshot from website";
-      sheet.getCell("D29").value = "Spend vs Save snapshot from website";
-      sheet.getCell("G29").value = "Savings structure snapshot from website";
-      ["A29", "D29", "G29"].forEach((ref) => {
+      sheet.getCell("A29").value = "Website Summary Monthly";
+      sheet.getCell("E29").value = "Savings Structure Monthly";
+      ["A29", "E29"].forEach((ref) => {
         sheet.getCell(ref).font = { name: "Inter", size: 10, italic: true, color: { argb: "64748B" } };
       });
     }
 
-    function createYearOverviewSheet(workbook, monthSheetNames) {
+    function createYearOverviewSheet(workbook, monthSheetNames, plan) {
       const colors = getThemeColors();
       const sheet = workbook.addWorksheet("Year Overview", {
         properties: { defaultRowHeight: 20 },
@@ -855,7 +891,7 @@
       });
 
       sheet.columns = [
-        { width: 14 }, { width: 14 }, { width: 14 }, { width: 14 }, { width: 14 }, { width: 24 }
+        { width: 22 }, { width: 16 }, { width: 22 }, { width: 18 }, { width: 18 }, { width: 26 }
       ];
       sheet.mergeCells("A1:F2");
       sheet.getCell("A1").value = "Yearly Financial Tracker";
@@ -871,63 +907,73 @@
         });
       });
 
-      monthShortNames.forEach((shortName, index) => {
+      monthSheetNames.forEach((monthInfo, index) => {
         const row = 5 + index;
-        sheet.getCell(`A${row}`).value = monthNames[index];
-        sheet.getCell(`B${row}`).value = { formula: sheetRef(shortName, "E4") };
-        sheet.getCell(`C${row}`).value = { formula: sheetRef(shortName, "B5") };
-        sheet.getCell(`D${row}`).value = { formula: sheetRef(shortName, "E5") };
-        sheet.getCell(`E${row}`).value = { formula: sheetRef(shortName, "B6") };
-        sheet.getCell(`F${row}`).value = index === currentMonthIndex ? "Linked to Monthly Tracker" : "";
+        sheet.getCell(`A${row}`).value = monthInfo.monthName;
+        sheet.getCell(`B${row}`).value = { formula: sheetRef(monthInfo.shortName, "E4") };
+        sheet.getCell(`C${row}`).value = { formula: sheetRef(monthInfo.shortName, "B5") };
+        sheet.getCell(`D${row}`).value = { formula: sheetRef(monthInfo.shortName, "E5") };
+        sheet.getCell(`E${row}`).value = { formula: sheetRef(monthInfo.shortName, "B6") };
+        sheet.getCell(`F${row}`).value = index === 0 ? `Planning starts ${monthInfo.startDay}-${monthInfo.shortName}` : "";
         ["A", "B", "C", "D", "E", "F"].forEach((col) => {
           styleCell(sheet.getCell(`${col}${row}`), colors, {
             numFmt: ["B", "C", "D", "E"].includes(col) ? "\"Rs.\" #,##0" : undefined
           });
         });
       });
-    }
 
-    function createLiveChartSheet(workbook, plan) {
-      const colors = getThemeColors();
-      const sheet = workbook.addWorksheet("Live Chart", {
-        properties: { defaultRowHeight: 20 },
-        views: [{ showGridLines: false }]
+      const selectedMonthRow = Math.max(15, 7 + monthSheetNames.length);
+      const selectedMonthCellRef = `F${selectedMonthRow}`;
+      const selectedMonthAnchor = `$F$${selectedMonthRow}`;
+      const availableMonths = monthSheetNames.map((monthInfo) => monthInfo.shortName);
+      sheet.getCell(`E${selectedMonthRow}`).value = "Selected Month";
+      styleCell(sheet.getCell(`E${selectedMonthRow}`), colors, {
+        font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
+        fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
       });
+      sheet.getCell(selectedMonthCellRef).value = availableMonths[0];
+      styleCell(sheet.getCell(selectedMonthCellRef), colors, {
+        font: { name: "Inter", size: 11, bold: true, color: { argb: colors.accentHex } },
+        alignment: { horizontal: "center" }
+      });
+      sheet.getCell(selectedMonthCellRef).dataValidation = {
+        type: "list",
+        allowBlank: false,
+        formulae: [`"${availableMonths.join(",")}"`]
+      };
 
-      sheet.columns = [
-        { width: 24 }, { width: 16 }, { width: 28 }, { width: 30 }
-      ];
-      sheet.mergeCells("A1:D2");
-      sheet.getCell("A1").value = "Linked Insights";
-      sheet.getCell("A1").font = { name: "Inter", size: 18, bold: true, color: { argb: "0F172A" } };
-      sheet.getCell("A1").fill = { type: "pattern", pattern: "solid", fgColor: { argb: colors.warmFill } };
-      sheet.getCell("A3").value = "This sheet pulls linked workbook numbers into one easy read instead of raw bar strings.";
-      sheet.getCell("A3").font = { name: "Inter", size: 10, italic: true, color: { argb: "64748B" } };
+      const snapshotTitleRow = selectedMonthRow + 2;
+      sheet.mergeCells(`A${snapshotTitleRow}:F${snapshotTitleRow}`);
+      sheet.getCell(`A${snapshotTitleRow}`).value = "Website Summary Monthly Snapshot";
+      sheet.getCell(`A${snapshotTitleRow}`).font = { name: "Inter", size: 14, bold: true, color: { argb: colors.accentHex } };
 
-      ["Metric", "Live Value", "What it means", "Source Sheet"].forEach((header, index) => {
-        const cell = sheet.getCell(5, index + 1);
+      const snapshotHeaderRow = snapshotTitleRow + 1;
+      ["Metric", "Live Value", "Monthly Source", "What it shows"].forEach((header, index) => {
+        const col = ["A", "B", "C", "D"][index];
+        const cell = sheet.getCell(`${col}${snapshotHeaderRow}`);
         cell.value = header;
         styleCell(cell, colors, {
           font: { name: "Inter", size: 11, bold: true, color: { argb: "1E293B" } },
           fill: { type: "pattern", pattern: "solid", fgColor: { argb: colors.softFill } }
         });
       });
+      sheet.mergeCells(`D${snapshotHeaderRow}:F${snapshotHeaderRow}`);
 
-      const metrics = [
-        ["Budgeted this month", { formula: sheetRef("Monthly Tracker", "B5"), result: plan.analysis.totalExpenses }, "Total of all monthly category budgets", "Monthly Tracker"],
-        ["Actual this month", { formula: sheetRef("Monthly Tracker", "E5"), result: 0 }, "Total logged spend from the in-sheet daily section", "Monthly Tracker"],
-        ["Expected savings", { formula: sheetRef("Monthly Tracker", "B6"), result: plan.analysis.savings }, "Income minus budgeted or actual spend", "Monthly Tracker"],
-        ["Current month yearly view", plan.data.preferences.yearlyTracker ? { formula: sheetRef(currentMonthShort, "E5"), result: 0 } : { formula: sheetRef("Monthly Tracker", "E5"), result: 0 }, "How the current month rolls into yearly tracking", plan.data.preferences.yearlyTracker ? currentMonthShort : "Monthly Tracker"],
-        ["Current month yearly savings", plan.data.preferences.yearlyTracker ? { formula: sheetRef(currentMonthShort, "B6"), result: plan.analysis.savings } : { formula: sheetRef("Monthly Tracker", "B6"), result: plan.analysis.savings }, "Savings view carried into yearly tracking", plan.data.preferences.yearlyTracker ? currentMonthShort : "Monthly Tracker"]
+      const snapshotRows = [
+        ["Budgeted this month", { formula: `INDIRECT(${selectedMonthAnchor}&"!B5")`, result: plan.analysis.totalExpenses }, { formula: selectedMonthAnchor, result: availableMonths[0] }, "Total of seeded monthly category budgets"],
+        ["Actual this month", { formula: `INDIRECT(${selectedMonthAnchor}&"!E5")`, result: 0 }, { formula: selectedMonthAnchor, result: availableMonths[0] }, "Actual spend logged inside that month sheet"],
+        ["Expected savings", { formula: `INDIRECT(${selectedMonthAnchor}&"!B6")`, result: plan.analysis.savings }, { formula: selectedMonthAnchor, result: availableMonths[0] }, "Income minus budgeted or actual spend"],
+        ["Top category budget", { formula: `INDIRECT(${selectedMonthAnchor}&"!B10")`, result: plan.data.expenses[0]?.amount || 0 }, { formula: selectedMonthAnchor, result: availableMonths[0] }, "First category amount in the active month setup"]
       ];
 
-      metrics.forEach((metric, index) => {
-        const row = 6 + index;
-        sheet.getCell(`A${row}`).value = metric[0];
-        sheet.getCell(`B${row}`).value = metric[1];
-        sheet.getCell(`C${row}`).value = metric[2];
-        sheet.getCell(`D${row}`).value = metric[3];
-        const pastelFills = ["FDEAD7", "E7F3FF", "EEE7FF", "E8F7EF", "FFF4CC"];
+      snapshotRows.forEach((item, index) => {
+        const row = snapshotHeaderRow + 1 + index;
+        sheet.getCell(`A${row}`).value = item[0];
+        sheet.getCell(`B${row}`).value = item[1];
+        sheet.getCell(`C${row}`).value = item[2];
+        sheet.getCell(`D${row}`).value = item[3];
+        sheet.mergeCells(`D${row}:F${row}`);
+        const pastelFills = ["FDEAD7", "E7F3FF", "EEE7FF", "E8F7EF"];
         ["A", "B", "C", "D"].forEach((col) => {
           styleCell(sheet.getCell(`${col}${row}`), colors, {
             fill: { type: "pattern", pattern: "solid", fgColor: { argb: pastelFills[index % pastelFills.length] } },
@@ -943,6 +989,7 @@
         processBudget();
       }
 
+      const startMeta = getStartDateMeta(lastPlan.data.preferences.startDate);
       const workbook = new ExcelJS.Workbook();
       workbook.creator = "VSSV Aditya Ram Portfolio Demo";
       workbook.created = new Date();
@@ -951,22 +998,34 @@
 
       createWebsiteSummarySheet(workbook, lastPlan);
 
-      createTrackerSheet(workbook, lastPlan, "Monthly Tracker", {
-        monthLabel: currentMonthName
-      });
-
       if (lastPlan.data.preferences.yearlyTracker) {
-        monthShortNames.forEach((shortName, index) => {
-          createTrackerSheet(workbook, lastPlan, shortName, {
-            monthLabel: monthNames[index],
-            dailyPlanner: false,
-            linkToMonthly: index === currentMonthIndex
+        const trackedMonths = monthShortNames.slice(startMeta.monthIndex).map((shortName, offset) => {
+          const monthIndex = startMeta.monthIndex + offset;
+          return {
+            shortName,
+            monthName: monthNames[monthIndex],
+            monthIndex,
+            startDay: offset === 0 ? startMeta.day : 1
+          };
+        });
+
+        trackedMonths.forEach((monthInfo) => {
+          createTrackerSheet(workbook, lastPlan, monthInfo.shortName, {
+            monthLabel: monthInfo.monthName,
+            monthIndex: monthInfo.monthIndex,
+            year: startMeta.year,
+            startDay: monthInfo.startDay
           });
         });
-        createYearOverviewSheet(workbook, monthShortNames);
+        createYearOverviewSheet(workbook, trackedMonths, lastPlan);
+      } else {
+        createTrackerSheet(workbook, lastPlan, "Monthly Tracker", {
+          monthLabel: startMeta.monthName,
+          monthIndex: startMeta.monthIndex,
+          year: startMeta.year,
+          startDay: startMeta.day
+        });
       }
-
-      createLiveChartSheet(workbook, lastPlan);
 
       const buffer = await workbook.xlsx.writeBuffer();
       const blob = new Blob([buffer], {
@@ -988,7 +1047,7 @@
       expenseRowsEl.appendChild(createExpenseRow("", ""));
     });
 
-    [investRdInput, investSipInput, includeYearlyTrackerInput].forEach((input) => {
+    [startDateInput, investRdInput, investSipInput, includeYearlyTrackerInput].forEach((input) => {
       input.addEventListener("change", processBudget);
     });
 

@@ -300,8 +300,8 @@ p {
 
 h1 {
   margin-bottom: 20px;
-  font-size: clamp(2.5rem, 6vw, 5.7rem);
-  line-height: 0.95;
+  font-size: clamp(2.35rem, 5.45vw, 5.15rem);
+  line-height: 1.01;
   letter-spacing: 0;
 }
 
@@ -1046,13 +1046,18 @@ h3 {
 
 .budget-remove-btn {
   min-height: 54px;
+  min-width: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(248, 113, 113, 0.24);
   border-radius: var(--radius);
   color: #991b1b;
-  background: rgba(252, 165, 165, 0.18);
+  background: rgba(252, 165, 165, 0.14);
   font: inherit;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 800;
+  line-height: 1;
   cursor: pointer;
 }
 
@@ -1191,6 +1196,26 @@ h3 {
 
 .site-footer p {
   margin: 0;
+}
+
+.back-to-top-wrap {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.back-to-top-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.08);
+  font-weight: 700;
 }
 
 .reveal {
@@ -1352,9 +1377,23 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .budget-row,
   .budget-metric-grid {
     grid-template-columns: 1fr;
+  }
+
+  .budget-row {
+    grid-template-columns: minmax(0, 1fr) 52px;
+    align-items: end;
+  }
+
+  .budget-row > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .budget-remove-btn {
+    min-height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
   }
 
   .budget-action-row .btn,
@@ -1431,6 +1470,12 @@ h3 {
 
   .site-footer {
     flex-direction: column;
+    padding-bottom: 22px;
+  }
+
+  .back-to-top-wrap {
+    width: min(100% - 24px, var(--max));
+    margin-bottom: 28px;
   }
 }
 
@@ -1479,6 +1524,24 @@ h3 {
 
   .nav-toggle span {
     width: 16px;
+  }
+
+  .budget-panel,
+  .detail-content,
+  .project-body,
+  .glass-card,
+  .timeline-card,
+  .contact-form {
+    padding: 18px;
+  }
+
+  .budget-panel h3,
+  .budget-panel-heading h2 {
+    line-height: 1.14;
+  }
+
+  .chart-shell {
+    min-height: 260px;
   }
 
   .hero-actions .btn,
