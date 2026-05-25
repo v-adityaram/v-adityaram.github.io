@@ -29,11 +29,11 @@
   --node-bg: rgba(2, 6, 23, 0.72);
   --brand-text: #06111f;
   --brand-mark-bg:
-    radial-gradient(circle at 58% 44%, rgba(52, 211, 255, 0.2), transparent 64%),
-    radial-gradient(circle at 40% 64%, rgba(96, 109, 255, 0.18), transparent 52%),
-    linear-gradient(145deg, rgba(10, 18, 36, 0.96), rgba(7, 14, 28, 0.9));
-  --brand-mark-border: rgba(101, 224, 255, 0.22);
-  --brand-mark-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+    radial-gradient(circle at 58% 44%, rgba(88, 229, 255, 0.28), transparent 64%),
+    radial-gradient(circle at 40% 64%, rgba(121, 133, 255, 0.24), transparent 52%),
+    linear-gradient(145deg, rgba(19, 31, 58, 0.98), rgba(13, 24, 44, 0.94));
+  --brand-mark-border: rgba(120, 232, 255, 0.28);
+  --brand-mark-shadow: 0 14px 34px rgba(4, 10, 24, 0.28);
   --button-text: #06111f;
 }
 
