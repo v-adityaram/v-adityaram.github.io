@@ -1,3 +1,8 @@
 .vscode/
 __pycache__/
 *.pyc
+
+# Raw personal-photo references belong outside this public site repository.
+assets/real_pranathi_pic.jpeg
+assets/first_pic_together_hidden_pic.jpeg
+assets/latest_pic_together.jpeg

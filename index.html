@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="secret-entry.css">
 </head>
 <body>
   <header class="site-header" data-header>
@@ -25,7 +26,7 @@
       </span>
       <span class="theme-toggle-label" data-theme-label>Dark</span>
     </button>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
       <span></span>
       <span></span>
       <span></span>
@@ -106,7 +107,26 @@
         <article class="glass-card education-card reveal">
           <span class="card-kicker">Education</span>
           <h3>B.Tech in Computer Science Engineering</h3>
-          <p>GITAM University</p>
+          <div class="education-university">
+            <p>GITAM University</p>
+            <button
+              class="memory-star-trigger"
+              type="button"
+              aria-label="Open a hidden story: hold for two seconds or activate four times"
+              aria-haspopup="dialog"
+              aria-controls="memory-invitation"
+              aria-expanded="false"
+              data-memory-trigger
+              hidden
+            >
+              <svg class="memory-star-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="m12 2.9 2.42 5.04 5.55.77-4.03 3.89.99 5.52L12 15.49l-4.93 2.63.99-5.52-4.03-3.89 5.55-.77L12 2.9Z"/>
+              </svg>
+              <svg class="memory-heart-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M12 20.35 10.55 19.03C5.4 14.36 2 11.27 2 7.5 2 4.42 4.42 2 7.5 2c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0 1 16.5 2C19.58 2 22 4.42 22 7.5c0 3.77-3.4 6.86-8.55 11.54L12 20.35Z"/>
+              </svg>
+            </button>
+          </div>
           <div class="education-meta">
             <span>2021 - 2025</span>
             <span>CGPA: 8.11</span>
@@ -317,6 +337,33 @@
     <a href="#home">Back to top</a>
   </footer>
 
+  <dialog
+    class="memory-dialog"
+    id="memory-invitation"
+    aria-labelledby="memory-invitation-title"
+    aria-describedby="memory-invitation-copy"
+    data-memory-dialog
+  >
+    <section class="memory-invitation-panel" data-memory-panel>
+      <div class="memory-panel-glow" aria-hidden="true"></div>
+      <button class="memory-dialog-close" type="button" aria-label="Close story invitation" data-memory-close autofocus>
+        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"/>
+        </svg>
+      </button>
+      <div class="memory-dialog-content">
+        <svg class="memory-dialog-heart" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <path d="M12 20.35 10.55 19.03C5.4 14.36 2 11.27 2 7.5 2 4.42 4.42 2 7.5 2c1.74 0 3.41.81 4.5 2.09A6.02 6.02 0 0 1 16.5 2C19.58 2 22 4.42 22 7.5c0 3.77-3.4 6.86-8.55 11.54L12 20.35Z"/>
+        </svg>
+        <p class="memory-dialog-kicker">Fifty Moons</p>
+        <h2 id="memory-invitation-title">Some projects are built with code.</h2>
+        <p id="memory-invitation-copy">This one was built over four years.</p>
+        <a class="btn btn-primary memory-dialog-cta" href="https://love.vaditya.in/" data-memory-story-link>Open Our Story</a>
+      </div>
+    </section>
+  </dialog>
+
   <script src="script.js"></script>
+  <script src="secret-entry.js"></script>
 </body>
 </html>
