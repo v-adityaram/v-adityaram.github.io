@@ -53,7 +53,14 @@
       </div>
     </section>
 
-    <section class="section-pad compact-top budget-demo-page">
+    <section class="section-pad compact-top budget-mode-tabs-wrap">
+      <div class="budget-mode-tabs reveal">
+        <button class="budget-mode-tab is-active" type="button" id="tabGuestDemo">Guest Demo</button>
+        <button class="budget-mode-tab" type="button" id="tabMyBudget">My Budget (Sign In)</button>
+      </div>
+    </section>
+
+    <section class="section-pad compact-top budget-demo-page" id="guestDemoSection">
       <div class="budget-top-grid reveal">
         <article class="budget-panel budget-input-panel">
           <div class="budget-panel-heading">
@@ -202,6 +209,139 @@
             <canvas id="savingsChart" height="280"></canvas>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="section-pad compact-top budget-acct-page" id="myBudgetSection" hidden>
+      <div class="budget-top-grid reveal" id="acctAuthPanel">
+        <article class="budget-panel budget-input-panel">
+          <div class="budget-panel-heading">
+            <span class="card-kicker">Personal Tracker</span>
+            <h2>Access your personal budget</h2>
+            <p class="section-copy">Sign in to see your saved categories, balance, and daily limits. Don't have an account yet? Switch to Sign Up and use the secret code you were given.</p>
+          </div>
+
+          <div class="budget-mode-tabs budget-mode-tabs-sub">
+            <button class="budget-mode-tab is-active" type="button" id="acctShowSignIn">Sign In</button>
+            <button class="budget-mode-tab" type="button" id="acctShowSignUp">Sign Up</button>
+          </div>
+
+          <form id="acctSignInForm" class="budget-acct-form">
+            <div class="budget-field-group">
+              <label class="budget-label" for="signinUsername">Username</label>
+              <div class="budget-input-wrap"><input id="signinUsername" class="budget-input" type="text" autocomplete="username" required></div>
+            </div>
+            <div class="budget-field-group">
+              <label class="budget-label" for="signinPassword">Password</label>
+              <div class="budget-input-wrap"><input id="signinPassword" class="budget-input" type="password" autocomplete="current-password" required></div>
+            </div>
+            <div class="budget-action-row">
+              <button class="btn btn-primary" type="submit">Sign In</button>
+            </div>
+          </form>
+
+          <form id="acctSignUpForm" class="budget-acct-form" hidden>
+            <div class="budget-field-group">
+              <label class="budget-label" for="signupUsername">Choose a username</label>
+              <div class="budget-input-wrap"><input id="signupUsername" class="budget-input" type="text" autocomplete="username" required></div>
+            </div>
+            <div class="budget-field-group">
+              <label class="budget-label" for="signupPassword">Choose a password</label>
+              <div class="budget-input-wrap"><input id="signupPassword" class="budget-input" type="password" autocomplete="new-password" required minlength="8"></div>
+            </div>
+            <div class="budget-field-group">
+              <label class="budget-label" for="signupInvite">Secret code</label>
+              <div class="budget-input-wrap"><input id="signupInvite" class="budget-input" type="text" required placeholder="Given to you by Aditya"></div>
+            </div>
+            <div class="budget-action-row">
+              <button class="btn btn-primary" type="submit">Create Account</button>
+            </div>
+          </form>
+
+          <p class="budget-export-note budget-acct-error" id="acctAuthError" hidden></p>
+        </article>
+      </div>
+
+      <div id="acctDashboard" hidden>
+        <div class="budget-top-grid reveal">
+          <article class="budget-panel budget-input-panel">
+            <div class="budget-panel-heading">
+              <span class="card-kicker">Categories</span>
+              <h2>Category budgets</h2>
+              <p class="section-copy">Each category tracks its own monthly budget, what's left, and a daily limit so you know what's safe to spend today.</p>
+            </div>
+
+            <div id="acctCategoryList" class="budget-row-list"></div>
+
+            <div class="budget-field-group">
+              <div class="budget-row-header">
+                <label class="budget-label">Add a category</label>
+              </div>
+              <form id="acctAddCategoryForm" class="budget-acct-inline-form">
+                <input class="budget-input" type="text" id="newCategoryName" placeholder="Category name" required>
+                <input class="budget-input" type="number" id="newCategoryBudget" placeholder="Monthly budget" min="0" step="100" required>
+                <input class="budget-input" type="number" id="newCategoryDailyOverride" placeholder="Daily limit override (optional)" min="0" step="10">
+                <button class="btn btn-secondary budget-inline-btn" type="submit">+ Add Category</button>
+              </form>
+            </div>
+          </article>
+
+          <aside class="budget-side-grid reveal">
+            <div class="budget-metric-grid">
+              <article class="budget-metric-card">
+                <span class="budget-metric-label">Current Balance</span>
+                <strong id="acctBalanceDisplay">Rs. 0</strong>
+              </article>
+            </div>
+
+            <article class="budget-panel budget-guidance-panel">
+              <span class="card-kicker">Update Balance</span>
+              <h3>Set your balance as of now</h3>
+              <p class="section-copy">This isn't reset month to month &mdash; just set it to whatever your real balance is right now.</p>
+              <form id="acctBalanceForm" class="budget-acct-inline-form">
+                <input class="budget-input" type="number" id="newBalanceAmount" placeholder="Current balance" step="1" required>
+                <button class="btn btn-primary budget-inline-btn" type="submit">Update</button>
+              </form>
+            </article>
+
+            <article class="budget-panel budget-guidance-panel">
+              <span class="card-kicker">Add Transaction</span>
+              <h3>Log a credit or debit</h3>
+              <form id="acctTransactionForm" class="budget-acct-form">
+                <div class="budget-choice-grid budget-choice-grid-compact">
+                  <label class="budget-choice budget-choice-inline">
+                    <input type="radio" name="txnType" value="debit" checked>
+                    <span><strong>Debit (spend)</strong></span>
+                  </label>
+                  <label class="budget-choice budget-choice-inline">
+                    <input type="radio" name="txnType" value="credit">
+                    <span><strong>Credit (add money)</strong></span>
+                  </label>
+                </div>
+                <select class="budget-input" id="txnCategorySelect"></select>
+                <input class="budget-input" type="number" id="txnAmount" placeholder="Amount" min="0.01" step="0.01" required>
+                <input class="budget-input" type="text" id="txnNote" placeholder="Note (optional)">
+                <button class="btn btn-primary budget-inline-btn" type="submit">Add Entry</button>
+              </form>
+            </article>
+
+            <article class="budget-panel budget-export-panel">
+              <span class="card-kicker">Session</span>
+              <p class="section-copy" id="acctWelcomeText"></p>
+              <button class="btn btn-secondary" type="button" id="acctSignOutBtn">Sign Out</button>
+            </article>
+          </aside>
+        </div>
+
+        <div class="budget-results-grid reveal">
+          <article class="budget-panel budget-table-panel">
+            <span class="card-kicker">This Month</span>
+            <h3>Recent transactions</h3>
+            <div class="budget-table-wrap">
+              <table class="budget-table" id="acctTransactionTable"></table>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   </main>
@@ -1067,6 +1207,337 @@
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     loadStarterRows();
+  </script>
+
+  <script>
+    (function () {
+      const API_BASE = "https://budget-api.vaditya.in";
+
+      const tabGuestDemo = document.getElementById("tabGuestDemo");
+      const tabMyBudget = document.getElementById("tabMyBudget");
+      const guestSection = document.getElementById("guestDemoSection");
+      const myBudgetSection = document.getElementById("myBudgetSection");
+
+      const acctAuthPanel = document.getElementById("acctAuthPanel");
+      const acctDashboard = document.getElementById("acctDashboard");
+      const acctAuthError = document.getElementById("acctAuthError");
+
+      const acctShowSignIn = document.getElementById("acctShowSignIn");
+      const acctShowSignUp = document.getElementById("acctShowSignUp");
+      const acctSignInForm = document.getElementById("acctSignInForm");
+      const acctSignUpForm = document.getElementById("acctSignUpForm");
+
+      const acctBalanceDisplay = document.getElementById("acctBalanceDisplay");
+      const acctBalanceForm = document.getElementById("acctBalanceForm");
+      const newBalanceAmount = document.getElementById("newBalanceAmount");
+      const acctCategoryList = document.getElementById("acctCategoryList");
+      const acctAddCategoryForm = document.getElementById("acctAddCategoryForm");
+      const newCategoryName = document.getElementById("newCategoryName");
+      const newCategoryBudget = document.getElementById("newCategoryBudget");
+      const newCategoryDailyOverride = document.getElementById("newCategoryDailyOverride");
+      const acctTransactionForm = document.getElementById("acctTransactionForm");
+      const txnCategorySelect = document.getElementById("txnCategorySelect");
+      const txnAmount = document.getElementById("txnAmount");
+      const txnNote = document.getElementById("txnNote");
+      const acctTransactionTable = document.getElementById("acctTransactionTable");
+      const acctWelcomeText = document.getElementById("acctWelcomeText");
+      const acctSignOutBtn = document.getElementById("acctSignOutBtn");
+
+      let hasLoadedMyBudgetTab = false;
+      let currentCategories = [];
+
+      function formatRs(amount) {
+        const n = Number(amount) || 0;
+        return "Rs. " + n.toLocaleString("en-IN", { maximumFractionDigits: 2 });
+      }
+
+      function showAuthError(message) {
+        if (!message) {
+          acctAuthError.hidden = true;
+          acctAuthError.textContent = "";
+          return;
+        }
+        acctAuthError.hidden = false;
+        acctAuthError.textContent = message;
+      }
+
+      async function api(path, options) {
+        const res = await fetch(API_BASE + path, {
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          ...options,
+        });
+        let body = null;
+        try {
+          body = await res.json();
+        } catch {
+          body = null;
+        }
+        if (!res.ok) {
+          const message = (body && body.error) || `Request failed (${res.status})`;
+          throw new Error(message);
+        }
+        return body;
+      }
+
+      function switchTab(target) {
+        const showGuest = target === "guest";
+        guestSection.hidden = !showGuest;
+        myBudgetSection.hidden = showGuest;
+        tabGuestDemo.classList.toggle("is-active", showGuest);
+        tabMyBudget.classList.toggle("is-active", !showGuest);
+
+        if (!showGuest && !hasLoadedMyBudgetTab) {
+          hasLoadedMyBudgetTab = true;
+          checkSession();
+        }
+      }
+
+      tabGuestDemo.addEventListener("click", () => switchTab("guest"));
+      tabMyBudget.addEventListener("click", () => switchTab("acct"));
+
+      acctShowSignIn.addEventListener("click", () => {
+        acctShowSignIn.classList.add("is-active");
+        acctShowSignUp.classList.remove("is-active");
+        acctSignInForm.hidden = false;
+        acctSignUpForm.hidden = true;
+        showAuthError(null);
+      });
+
+      acctShowSignUp.addEventListener("click", () => {
+        acctShowSignUp.classList.add("is-active");
+        acctShowSignIn.classList.remove("is-active");
+        acctSignUpForm.hidden = false;
+        acctSignInForm.hidden = true;
+        showAuthError(null);
+      });
+
+      async function checkSession() {
+        try {
+          const me = await api("/me");
+          await enterDashboard(me);
+        } catch {
+          acctAuthPanel.hidden = false;
+          acctDashboard.hidden = true;
+        }
+      }
+
+      async function enterDashboard(me) {
+        acctAuthPanel.hidden = true;
+        acctDashboard.hidden = false;
+        showAuthError(null);
+        acctWelcomeText.textContent = `Signed in as ${me.username}.`;
+        acctBalanceDisplay.textContent = formatRs(me.currentBalance);
+        newBalanceAmount.value = me.currentBalance;
+        await Promise.all([loadCategories(), loadTransactions()]);
+      }
+
+      acctSignInForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        showAuthError(null);
+        try {
+          const me = await api("/login", {
+            method: "POST",
+            body: JSON.stringify({
+              username: document.getElementById("signinUsername").value.trim(),
+              password: document.getElementById("signinPassword").value,
+            }),
+          });
+          acctSignInForm.reset();
+          await enterDashboard(me);
+        } catch (err) {
+          showAuthError(err.message);
+        }
+      });
+
+      acctSignUpForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        showAuthError(null);
+        try {
+          const me = await api("/signup", {
+            method: "POST",
+            body: JSON.stringify({
+              username: document.getElementById("signupUsername").value.trim(),
+              password: document.getElementById("signupPassword").value,
+              inviteCode: document.getElementById("signupInvite").value.trim(),
+            }),
+          });
+          acctSignUpForm.reset();
+          await enterDashboard(me);
+        } catch (err) {
+          showAuthError(err.message);
+        }
+      });
+
+      acctSignOutBtn.addEventListener("click", async () => {
+        try {
+          await api("/logout", { method: "POST" });
+        } catch {
+          // ignore network errors on logout
+        }
+        acctDashboard.hidden = true;
+        acctAuthPanel.hidden = false;
+        acctSignInForm.reset();
+      });
+
+      acctBalanceForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          const result = await api("/balance", {
+            method: "PUT",
+            body: JSON.stringify({ amount: Number(newBalanceAmount.value) }),
+          });
+          acctBalanceDisplay.textContent = formatRs(result.currentBalance);
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+
+      function renderCategories() {
+        if (currentCategories.length === 0) {
+          acctCategoryList.innerHTML = '<p class="section-copy">No categories yet. Add one below to start tracking.</p>';
+        } else {
+          acctCategoryList.innerHTML = currentCategories
+            .map((cat) => {
+              const pct = cat.monthlyBudget > 0 ? Math.min((cat.spentThisMonth / cat.monthlyBudget) * 100, 100) : 0;
+              const isOver = cat.remaining < 0;
+              return `
+                <div class="acct-category-card">
+                  <div class="acct-category-head">
+                    <strong>${escapeHtml(cat.name)}</strong>
+                    <button type="button" class="acct-category-delete" data-id="${cat.id}" aria-label="Delete category">&times;</button>
+                  </div>
+                  <div class="acct-category-stats">
+                    <span>Budget: ${formatRs(cat.monthlyBudget)}</span>
+                    <span>Spent: ${formatRs(cat.spentThisMonth)}</span>
+                    <span>Remaining: ${formatRs(cat.remaining)}</span>
+                    <span>Daily limit: ${formatRs(cat.dailyLimit)}${cat.dailyLimitOverride != null ? " (manual)" : ""}</span>
+                  </div>
+                  <div class="acct-category-bar">
+                    <div class="acct-category-bar-fill${isOver ? " is-over" : ""}" style="width:${pct}%"></div>
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+        }
+
+        acctCategoryList.querySelectorAll(".acct-category-delete").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            if (!confirm("Delete this category? This does not delete its past transactions.")) return;
+            try {
+              await api(`/categories/${btn.dataset.id}`, { method: "DELETE" });
+              await loadCategories();
+            } catch (err) {
+              alert(err.message);
+            }
+          });
+        });
+
+        txnCategorySelect.innerHTML =
+          '<option value="">Select category (for debit)</option>' +
+          currentCategories.map((cat) => `<option value="${cat.id}">${escapeHtml(cat.name)}</option>`).join("");
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      async function loadCategories() {
+        const { categories } = await api("/categories");
+        currentCategories = categories;
+        renderCategories();
+      }
+
+      acctAddCategoryForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          await api("/categories", {
+            method: "POST",
+            body: JSON.stringify({
+              name: newCategoryName.value.trim(),
+              monthlyBudget: Number(newCategoryBudget.value),
+              dailyLimitOverride: newCategoryDailyOverride.value ? Number(newCategoryDailyOverride.value) : null,
+            }),
+          });
+          acctAddCategoryForm.reset();
+          await loadCategories();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+
+      async function loadTransactions() {
+        const { transactions } = await api("/transactions");
+        if (transactions.length === 0) {
+          acctTransactionTable.innerHTML = "<tr><td>No transactions logged this month yet.</td></tr>";
+          return;
+        }
+        const rows = transactions
+          .map((t) => {
+            const date = new Date(t.occurredAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short" });
+            const sign = t.type === "credit" ? "+" : "-";
+            return `
+              <tr>
+                <td>${date}</td>
+                <td>${t.type === "credit" ? "Credit" : "Debit"}</td>
+                <td>${escapeHtml(t.categoryName || "-")}</td>
+                <td>${sign}${formatRs(t.amount)}</td>
+                <td>${escapeHtml(t.note || "")}</td>
+                <td><button type="button" class="acct-category-delete" data-id="${t.id}" aria-label="Delete transaction">&times;</button></td>
+              </tr>
+            `;
+          })
+          .join("");
+        acctTransactionTable.innerHTML = `
+          <tr><th>Date</th><th>Type</th><th>Category</th><th>Amount</th><th>Note</th><th></th></tr>
+          ${rows}
+        `;
+
+        acctTransactionTable.querySelectorAll(".acct-category-delete").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            try {
+              await api(`/transactions/${btn.dataset.id}`, { method: "DELETE" });
+              const me = await api("/me");
+              acctBalanceDisplay.textContent = formatRs(me.currentBalance);
+              await Promise.all([loadCategories(), loadTransactions()]);
+            } catch (err) {
+              alert(err.message);
+            }
+          });
+        });
+      }
+
+      acctTransactionForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const type = acctTransactionForm.querySelector('input[name="txnType"]:checked').value;
+        const categoryId = txnCategorySelect.value ? Number(txnCategorySelect.value) : null;
+
+        if (type === "debit" && !categoryId) {
+          alert("Pick a category for a debit entry.");
+          return;
+        }
+
+        try {
+          const result = await api("/transactions", {
+            method: "POST",
+            body: JSON.stringify({
+              type,
+              amount: Number(txnAmount.value),
+              categoryId: type === "debit" ? categoryId : null,
+              note: txnNote.value.trim() || undefined,
+            }),
+          });
+          acctBalanceDisplay.textContent = formatRs(result.currentBalance);
+          acctTransactionForm.reset();
+          await Promise.all([loadCategories(), loadTransactions()]);
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    })();
   </script>
 </body>
 </html>
