@@ -149,12 +149,12 @@ img {
 }
 
 .brand-mark {
-  display: grid;
-  place-items: center;
-  width: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
   height: 44px;
-  padding: 5px;
-  overflow: hidden;
+  padding: 6px 12px;
   border: 1px solid var(--brand-mark-border);
   border-radius: 14px;
   background: var(--brand-mark-bg);
@@ -162,15 +162,38 @@ img {
 }
 
 .brand-mark img {
-  width: 100%;
   height: 100%;
+  width: auto;
   object-fit: contain;
   object-position: center;
-  transform: scale(1.05);
+}
+
+.brand-mark .logo-dark {
+  display: none;
+}
+
+[data-theme="dark"] .brand-mark .logo-light {
+  display: none;
+}
+
+[data-theme="dark"] .brand-mark .logo-dark {
+  display: block;
 }
 
 .brand-name {
   color: var(--text);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .site-nav {
@@ -1504,14 +1527,10 @@ h3 {
 }
 
 @media (max-width: 430px) {
-  .brand-name {
-    display: none;
-  }
-
   .brand-mark {
-    width: 44px;
+    width: auto;
     height: 34px;
-    padding: 4px;
+    padding: 4px 8px;
   }
 
   .theme-toggle-label {

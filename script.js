@@ -3,6 +3,7 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-nav]");
 const themeToggle = document.querySelector("[data-theme-toggle]");
 const themeLabel = document.querySelector("[data-theme-label]");
+const faviconLink = document.querySelector("[data-favicon-link]");
 const storedTheme = localStorage.getItem("portfolio-theme");
 
 function setTheme(theme) {
@@ -13,6 +14,10 @@ function setTheme(theme) {
     themeToggle.setAttribute("aria-pressed", String(isLight));
     themeToggle.setAttribute("aria-label", `Switch to ${isLight ? "dark" : "light"} mode`);
     themeLabel.textContent = isLight ? "Light" : "Dark";
+  }
+
+  if (faviconLink) {
+    faviconLink.href = theme === "light" ? "assets/favicon-light.png" : "assets/favicon-dark.png";
   }
 }
 
