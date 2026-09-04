@@ -58,39 +58,40 @@
     </section>
 
     <section class="project-detail-list section-pad compact-top">
-      <article class="project-detail reveal project-detail-live project-detail-link" data-category="ai data systems" data-card-link="live-project-budget.html" tabindex="0" aria-label="Open AI Budget Planning Assistant demo page">
-        <div class="detail-media workflow-media budget-visual" aria-label="AI budget planning workflow">
-          <span>Income Input</span>
-          <span>Dynamic Expense Rows</span>
-          <span>Planning Charts</span>
-          <span>Excel Export Pack</span>
+      <article class="project-detail reveal project-detail-live project-detail-link" data-category="ai data systems" data-card-link="live-project-budget.html" tabindex="0" aria-label="Open Budget expense tracker project page">
+        <div class="detail-media workflow-media budget-visual" aria-label="Budget tracker workflow">
+          <span>Monthly Plan</span>
+          <span>Daily Allowance</span>
+          <span>Quick Expense Log</span>
+          <span>Accounts & Net Worth</span>
         </div>
         <div class="detail-content">
           <div class="project-live-row">
             <span class="project-live-badge"><span class="project-live-dot"></span>Live Project</span>
           </div>
           <span class="card-kicker">Project 01</span>
-          <h2>AI Budget Planning Assistant</h2>
-          <p>Interactive website budgeting demo where users enter earnings and monthly spending rows, process savings analysis, view charts, receive beginner-friendly saving guidance, and export a structured Excel planning workbook.</p>
+          <h2>Budget - Daily Expense Tracker</h2>
+          <p>A multi-user personal finance app: set a monthly spending budget, get a daily allowance, log expenses in seconds, and let leftovers roll to tomorrow or into savings. Income, fixed commitments, bank balances, credit cards, and loans are tracked in one place.</p>
           <div class="feature-columns">
             <div>
               <h3>Key Features</h3>
               <ul>
-                <li>Income and dynamic expense capture</li>
-                <li>Spend versus save analysis</li>
-                <li>RD, SIP, and mutual fund bucket guidance</li>
-                <li>Excel workbook export with planning sheets</li>
-                <li>No database required for version 1</li>
+                <li>Daily allowance derived from a monthly budget</li>
+                <li>Carry-forward or sweep-to-savings rollover, per day</li>
+                <li>Income and commitment plan that copies forward monthly</li>
+                <li>Accounts, credit cards, loans, and net worth</li>
+                <li>Invite-code gated accounts with secure sessions</li>
               </ul>
             </div>
             <div>
               <h3>Architecture</h3>
-              <p>Integrated HTML, CSS, and JavaScript demo using deterministic budgeting logic, interactive charts, and browser-side workbook generation for immediate local testing.</p>
+              <p>Cloudflare Worker serving a vanilla JS PWA and a JSON API from one origin, backed by D1 (SQLite). PBKDF2 password hashing, HttpOnly session cookies, and a small server-side ledger engine for allowance and rollover math.</p>
               <div class="tag-list compact">
-                <span>JavaScript</span><span>Chart.js</span><span>SheetJS</span><span>Budget Analytics</span><span>Live Demo</span>
+                <span>Cloudflare Workers</span><span>D1</span><span>TypeScript</span><span>Vanilla JS</span><span>PWA</span>
               </div>
               <div class="project-actions">
-                <a class="btn btn-secondary" href="live-project-budget.html">Open Demo Page</a>
+                <a class="btn btn-secondary" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
+                <a class="btn btn-secondary" href="live-project-budget.html">Project Page</a>
               </div>
             </div>
           </div>
