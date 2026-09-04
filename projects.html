@@ -62,8 +62,9 @@
         <div class="detail-media workflow-media budget-visual" aria-label="Budget tracker workflow">
           <span>Monthly Plan</span>
           <span>Daily Allowance</span>
-          <span>Quick Expense Log</span>
-          <span>Accounts & Net Worth</span>
+          <span>Favourites & Quick Log</span>
+          <span>Accounts & Auto-Sync</span>
+          <span>Net Worth</span>
         </div>
         <div class="detail-content">
           <div class="project-live-row">
@@ -71,21 +72,22 @@
           </div>
           <span class="card-kicker">Project 01</span>
           <h2>Budget - Daily Expense Tracker</h2>
-          <p>A multi-user personal finance app: set a monthly spending budget, get a daily allowance, log expenses in seconds, and let leftovers roll to tomorrow or into savings. Income, fixed commitments, bank balances, credit cards, and loans are tracked in one place.</p>
+          <p>A multi-user personal finance app: set a monthly spending budget, get a daily allowance, and log expenses in seconds with one-tap favourites. Income, fixed commitments, bank balances, credit cards, loans, and locked assets like FDs are tracked in one place - manually, or synced automatically from a date you choose.</p>
           <div class="feature-columns">
             <div>
               <h3>Key Features</h3>
               <ul>
-                <li>Daily allowance derived from a monthly budget</li>
-                <li>Carry-forward or sweep-to-savings rollover, per day</li>
+                <li>Daily allowance derived from a monthly budget, with carry-forward or sweep-to-savings rollover per day</li>
+                <li>One-tap favourites for repeat expenses</li>
                 <li>Income and commitment plan that copies forward monthly</li>
-                <li>Accounts, credit cards, loans, and net worth</li>
-                <li>Invite-code gated accounts with secure sessions</li>
+                <li>Accounts, credit cards, loans, and locked assets, with a liquid vs. including-locked net worth toggle</li>
+                <li>Optional account sync from a chosen date, with a reality-check reconciler against real balances</li>
+                <li>Invite-code gated accounts with secure sessions and an editable display name</li>
               </ul>
             </div>
             <div>
               <h3>Architecture</h3>
-              <p>Cloudflare Worker serving a vanilla JS PWA and a JSON API from one origin, backed by D1 (SQLite). PBKDF2 password hashing, HttpOnly session cookies, and a small server-side ledger engine for allowance and rollover math.</p>
+              <p>Cloudflare Worker serving a vanilla JS PWA and a JSON API from one origin, backed by D1 (SQLite). PBKDF2 password hashing, HttpOnly session cookies, its own installable icon and manifest, and a small server-side ledger engine for allowance, rollover, and balance-sync math.</p>
               <div class="tag-list compact">
                 <span>Cloudflare Workers</span><span>D1</span><span>TypeScript</span><span>Vanilla JS</span><span>PWA</span>
               </div>

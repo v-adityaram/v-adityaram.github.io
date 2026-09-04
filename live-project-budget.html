@@ -49,7 +49,7 @@
         </div>
         <p class="eyebrow">Live App</p>
         <h1>Budget - a daily expense tracker</h1>
-        <p class="section-copy">Set a monthly spending budget, get a daily allowance, log expenses in two taps, and watch leftovers roll into tomorrow or straight into savings. Income, fixed commitments, bank balances, cards, and loans all live in one place.</p>
+        <p class="section-copy">Set a monthly spending budget, get a daily allowance, and log expenses in one tap with favourites. Leftovers roll into tomorrow or straight into savings. Income, fixed commitments, bank balances, cards, loans, and locked assets all live in one place - manually, or synced automatically once you tell it a start date.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
           <a class="btn btn-secondary" href="projects.html">Back to Projects</a>
@@ -65,6 +65,11 @@
           <p class="section-copy">Your monthly spending budget is split across the days of the month. The Today screen shows what's left to spend right now, with a quick-add form for amount, tag, and note.</p>
         </article>
         <article class="budget-panel">
+          <span class="card-kicker">Favourites</span>
+          <h3>Log the usual in one tap</h3>
+          <p class="section-copy">Save the things you buy often - metro, chai, lunch - with or without a fixed amount. Tapping one fills the expense form instantly, ready to add or adjust.</p>
+        </article>
+        <article class="budget-panel">
           <span class="card-kicker">Rollover</span>
           <h3>Leftover goes where you want</h3>
           <p class="section-copy">Unspent money can carry to the next day or be swept into savings - a monthly default with a per-day override. Overspending always carries forward so the month stays honest.</p>
@@ -77,12 +82,17 @@
         <article class="budget-panel">
           <span class="card-kicker">Accounts</span>
           <h3>Net worth at a glance</h3>
-          <p class="section-copy">Bank balances and cash, credit card and loan outstandings, and locked assets like FDs and mutual funds that sit outside net worth until you toggle them in. Keep balances manual, or turn on sync from a date you pick so expenses, paid commitments, received income, and transfers move money automatically.</p>
+          <p class="section-copy">Bank balances and cash, credit card and loan outstandings, and locked assets like FDs and mutual funds that sit outside net worth until you toggle them in with a Liquid / With Locked switch.</p>
+        </article>
+        <article class="budget-panel">
+          <span class="card-kicker">Auto-Sync</span>
+          <h3>Real balances, on your terms</h3>
+          <p class="section-copy">Keep balances manual, or pick a start date and let expenses, paid commitments, received income, and transfers move real money from then on. A reality-check panel compares the plan to your account and reconciles any gap with one tap.</p>
         </article>
         <article class="budget-panel">
           <span class="card-kicker">Stack</span>
           <h3>How it's built</h3>
-          <p class="section-copy">Cloudflare Worker serving a vanilla JS app and a JSON API on the same origin, with D1 (SQLite) for storage, PBKDF2 password hashing, HttpOnly session cookies, and invite-code gated sign-up.</p>
+          <p class="section-copy">Cloudflare Worker serving a vanilla JS PWA and a JSON API on the same origin, with D1 (SQLite) for storage, PBKDF2 password hashing, HttpOnly session cookies, its own installable icon, and invite-code gated sign-up.</p>
           <div class="tag-list compact">
             <span>Cloudflare Workers</span><span>D1</span><span>TypeScript</span><span>Vanilla JS</span><span>PWA</span>
           </div>
