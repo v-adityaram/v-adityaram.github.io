@@ -64,7 +64,7 @@
           <span>Daily Allowance</span>
           <span>Favourites & Quick Log</span>
           <span>Accounts & Auto-Sync</span>
-          <span>Net Worth</span>
+          <span>AI Assistant</span>
         </div>
         <div class="detail-content">
           <div class="project-live-row">
@@ -72,24 +72,25 @@
           </div>
           <span class="card-kicker">Project 01</span>
           <h2>Budget - Daily Expense Tracker</h2>
-          <p>A multi-user personal finance app: set a monthly spending budget, get a daily allowance, and log expenses in seconds with one-tap favourites. Income, fixed commitments, bank balances, credit cards, loans, and locked assets like FDs are tracked in one place - manually, or synced automatically from a date you choose.</p>
+          <p>A multi-user personal finance app: set a monthly spending budget, get a daily allowance, and log expenses in seconds with one-tap favourites - or just tell the built-in AI assistant, by text or voice. Income, fixed commitments, bank balances, credit cards, loans, and locked assets like FDs are tracked in one place - manually, or synced automatically once turned on.</p>
           <div class="feature-columns">
             <div>
               <h3>Key Features</h3>
               <ul>
                 <li>Daily allowance derived from a monthly budget, with carry-forward or sweep-to-savings rollover per day</li>
-                <li>One-tap favourites for repeat expenses</li>
+                <li>One-tap favourites for repeat expenses; tap any spending tag to see and edit every entry under it</li>
                 <li>Income and commitment plan that copies forward monthly</li>
                 <li>Accounts, credit cards, loans, and locked assets, with a liquid vs. including-locked net worth toggle</li>
-                <li>Optional account sync from a chosen date, with a reality-check reconciler against real balances</li>
+                <li>Optional account sync with a reality-check reconciler against real balances</li>
+                <li>AI assistant (text or voice) that adds, edits, or deletes entries after you confirm - instant shorthand parsing with typo-tolerant matching, Gemini for anything more open-ended, with an automatic Cloudflare Workers AI fallback</li>
                 <li>Invite-code gated accounts with secure sessions and an editable display name</li>
               </ul>
             </div>
             <div>
               <h3>Architecture</h3>
-              <p>Cloudflare Worker serving a vanilla JS PWA and a JSON API from one origin, backed by D1 (SQLite). PBKDF2 password hashing, HttpOnly session cookies, its own installable icon and manifest, and a small server-side ledger engine for allowance, rollover, and balance-sync math.</p>
+              <p>Cloudflare Worker serving a vanilla JS PWA and a JSON API from one origin, backed by D1 (SQLite). PBKDF2 password hashing, HttpOnly session cookies, its own installable icon and manifest, a small server-side ledger engine for allowance, rollover, and balance-sync math, and a Gemini-backed assistant with an automatic Workers AI fallback.</p>
               <div class="tag-list compact">
-                <span>Cloudflare Workers</span><span>D1</span><span>TypeScript</span><span>Vanilla JS</span><span>PWA</span>
+                <span>Cloudflare Workers</span><span>Workers AI</span><span>D1</span><span>TypeScript</span><span>Vanilla JS</span><span>PWA</span>
               </div>
               <div class="project-actions">
                 <a class="btn btn-secondary" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
