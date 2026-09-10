@@ -17,9 +17,9 @@
   --ink-3: #6b7280;
   --rule: #d8d3c6;
   --rule-strong: #b3ac9c;
-  --signal: #0a66c2;
+  --signal: #3f6d94;
   --signal-ink: #ffffff;
-  --signal-soft: rgba(10, 102, 194, 0.1);
+  --signal-soft: rgba(63, 109, 148, 0.1);
   --good: #15803d;
   --grid: rgba(11, 18, 32, 0.06);
   --shadow: 0 1px 0 rgba(11, 18, 32, 0.04);
@@ -51,9 +51,9 @@
   --ink-3: #8891a3;
   --rule: #23304a;
   --rule-strong: #3a4a68;
-  --signal: #f5c451;
+  --signal: #f0cf94;
   --signal-ink: #0b1220;
-  --signal-soft: rgba(245, 196, 81, 0.12);
+  --signal-soft: rgba(240, 207, 148, 0.12);
   --good: #4ade80;
   --grid: rgba(236, 233, 225, 0.05);
   --shadow: 0 1px 0 rgba(0, 0, 0, 0.3);

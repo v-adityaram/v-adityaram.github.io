@@ -3,5 +3,5 @@
   <polygon fill="currentColor" points="40,14 50,14 34,50 24,50"/>
   <polygon fill="currentColor" points="40,14 50,14 66,50 56,50"/>
   <!-- crossbar, in the signal colour -->
-  <polygon class="signal" fill="var(--signal, #0a66c2)" points="39.3,38 50.7,38 53.8,45 36.2,45"/>
+  <polygon class="signal" fill="var(--signal, #3f6d94)" points="39.3,38 50.7,38 53.8,45 36.2,45"/>
 </svg>
