@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Detailed enterprise AI projects by VSSV Aditya Ram, including AutoCat, PAPERBRIEF AI, and NLP search systems.">
-  <title>VSSV Aditya Ram</title>
+  <meta name="description" content="Work by VSSV Aditya Ram: a telecom voice-and-chat assistant on Azure, two live products on Cloudflare, and earlier AI systems.">
+  <title>Work &middot; VSSV Aditya Ram</title>
   <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,190 +20,145 @@
       </span>
       <span class="brand-name sr-only">VSSV Aditya Ram</span>
     </a>
-    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" data-theme-toggle>
-      <span class="theme-toggle-track">
-        <span class="theme-toggle-thumb"></span>
-      </span>
-      <span class="theme-toggle-label" data-theme-label>Dark</span>
-    </button>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
     <nav class="site-nav" id="site-nav" data-nav>
-      <a href="index.html#home">Home</a>
-      <a href="projects.html">Projects</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
       <a href="index.html#skills">Skills</a>
       <a href="index.html#experience">Experience</a>
       <a href="index.html#contact">Contact</a>
       <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="true" data-theme-toggle>
+      <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+      <span class="theme-toggle-label" data-theme-label>Light</span>
+    </button>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
   <main>
-    <section class="page-hero section-pad">
-      <div class="section-heading reveal">
-        <p class="eyebrow">Project Portfolio</p>
-        <h1>Enterprise AI, research intelligence, automation, and NLP systems.</h1>
-        <p class="section-copy">A deeper look at the work behind the portfolio: workflows, architectures, technology choices, and implementation highlights.</p>
-      </div>
-      <div class="filter-bar reveal" aria-label="Project filters">
-        <button class="filter-btn active" type="button" data-filter="all">All</button>
-        <button class="filter-btn" type="button" data-filter="ai">AI</button>
-        <button class="filter-btn" type="button" data-filter="cloud">Cloud</button>
-        <button class="filter-btn" type="button" data-filter="data">Data</button>
-        <button class="filter-btn" type="button" data-filter="systems">Systems</button>
+    <section class="page-hero">
+      <div class="wrap reveal">
+        <p class="eyebrow">Work</p>
+        <h1>Everything here either runs for someone or ran for a client.</h1>
+        <p class="lede">Three pieces I'd want read first, then the earlier systems that taught me the parts I now take for granted. No mock-ups &mdash; each entry is something that was built and used.</p>
       </div>
     </section>
 
-    <section class="project-detail-list section-pad compact-top">
-      <article class="project-detail reveal project-detail-live project-detail-link" data-category="ai data systems" data-card-link="live-project-budget.html" tabindex="0" aria-label="Open Budget expense tracker project page">
-        <div class="detail-media workflow-media budget-visual" aria-label="Budget tracker workflow">
-          <span>Monthly Plan</span>
-          <span>Daily Allowance</span>
-          <span>Favourites & Quick Log</span>
-          <span>Accounts & Auto-Sync</span>
-          <span>AI Assistant</span>
+    <section class="sec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Featured</p>
+          <h2>One enterprise system, two live products.</h2>
         </div>
-        <div class="detail-content">
-          <div class="project-live-row">
-            <span class="project-live-badge"><span class="project-live-dot"></span>Live Project</span>
-          </div>
-          <span class="card-kicker">Project 01</span>
-          <h2>Budget - Daily Expense Tracker</h2>
-          <p>A multi-user personal finance app: set a monthly spending budget, get a daily allowance, and log expenses in seconds with one-tap favourites - or just tell the built-in AI assistant, by text or voice. Income, fixed commitments, bank balances, credit cards, loans, and locked assets like FDs are tracked in one place - manually, or synced automatically once turned on.</p>
-          <div class="feature-columns">
-            <div>
-              <h3>Key Features</h3>
-              <ul>
-                <li>Daily allowance derived from a monthly budget, with carry-forward or sweep-to-savings rollover per day</li>
-                <li>One-tap favourites for repeat expenses; tap any spending tag to see and edit every entry under it</li>
-                <li>Income and commitment plan that copies forward monthly</li>
-                <li>Accounts, credit cards, loans, and locked assets, with a liquid vs. including-locked net worth toggle</li>
-                <li>Optional account sync with a reality-check reconciler against real balances</li>
-                <li>AI assistant (text or voice) that adds, edits, or deletes entries after you confirm - instant shorthand parsing with typo-tolerant matching, Gemini for anything more open-ended, with an automatic Cloudflare Workers AI fallback</li>
-                <li>Invite-code gated accounts with secure sessions and an editable display name</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Architecture</h3>
-              <p>Cloudflare Worker serving a vanilla JS PWA and a JSON API from one origin, backed by D1 (SQLite). PBKDF2 password hashing, HttpOnly session cookies, its own installable icon and manifest, a small server-side ledger engine for allowance, rollover, and balance-sync math, and a Gemini-backed assistant with an automatic Workers AI fallback.</p>
-              <div class="tag-list compact">
-                <span>Cloudflare Workers</span><span>Workers AI</span><span>D1</span><span>TypeScript</span><span>Vanilla JS</span><span>PWA</span>
-              </div>
-              <div class="project-actions">
-                <a class="btn btn-secondary" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
-                <a class="btn btn-secondary" href="live-project-budget.html">Project Page</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
 
-      <article class="project-detail reveal" data-category="ai cloud systems">
-        <div class="detail-media workflow-media autocat-visual" aria-label="AutoCat workflow">
-          <span>Email Inbox</span>
-          <span>OCR Extraction</span>
-          <span>AI Confidence Score</span>
-          <span>ERP Routing</span>
-        </div>
-        <div class="detail-content">
-          <span class="card-kicker">Project 02</span>
-          <h2>AutoCat - Intelligent Email Document Processing Platform</h2>
-          <p>Enterprise AI-powered document automation platform designed to process invoices, tax documents, spam emails, scanned PDFs, and ERP workflows using OCR, AI classification, confidence scoring, and cloud-based routing systems.</p>
-          <div class="feature-columns">
+        <div class="work-list">
+          <article class="work-row reveal" data-card-link="project-telecom-assistant.html" tabindex="0" aria-label="Open the telecom assistant case study">
+            <div class="work-idx">01</div>
             <div>
-              <h3>Key Features</h3>
-              <ul>
-                <li>AI document classification</li>
-                <li>OCR fallback pipelines</li>
-                <li>Confidence-based routing</li>
-                <li>ERP workflow automation</li>
-                <li>Manual review workflows</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Architecture</h3>
-              <p>Email ingestion to attachment rendering, OCR extraction, AI classification, confidence scoring, Azure SQL logging, and routing into enterprise workflows.</p>
-              <div class="tag-list compact">
-                <span>Python</span><span>Streamlit</span><span>Azure OpenAI</span><span>Azure SQL</span><span>Azure Document Intelligence</span><span>PyMuPDF</span>
+              <span class="status client">Client POC &middot; built at TCS &middot; 2026</span>
+              <h3 class="work-title">Telecom customer assistant &mdash; chat and real-time voice</h3>
+              <p class="work-summary">A customer-service assistant for a telecom operator: plan, device, balance, purchases and offers, asked in plain language by chat or in a live voice call that switches language when the caller does. A confidence-gated router keeps most turns to one model call and a template; a LangGraph plan&rarr;fetch&rarr;answer graph handles only the questions that need several lookups at once; an allow-listed tool layer is the only way out to the telecom APIs. Four agent stacks &mdash; Azure AI Foundry prompt agents, Foundry hosted agents on the Microsoft Agent Framework, MAF self-hosted, LangGraph &mdash; were explored; the current build runs on LangGraph, with the self-hosted MAF version still in the running.</p>
+              <div class="work-tags">
+                <span class="tag">Azure OpenAI</span><span class="tag">Realtime voice / WebRTC</span><span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">Cosmos DB</span><span class="tag">Azure AI Search</span><span class="tag">Azure VM &middot; TURN</span>
+              </div>
+              <div class="work-cta">
+                <a class="btn btn-primary btn-sm" href="project-telecom-assistant.html">Read the case study <span class="arrow">&rarr;</span></a>
               </div>
             </div>
-          </div>
-        </div>
-      </article>
+            <dl class="work-spec">
+              <div><dt>Role</dt><dd>Solo build, AI pair-programmed</dd></div>
+              <div><dt>Shape</dt><dd>5 LLM call sites &middot; 149 unit tests &middot; 47-check live suite</dd></div>
+              <div><dt>Withheld</dt><dd>Client name, APIs, hosts</dd></div>
+            </dl>
+          </article>
 
-      <article class="project-detail reveal" data-category="ai data systems">
-        <div class="detail-media workflow-media paperbrief-visual" aria-label="PAPERBRIEF AI workflow">
-          <span>Research PDF</span>
-          <span>Text Chunking</span>
-          <span>RAG Retrieval</span>
-          <span>Knowledge Graph</span>
-        </div>
-        <div class="detail-content">
-          <span class="card-kicker">Project 03</span>
-          <h2>PAPERBRIEF AI - Biomedical Research Intelligence Platform</h2>
-          <p>AI-powered scientific research intelligence platform that transforms biomedical PDFs into conversational research environments using RAG, biomedical NLP, GPT-4o, semantic retrieval, and knowledge graph generation.</p>
-          <div class="feature-columns">
+          <article class="work-row reveal" data-card-link="live-project-budget.html" tabindex="0" aria-label="Open the Budget project page">
+            <div class="work-idx">02</div>
             <div>
-              <h3>Key Features</h3>
-              <ul>
-                <li>Conversational scientific chat</li>
-                <li>Biomedical NLP and semantic retrieval</li>
-                <li>Knowledge graph generation</li>
-                <li>Paper comparison engine</li>
-                <li>Scientific analytics dashboard</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Architecture</h3>
-              <p>PDF parsing, chunking, embeddings, retrieval, GPT-4o answer synthesis, graph extraction, comparison analytics, and dashboard visualization.</p>
-              <div class="tag-list compact">
-                <span>Python</span><span>GPT-4o</span><span>LangChain</span><span>Streamlit</span><span>NetworkX</span><span>Plotly</span><span>RAG</span>
+              <span class="status live">Live &middot; budget.vaditya.in</span>
+              <h3 class="work-title">Budget &mdash; a daily expense tracker with an AI assistant</h3>
+              <p class="work-summary">A monthly spending budget becomes a daily allowance; unspent money rolls to tomorrow or into savings, overspending always carries forward. Tracks income, fixed commitments, bank and cash accounts, cards, loans and locked assets, with optional automatic balance sync and a reality-check reconciler. The assistant takes text or voice and proposes every change for a confirm tap: common shorthand ("200 uber hdfc") is parsed locally with typo-tolerant matching against real accounts and past tags, no model call; anything open-ended goes to Gemini with an automatic Cloudflare Workers AI fallback.</p>
+              <div class="work-tags">
+                <span class="tag">Cloudflare Workers</span><span class="tag">D1 (SQLite)</span><span class="tag">Workers AI</span><span class="tag">Gemini</span><span class="tag">PWA</span><span class="tag">TypeScript</span>
+              </div>
+              <div class="work-cta">
+                <a class="btn btn-primary btn-sm" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
+                <a class="btn btn-secondary btn-sm" href="live-project-budget.html">Project page</a>
+                <a class="btn btn-secondary btn-sm" href="https://budget.vaditya.in/help" target="_blank" rel="noopener noreferrer">User guide</a>
               </div>
             </div>
-          </div>
-        </div>
-      </article>
+            <dl class="work-spec">
+              <div><dt>Role</dt><dd>Designed, built, operate &mdash; used daily</dd></div>
+              <div><dt>Shape</dt><dd>API + PWA from one Worker; multi-user, invite-only</dd></div>
+              <div><dt>Notable</dt><dd>Confirm-before-write agent UX; Gemini &rarr; Workers AI fallback verified live</dd></div>
+            </dl>
+          </article>
 
-      <article class="project-detail reveal" data-category="ai data">
-        <div class="detail-media workflow-media seo-visual" aria-label="SEO NLP workflow">
-          <span>User Query</span>
-          <span>NLP Cleanup</span>
-          <span>Semantic Ranking</span>
-          <span>Recommendation</span>
-        </div>
-        <div class="detail-content">
-          <span class="card-kicker">Project 04</span>
-          <h2>SEO Using NLP - Intelligent Search Optimization Engine</h2>
-          <p>AI-powered search optimization engine using NLP techniques including spell correction, semantic matching, feature extraction, and intelligent product recommendation workflows.</p>
-          <div class="feature-columns">
+          <article class="work-row reveal" id="ask-aditya" tabindex="0" aria-label="Ask about Aditya, the assistant on this site">
+            <div class="work-idx">03</div>
             <div>
-              <h3>Key Features</h3>
-              <ul>
-                <li>Spell correction and query cleanup</li>
-                <li>Semantic matching logic</li>
-                <li>Feature extraction workflows</li>
-                <li>Product recommendation support</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Tech Stack</h3>
-              <div class="tag-list compact">
-                <span>Python</span><span>NLP</span><span>Pandas</span><span>Search</span><span>Recommendation Systems</span>
+              <span class="status live">Live &middot; the button at the bottom-right</span>
+              <h3 class="work-title">Ask about Aditya &mdash; a RAG assistant for this site</h3>
+              <p class="work-summary">Ask it anything about my work and it answers from what is actually on this site and my resume, citing where it looked. A small set of hand-written content chunks is embedded with a Workers AI model and stored in Cloudflare Vectorize; a question is embedded the same way, the corpus is ranked against it, and Gemini writes the answer under a strict rule: only from the context, in the third person, and say "that isn't on the site" rather than guess. Cloudflare Workers AI takes over automatically if Gemini is unavailable.</p>
+              <p class="work-summary">The corpus is small enough that a top-K cutoff turned out to be a liability &mdash; the first version dropped the one chunk a recruiter's question needed. It now gives the model the whole corpus and uses the vector scores to rank citations against the answer that was actually written, which is a more honest source trail than similarity to the question.</p>
+              <div class="work-tags">
+                <span class="tag">Cloudflare Vectorize</span><span class="tag">Workers AI embeddings</span><span class="tag">Gemini</span><span class="tag">Cloudflare Workers</span><span class="tag">RAG</span>
+              </div>
+              <div class="work-cta">
+                <button class="btn btn-primary btn-sm" type="button" data-open-ask>Try it now</button>
               </div>
             </div>
-          </div>
+            <dl class="work-spec">
+              <div><dt>Role</dt><dd>Designed, built, operate</dd></div>
+              <div><dt>Shape</dt><dd>Separate Worker at ask.vaditya.in, CORS-locked to this origin</dd></div>
+              <div><dt>Notable</dt><dd>Answer-overlap citation ranking; grounded refusal</dd></div>
+            </dl>
+          </article>
         </div>
-      </article>
+      </div>
+    </section>
 
+    <section class="sec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Earlier work</p>
+          <h2>Where the document, retrieval and security habits came from.</h2>
+        </div>
+        <div class="earlier">
+          <article class="card reveal">
+            <p class="eyebrow">Document automation</p>
+            <h3>AutoCat &mdash; intelligent email document processing</h3>
+            <p>Invoices, tax documents, scanned PDFs and spam arriving by email, routed into ERP workflows: attachment rendering, OCR extraction with fallbacks, AI classification with confidence scoring, Azure SQL logging, and a manual-review path for anything below threshold.</p>
+            <div class="tag-row"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">Azure OpenAI</span><span class="tag">Azure Document Intelligence</span><span class="tag">Azure SQL</span><span class="tag">PyMuPDF</span></div>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Research intelligence</p>
+            <h3>PAPERBRIEF AI &mdash; biomedical research assistant</h3>
+            <p>Turns biomedical PDFs into a conversational research environment: parsing, chunking, embeddings, semantic retrieval, GPT-4o answer synthesis, knowledge-graph extraction, a paper-comparison engine and an analytics dashboard.</p>
+            <div class="tag-row"><span class="tag">Python</span><span class="tag">GPT-4o</span><span class="tag">LangChain</span><span class="tag">RAG</span><span class="tag">NetworkX</span><span class="tag">Plotly</span><span class="tag">Streamlit</span></div>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Search</p>
+            <h3>SEO using NLP &mdash; search optimisation engine</h3>
+            <p>Spell correction and query cleanup, semantic matching, feature extraction and product recommendation over a catalogue &mdash; a first pass at the "understand what they meant, not what they typed" problem the telecom router later solved properly.</p>
+            <div class="tag-row"><span class="tag">Python</span><span class="tag">NLP</span><span class="tag">Pandas</span><span class="tag">Recommendation</span></div>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Security</p>
+            <h3>Multi-factor authentication with chaotic key generation</h3>
+            <p>Secret keys generated from chaotic sequences for unpredictability, dynamic fingerprint selection (one of ten stored samples chosen by generated index), and layered authentication for sensitive transactions.</p>
+            <div class="tag-row"><span class="tag">Python</span><span class="tag">Biometrics</span><span class="tag">Chaotic algorithms</span></div>
+          </article>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>VSSV Aditya Ram - Project Showcase</p>
-    <a href="index.html#contact">Contact</a>
+    <span>VSSV Aditya Ram &middot; vaditya.in</span>
+    <span><a href="index.html">Home</a> &nbsp;&middot;&nbsp; <a href="index.html#contact">Contact</a></span>
   </footer>
 
   <script src="script.js"></script>

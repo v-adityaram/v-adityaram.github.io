@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Budget - a daily expense tracker by VSSV Aditya Ram with daily allowances, monthly plans, account tracking, and a voice-enabled AI assistant.">
-  <title>VSSV Aditya Ram</title>
+  <title>Budget &middot; VSSV Aditya Ram</title>
   <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body id="top">
+<body>
   <header class="site-header" data-header>
     <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
       <span class="brand-mark">
@@ -20,105 +20,94 @@
       </span>
       <span class="brand-name sr-only">VSSV Aditya Ram</span>
     </a>
-    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" data-theme-toggle>
-      <span class="theme-toggle-track">
-        <span class="theme-toggle-thumb"></span>
-      </span>
-      <span class="theme-toggle-label" data-theme-label>Dark</span>
-    </button>
-    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
     <nav class="site-nav" id="site-nav" data-nav>
-      <a href="index.html#home">Home</a>
-      <a href="projects.html">Projects</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
       <a href="index.html#skills">Skills</a>
       <a href="index.html#experience">Experience</a>
       <a href="index.html#contact">Contact</a>
       <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="true" data-theme-toggle>
+      <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+      <span class="theme-toggle-label" data-theme-label>Light</span>
+    </button>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
   <main>
-    <section class="page-hero section-pad">
-      <div class="section-heading reveal">
-        <div class="project-live-row">
-          <span class="project-live-badge"><span class="project-live-dot"></span>Live Project</span>
-        </div>
-        <p class="eyebrow">Live App</p>
-        <h1>Budget - a daily expense tracker</h1>
-        <p class="section-copy">Set a monthly spending budget, get a daily allowance, and log expenses in one tap with favourites - or just tell the built-in assistant what you spent, by text or voice. Leftovers roll into tomorrow or straight into savings. Income, fixed commitments, bank balances, cards, loans, and locked assets all live in one place - manually, or synced automatically once you turn it on.</p>
+    <section class="page-hero">
+      <div class="wrap reveal">
+        <span class="status live">Live &middot; budget.vaditya.in</span>
+        <p class="eyebrow">Live product</p>
+        <h1>Budget &mdash; a daily expense tracker with an AI assistant.</h1>
+        <p class="lede">Set a monthly spending budget, get a daily allowance, and log expenses in one tap with favourites &mdash; or just tell the built-in assistant what you spent, by text or voice. Leftovers roll into tomorrow or straight into savings. Income, fixed commitments, bank balances, cards, loans and locked assets all live in one place &mdash; manually, or synced automatically once you turn it on.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
-          <a class="btn btn-secondary" href="https://budget.vaditya.in/help" target="_blank" rel="noopener noreferrer">Read the Guide</a>
-          <a class="btn btn-secondary" href="projects.html">Back to Projects</a>
+          <a class="btn btn-secondary" href="https://budget.vaditya.in/help" target="_blank" rel="noopener noreferrer">Read the guide</a>
+          <a class="btn btn-secondary" href="index.html#work">&larr; Back to work</a>
         </div>
       </div>
     </section>
 
-    <section class="section-pad compact-top">
-      <div class="budget-results-grid reveal">
-        <article class="budget-panel">
-          <span class="card-kicker">Today</span>
-          <h3>One number that matters</h3>
-          <p class="section-copy">Your monthly spending budget is split across the days of the month. The Today screen shows what's left to spend right now, with a quick-add form for amount, tag, and note.</p>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Favourites</span>
-          <h3>Log the usual in one tap</h3>
-          <p class="section-copy">Save the things you buy often - metro, chai, lunch - with or without a fixed amount. Tapping one fills the expense form instantly, ready to add or adjust.</p>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Rollover</span>
-          <h3>Leftover goes where you want</h3>
-          <p class="section-copy">Unspent money can carry to the next day or be swept into savings - a monthly default with a per-day override. Overspending always carries forward so the month stays honest.</p>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Month</span>
-          <h3>Income and commitments</h3>
-          <p class="section-copy">Salary in, rent, family transfers, EMIs and SIPs out - with paid ticks. What's left after commitments funds your spending budget and planned savings. Plans copy forward each month. Tap any tag in the spending-by-tag breakdown to see and edit every expense filed under it.</p>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Accounts</span>
-          <h3>Net worth at a glance</h3>
-          <p class="section-copy">Bank balances and cash, credit card and loan outstandings, and locked assets like FDs and mutual funds that sit outside net worth until you toggle them in with a Liquid / With Locked switch.</p>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Auto-Sync</span>
-          <h3>Real balances, on your terms</h3>
-          <p class="section-copy">Keep balances manual, or turn on sync and pick default accounts - from then on, expenses, paid commitments, received income, and transfers move real money automatically. Any single entry can still be pointed at a different account, or none at all. A reality-check panel compares the plan against your accounts and reconciles any gap with one tap.</p>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Assistant</span>
-          <h3>Tell it, don't type it</h3>
-          <p class="section-copy">A built-in chat assistant answers questions about your budget and can add, edit, or delete expenses and income/commitment items - by text or voice. It always proposes the change first and waits for a tap to confirm, nothing is written silently. Common shorthand ("200 uber hdfc") is parsed instantly with no AI call at all, with typo-tolerant matching against your real accounts and past tags; anything more open-ended goes to Gemini, which falls back to Cloudflare Workers AI automatically if it's ever unavailable.</p>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Stack</span>
-          <h3>How it's built</h3>
-          <p class="section-copy">Cloudflare Worker serving a vanilla JS PWA and a JSON API on the same origin, with D1 (SQLite) for storage, PBKDF2 password hashing, HttpOnly session cookies, its own installable icon, invite-code gated sign-up, and a Gemini-backed assistant with an automatic Workers AI fallback.</p>
-          <div class="tag-list compact">
-            <span>Cloudflare Workers</span><span>Workers AI</span><span>D1</span><span>TypeScript</span><span>Vanilla JS</span><span>PWA</span>
-          </div>
-        </article>
-        <article class="budget-panel">
-          <span class="card-kicker">Access</span>
-          <h3>Invite only</h3>
-          <p class="section-copy">Sign-up needs a secret code. If you'd like to try it, reach out through the <a href="index.html#contact">contact form</a>.</p>
-        </article>
+    <section class="sec">
+      <div class="wrap">
+        <div class="panel-grid">
+          <article class="card reveal">
+            <p class="eyebrow">Today</p>
+            <h3>One number that matters</h3>
+            <p>Your monthly spending budget is split across the days of the month. The Today screen shows what's left to spend right now, with a quick-add form for amount, tag and note.</p>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Favourites</p>
+            <h3>Log the usual in one tap</h3>
+            <p>Save the things you buy often &mdash; metro, chai, lunch &mdash; with or without a fixed amount. Tapping one fills the expense form instantly, ready to add or adjust.</p>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Rollover</p>
+            <h3>Leftover goes where you want</h3>
+            <p>Unspent money can carry to the next day or be swept into savings &mdash; a monthly default with a per-day override. Overspending always carries forward so the month stays honest.</p>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Month</p>
+            <h3>Income and commitments</h3>
+            <p>Salary in; rent, family transfers, EMIs and SIPs out, with paid ticks. What's left after commitments funds your spending budget and planned savings. Plans copy forward each month. Tap any tag in the spending-by-tag breakdown to see and edit every expense filed under it.</p>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Accounts</p>
+            <h3>Net worth at a glance</h3>
+            <p>Bank balances and cash, credit card and loan outstandings, and locked assets like FDs and mutual funds that sit outside net worth until you toggle them in with a Liquid / With Locked switch.</p>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Auto-sync</p>
+            <h3>Real balances, on your terms</h3>
+            <p>Keep balances manual, or turn on sync and pick default accounts &mdash; from then on, expenses, paid commitments, received income and transfers move real money automatically. Any single entry can still be pointed at a different account, or none. A reality-check panel compares the plan against your accounts and reconciles any gap with one tap.</p>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">Assistant</p>
+            <h3>Tell it, don't type it</h3>
+            <p>A built-in chat assistant answers questions about your budget and can add, edit or delete expenses and income/commitment items &mdash; by text or voice. It always proposes the change first and waits for a tap to confirm; nothing is written silently. Common shorthand ("200 uber hdfc") is parsed instantly with no AI call, with typo-tolerant matching against your real accounts and past tags; anything more open-ended goes to Gemini, which falls back to Cloudflare Workers AI automatically if it's ever unavailable.</p>
+          </article>
+          <article class="card reveal">
+            <p class="eyebrow">How it's built</p>
+            <h3>One Worker, one origin</h3>
+            <p>A Cloudflare Worker serving a vanilla JS PWA and a JSON API from the same origin, with D1 (SQLite) for storage, PBKDF2 password hashing, HttpOnly session cookies, its own installable icon, invite-code gated sign-up, and a Gemini-backed assistant with an automatic Workers AI fallback.</p>
+            <div class="tag-row">
+              <span class="tag">Cloudflare Workers</span><span class="tag">Workers AI</span><span class="tag">D1</span><span class="tag">Gemini</span><span class="tag">TypeScript</span><span class="tag">Vanilla JS</span><span class="tag">PWA</span>
+            </div>
+          </article>
+        </div>
+        <div class="note reveal mt-md">Sign-up needs a secret code. If you'd like to try it, reach out through the <a href="index.html#contact">contact form</a>.</div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>VSSV Aditya Ram - Live Project</p>
-    <a href="index.html#contact">Contact</a>
+    <span>VSSV Aditya Ram &middot; vaditya.in</span>
+    <span><a href="projects.html">All work</a> &nbsp;&middot;&nbsp; <a href="index.html#contact">Contact</a></span>
   </footer>
-  <div class="back-to-top-wrap">
-    <a class="back-to-top-link" href="#top">Back to top</a>
-  </div>
 
   <script src="script.js"></script>
   <script src="ask-widget.js" defer></script>

@@ -47,7 +47,7 @@ if (navToggle && nav) {
 
 if (themeToggle) {
   themeToggle.addEventListener("click", () => {
-    const currentTheme = document.documentElement.dataset.theme || "dark";
+    const currentTheme = document.documentElement.dataset.theme || "light";
     const nextTheme = currentTheme === "light" ? "dark" : "light";
 
     localStorage.setItem("portfolio-theme", nextTheme);
@@ -65,32 +65,14 @@ if ("IntersectionObserver" in window) {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.08 });
 
   revealItems.forEach((item) => observer.observe(item));
 } else {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
 
-const filterButtons = document.querySelectorAll("[data-filter]");
-const projectDetails = document.querySelectorAll("[data-category]");
-
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const filter = button.dataset.filter || "all";
-
-    filterButtons.forEach((item) => item.classList.remove("active"));
-    button.classList.add("active");
-
-    projectDetails.forEach((project) => {
-      const categories = project.dataset.category || "";
-      project.classList.toggle("is-hidden", filter !== "all" && !categories.includes(filter));
-    });
-  });
-});
-
 const contactForm = document.querySelector("[data-contact-form]");
-const clickableCards = document.querySelectorAll("[data-card-link]");
 
 if (contactForm) {
   contactForm.addEventListener("submit", (event) => {
@@ -111,25 +93,31 @@ if (contactForm) {
   });
 }
 
-clickableCards.forEach((card) => {
+document.querySelectorAll("[data-card-link]").forEach((card) => {
   const href = card.getAttribute("data-card-link");
-
   if (!href) return;
 
   card.addEventListener("click", (event) => {
     const target = event.target;
-
-    if (target instanceof Element && target.closest("a, button, input, select, textarea")) {
-      return;
-    }
-
+    if (target instanceof Element && target.closest("a, button, input, select, textarea")) return;
     window.location.href = href;
   });
 
   card.addEventListener("keydown", (event) => {
+    if (event.target !== card) return;
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       window.location.href = href;
     }
   });
+});
+
+// The Ask-about-Aditya FAB is injected by ask-widget.js after load, so resolve it at click time.
+document.addEventListener("click", (event) => {
+  const trigger = event.target instanceof Element ? event.target.closest("[data-open-ask]") : null;
+  if (!trigger) return;
+  const fab = document.querySelector(".ask-fab");
+  if (fab) {
+    fab.click();
+  }
 });

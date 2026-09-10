@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Case study: a chat and real-time voice customer assistant for a telecom operator, built on Azure OpenAI, LangGraph and WebRTC by VSSV Aditya Ram at TCS.">
+  <title>Telecom assistant &middot; VSSV Aditya Ram</title>
+  <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
+      <span class="brand-mark">
+        <img class="logo-light" src="assets/logo-header-light.png" alt="VSSV Aditya Ram logo">
+        <img class="logo-dark" src="assets/logo-header-dark.png" alt="VSSV Aditya Ram logo">
+      </span>
+      <span class="brand-name sr-only">VSSV Aditya Ram</span>
+    </a>
+    <nav class="site-nav" id="site-nav" data-nav>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="true" data-theme-toggle>
+      <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+      <span class="theme-toggle-label" data-theme-label>Light</span>
+    </button>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap reveal">
+        <span class="status client">Client POC &middot; built at Tata Consultancy Services &middot; 2026</span>
+        <p class="eyebrow">Case study</p>
+        <h1>A telecom customer assistant you can type to or talk to.</h1>
+        <p class="lede">A proof-of-concept for a telecom operator: customers ask about their plan, device, balance, purchases or offers in plain language &mdash; by chat, or by voice in a live call that switches language when they do. Built solo, architecture to deployment, with an AI coding assistant used heavily as a pair programmer &mdash; the judgment calls were mine; a lot of the typing wasn't. The client's name, its APIs and infrastructure details are withheld here; the engineering isn't.</p>
+        <div class="hero-actions">
+          <a class="btn btn-secondary" href="index.html#work">&larr; Back to work</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap two-col">
+        <div class="reveal">
+          <p class="eyebrow">The shape of it</p>
+          <h2 class="h2-sm">Deterministic first, a model only where it earns its place.</h2>
+          <div class="prose mt-sm">
+            <p>One FastAPI backend serves both chat and voice, and every real account lookup in either path goes through the same allow-listed tool layer. Five distinct LLM call sites exist in the whole system; everything else &mdash; routing thresholds, the tool allow-list, the answer templates &mdash; is plain Python with no model involved.</p>
+            <p>A broad question ("what's my balance") costs one model call and a template. A narrow one ("is my phone 5G?") costs two. Only a question that genuinely needs several lookups at once ("am I eligible for 5G?" depends on both the plan and the device) enters the LangGraph graph: a plan node picks the tools, a deterministic fetch node calls them concurrently, an answer node writes the reply grounded in what came back.</p>
+            <p>When the router isn't confident, the assistant asks one clarifying question and calls nothing. No telecom API is ever hit on a guess.</p>
+          </div>
+        </div>
+        <div class="reveal">
+          <table class="spec-table" aria-label="Project facts">
+            <tbody>
+              <tr><th scope="row">Role</th><td>Solo &mdash; architecture, backend, frontend, Azure deployment, testing; AI pair-programmed throughout</td></tr>
+              <tr><th scope="row">Runs on</th><td>A 1&nbsp;GB Ubuntu Azure VM behind nginx; no local models by design</td></tr>
+              <tr><th scope="row">Models</th><td>Azure OpenAI GPT-5-series for routing, planning and answers; a Realtime voice model; a live-transcription model; a TTS model for read-aloud</td></tr>
+              <tr><th scope="row">Orchestration</th><td>LangGraph (plan &rarr; fetch &rarr; answer) in the current build; a self-hosted Microsoft Agent Framework version is still under evaluation</td></tr>
+              <tr><th scope="row">State &amp; search</th><td>Azure Cosmos DB for NoSQL (one document per conversation); Azure AI Search over history</td></tr>
+              <tr><th scope="row">Voice transport</th><td>WebRTC from the browser straight to Azure; a self-hosted TURN relay for networks that block UDP</td></tr>
+              <tr><th scope="row">Verification</th><td>149 fully-mocked unit tests; a 47-check live smoke suite run against the deployed VM</td></tr>
+              <tr><th scope="row">Languages (voice)</th><td>English, Hindi, Telugu, Tamil &mdash; detected and switched mid-call</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Architecture</p>
+          <h2>Two front ends, one gate, five tools.</h2>
+        </div>
+        <figure class="figure reveal">
+          <div class="figure-scroll">
+          <svg viewBox="0 0 1000 500" role="img" aria-labelledby="arch-title arch-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="arch-title">System architecture</title>
+            <desc id="arch-desc">Browser chat and voice both reach a FastAPI gateway. Chat goes through an intent router that either calls a tool directly, asks a clarifying question, or runs a LangGraph plan, fetch, answer graph. Voice connects the browser directly to Azure's Realtime API over WebRTC and calls back to the gateway for tools. All tool calls pass through one allow-listed tool layer to the telecom APIs. Cosmos DB stores conversations and Azure AI Search indexes them.</desc>
+            <style>
+              .box { fill: var(--paper); stroke: var(--rule-strong); stroke-width: 1.2; }
+              .box.hot { fill: var(--signal-soft); stroke: var(--signal); }
+              .box.side { stroke-dasharray: 4 3; }
+              .lbl { font: 600 12.5px var(--font-mono); fill: var(--ink); }
+              .sub { font: 400 10.5px var(--font-mono); fill: var(--ink-3); }
+              .lane { font: 500 10px var(--font-mono); fill: var(--signal); letter-spacing: 0.14em; }
+              .ln { stroke: var(--rule-strong); stroke-width: 1.2; fill: none; }
+              .ln.hot { stroke: var(--signal); }
+              .ln.dash { stroke-dasharray: 5 4; }
+            </style>
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--rule-strong)"/>
+              </marker>
+              <marker id="ahh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--signal)"/>
+              </marker>
+            </defs>
+
+            <text class="lane" x="24" y="30">VOICE PATH</text>
+            <text class="lane" x="24" y="150">CHAT PATH</text>
+
+            <!-- voice lane: browser talks to Azure directly -->
+            <rect class="box hot" x="300" y="42" width="230" height="64" rx="3"/>
+            <text class="lbl" x="316" y="68">Azure OpenAI Realtime</text>
+            <text class="sub" x="316" y="88">speech in/out, decides tool calls</text>
+            <path class="ln hot" d="M109 162 V74 H298" marker-end="url(#ahh)" marker-start="url(#ahh)"/>
+            <text class="sub" x="130" y="128">audio: browser &harr; Azure directly, never via the backend</text>
+
+            <!-- the browser -->
+            <rect class="box" x="24" y="164" width="170" height="64" rx="3"/>
+            <text class="lbl" x="40" y="190">Browser</text>
+            <text class="sub" x="40" y="210">chat + voice, WebRTC</text>
+
+            <!-- gateway -->
+            <rect class="box" x="24" y="300" width="170" height="64" rx="3"/>
+            <text class="lbl" x="40" y="326">FastAPI gateway</text>
+            <text class="sub" x="40" y="346">owns identity</text>
+            <path class="ln" d="M109 228 V298" marker-end="url(#ah)"/>
+            <text class="sub" x="120" y="268">chat turns &middot; voice token &middot; voice tool calls</text>
+
+            <!-- router -->
+            <rect class="box hot" x="300" y="300" width="230" height="64" rx="3"/>
+            <text class="lbl" x="316" y="326">Intent router (LLM)</text>
+            <text class="sub" x="316" y="346">intent &middot; confidence &middot; scope</text>
+            <path class="ln hot" d="M194 332 H298" marker-end="url(#ahh)"/>
+
+            <!-- three outcomes -->
+            <rect class="box" x="620" y="164" width="220" height="52" rx="3"/>
+            <text class="lbl" x="636" y="186">Direct tool call</text>
+            <text class="sub" x="636" y="204">high confidence &rarr; template</text>
+
+            <rect class="box" x="620" y="232" width="220" height="52" rx="3"/>
+            <text class="lbl" x="636" y="254">Ask one question</text>
+            <text class="sub" x="636" y="272">low confidence &rarr; no API hit</text>
+
+            <rect class="box hot" x="620" y="300" width="220" height="64" rx="3"/>
+            <text class="lbl" x="636" y="324">LangGraph graph</text>
+            <text class="sub" x="636" y="344">plan &rarr; parallel fetch &rarr; answer</text>
+
+            <path class="ln" d="M530 332 H575 V190 H618" marker-end="url(#ah)"/>
+            <path class="ln" d="M575 258 H618" marker-end="url(#ah)"/>
+            <path class="ln hot" d="M530 332 H618" marker-end="url(#ahh)"/>
+
+            <!-- tool layer -->
+            <rect class="box" x="620" y="400" width="220" height="56" rx="3"/>
+            <text class="lbl" x="636" y="422">Allow-listed tool layer</text>
+            <text class="sub" x="636" y="442">5 read-only tools, nothing else</text>
+            <path class="ln" d="M730 364 V398" marker-end="url(#ah)"/>
+            <path class="ln" d="M860 216 V232 M860 284 V300"/>
+            <path class="ln" d="M860 190 H852 V428 H842" marker-end="url(#ah)"/>
+
+            <rect class="box" x="880" y="400" width="100" height="56" rx="3"/>
+            <text class="lbl" x="896" y="422">Telecom</text>
+            <text class="lbl" x="896" y="440">APIs</text>
+            <path class="ln" d="M840 414 H878" marker-end="url(#ah)"/>
+
+            <!-- side services and the voice tool-call route, kept below the boxes -->
+            <path class="ln dash" d="M109 364 V428 H298" marker-end="url(#ah)"/>
+            <path class="ln dash" d="M109 428 V482 H730 V458" marker-end="url(#ah)"/>
+            <text class="sub" x="120" y="476">voice tool calls &rarr; the same tool layer</text>
+
+            <rect class="box side" x="300" y="400" width="150" height="56" rx="3"/>
+            <text class="lbl" x="316" y="422">Cosmos DB</text>
+            <text class="sub" x="316" y="442">conversation history</text>
+            <rect class="box side" x="464" y="400" width="146" height="56" rx="3"/>
+            <text class="lbl" x="480" y="422">Azure AI Search</text>
+            <text class="sub" x="480" y="442">search over history</text>
+          </svg>
+          </div>
+          <figcaption>Redrawn for this page from the project's own architecture document; names of the client, endpoints and hosts omitted.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Five model call sites</p>
+          <h2>Where an LLM actually decides something.</h2>
+          <p class="lede">"Agent" here means a point where a model is given a prompt and asked to decide or generate. Everything not in this table is deterministic code.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table class="spec-table">
+            <thead>
+              <tr><th>Call site</th><th>Fires when</th><th>Decides or produces</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Router</td><td data-label="Fires when">Every chat turn</td><td data-label="Produces">Intent, confidence, scope (broad or specific), candidate intents, and a clarifying question if uncertain &mdash; all in one call.</td></tr>
+              <tr><td>Plan node</td><td data-label="Fires when">Only when the router says the question is complex</td><td data-label="Produces">Which of the five tools are relevant.</td></tr>
+              <tr><td>Answer node</td><td data-label="Fires when">After the plan's tools have been fetched, concurrently</td><td data-label="Produces">The final answer, grounded in the real data from every tool that succeeded.</td></tr>
+              <tr><td>Narrow synthesizer</td><td data-label="Fires when">Scope is specific ("sms", "is my phone 5G")</td><td data-label="Produces">A short answer extracting just the one fact asked about from one tool's already-fetched data.</td></tr>
+              <tr><td>Realtime voice model</td><td data-label="Fires when">For the whole duration of a call</td><td data-label="Produces">The spoken conversation: understanding audio, choosing when to call a tool, speaking, matching the caller's language.</td></tr>
+              <tr><td><em>Transcription</em></td><td data-label="Fires when">Every voice utterance</td><td data-label="Produces">Captions only &mdash; no reasoning. Its output drives the client-side language detection below.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Approaches explored</p>
+          <h2>Four ways to build the same assistant.</h2>
+          <p class="lede">The requirement was fixed; the agent stack wasn't. Each was built far enough to see how it behaved against the constraints that mattered here: latency per turn, control over what the model can call, and running on a very small VM. The last two are still being weighed against each other.</p>
+        </div>
+        <div class="steps reveal">
+          <div class="step">
+            <div class="step-n">01</div>
+            <div>
+              <h3>Azure AI Foundry prompt agent with OpenAPI tools</h3>
+              <p>The telecom APIs exposed to a Foundry agent as OpenAPI tools, with the UI rendering the JSON the agent returned according to prompt instructions. Fastest to stand up. For this POC it gave the least control over routing decisions, and every answer's shape lived in a prompt.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">02</div>
+            <div>
+              <h3>Foundry hosted agents, built in code with the Microsoft Agent Framework</h3>
+              <p>The same agent defined in code with MAF and hosted inside Foundry. Cleaner than prompt-only, and the hosting handled a lot. In this case the per-turn latency and the platform's own handling of state sat awkwardly with a voice-first experience.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">03</div>
+            <div>
+              <h3>Microsoft Agent Framework, self-hosted</h3>
+              <p>MAF without the hosted runtime, on our own gateway. Recovers the control the hosted version gave up, and it's still on the table &mdash; explored alongside the LangGraph build rather than ruled out. The call between the two hasn't been made yet.</p>
+            </div>
+          </div>
+          <div class="step chosen">
+            <div class="step-n">04</div>
+            <div>
+              <h3>FastAPI + a confidence-gated router, LangGraph only for the hard cases</h3>
+              <p>Plain Python owns routing, clarification and the allow-list; LangGraph runs only the plan&rarr;fetch&rarr;answer graph for multi-lookup questions; voice goes to Azure's Realtime API directly. Lowest latency, tightest control, and light enough for a 1&nbsp;GB VM. This is what the current build runs on.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">What was actually hard</p>
+          <h2>The parts that took several rounds to get right.</h2>
+        </div>
+        <div class="panel-grid">
+          <article class="card reveal">
+            <h3>Language switching mid-call</h3>
+            <p>Left to itself, the voice model kept whatever language the previous turn was in &mdash; a caller who switched from Hindi to Telugu got Hindi back, once with an explanation of why. Telling it the language after the fact was worse, because the transcript arrives after it has often already started answering. The fix changed who controls turn-taking: server-side voice detection still commits the utterance but no longer auto-replies; the browser waits for the transcript, detects the script by Unicode block (filler words deliberately below the threshold so "haan" can't flip the session), sends the model an explicit current-language instruction, and only then asks for a response. About a second per turn, in exchange for the language being a stated fact instead of a guess.</p>
+          </article>
+          <article class="card reveal">
+            <h3>An Azure API that replaces instead of merges</h3>
+            <p>Enabling transcription at session-creation time returned a deployment-not-found error &mdash; a platform quirk, not a config mistake &mdash; so transcription had to be switched on after connecting, over the data channel. Then the voice kept silently resetting. Cause: the update event replaces nested objects wholesale rather than merging them, so a partial update that only mentioned transcription wiped the voice setting. Both payloads now come from one shared config function, so nothing can drift between them.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Voice through a corporate network</h3>
+            <p>Calls worked on phones and personal laptops and failed on managed corporate ones &mdash; twenty seconds stuck connecting, then dropped. A network capture pinned it on outbound UDP being blocked, which STUN can't route around. The fix is a self-hosted TURN relay on the same VM: the browser opens one outbound TLS connection to it that looks like ordinary HTTPS, and the VM relays to Azure over UDP itself. Credentials are short-lived HMAC tokens minted per call, mirroring how the Azure key never reaches the browser either.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Small box, honest failure modes</h3>
+            <p>Everything runs on a 1&nbsp;GB VM, so there is no local model and no room for a heavy agent runtime &mdash; a real input to the current build running on approach four above. Any model failure (timeout, malformed JSON, API error) degrades to a defined fallback &mdash; low confidence, an empty plan, a polite "couldn't fetch that" &mdash; never a guess and never a crash. The customer's identity is a field the browser sends and the backend owns; neither model can supply or override it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap two-col">
+        <div class="reveal">
+          <p class="eyebrow">Also in the build</p>
+          <h2 class="h2-sm">Product surface, not just plumbing.</h2>
+          <div class="prose mt-sm">
+            <ul>
+              <li>Persistent, resumable conversations &mdash; a refresh restores the open thread; a recents list and full-text search across history.</li>
+              <li>Rich data cards for balance, plan, device, purchases and offers, with screen-reader text kept alongside them.</li>
+              <li>A personalised first turn that still answers the actual question, with live account figures appended.</li>
+              <li>Thumbs up/down feedback persisted per message; read-aloud on every reply with a browser-speech fallback.</li>
+              <li>A live mic waveform, an in-page debug drawer that logs every raw realtime event (which is how the Azure quirks above were found without a debugger), light/dark theme, no framework, no build step.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Stack</p>
+          <div class="tag-row mt-xs">
+            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Azure OpenAI</span><span class="tag">Realtime API</span><span class="tag">LangGraph</span><span class="tag">Azure AI Foundry (explored)</span><span class="tag">Microsoft Agent Framework (explored)</span><span class="tag">Azure Cosmos DB</span><span class="tag">Azure AI Search</span><span class="tag">Azure VM</span><span class="tag">WebRTC</span><span class="tag">coturn (TURN)</span><span class="tag">nginx</span><span class="tag">systemd</span><span class="tag">Let's Encrypt</span><span class="tag">pytest</span><span class="tag">Vanilla JS</span>
+          </div>
+          <div class="note mt-md">This was client work. What's shown here is the engineering; the client, its API contracts, hostnames and internal tracking references are intentionally left out. Happy to go deeper in conversation.</div>
+          <div class="hero-actions mt-md">
+            <a class="btn btn-primary" href="index.html#contact">Talk about this work</a>
+            <a class="btn btn-secondary" href="projects.html">All work</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>VSSV Aditya Ram &middot; vaditya.in</span>
+    <span><a href="index.html#work">Work</a> &nbsp;&middot;&nbsp; <a href="index.html#contact">Contact</a></span>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="ask-widget.js" defer></script>
+</body>
+</html>
