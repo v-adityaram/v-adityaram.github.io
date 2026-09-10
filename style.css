@@ -143,7 +143,7 @@ button { font: inherit; color: inherit; }
 
 .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; margin-right: auto; color: var(--ink); }
 .brand-mark { display: inline-flex; align-items: center; }
-.brand-mark svg { display: block; height: 22px; width: auto; fill: currentColor; }
+.brand-mark svg { display: block; height: 24px; width: auto; fill: currentColor; }
 .brand-mark .signal { fill: var(--signal); }
 .brand-name { font: 500 0.8rem/1 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; }
 .brand-name b { font-weight: 600; }
