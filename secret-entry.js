@@ -2,23 +2,21 @@
   const trigger = document.querySelector("[data-memory-trigger]");
   const dialog = document.querySelector("[data-memory-dialog]");
   const closeButton = document.querySelector("[data-memory-close]");
-  const storyLink = document.querySelector("[data-memory-story-link]");
+  const form = document.querySelector("[data-memory-form]");
+  const status = document.querySelector("[data-memory-status]");
 
   if (!trigger || !dialog || !closeButton || typeof dialog.showModal !== "function") {
     return;
   }
 
+  // The destination is never in this file. The key goes to the site's assistant
+  // Worker, which checks it with the private site and returns a one-time link.
+  const DOOR_ENDPOINT = "https://ask.vaditya.in/api/door";
   const HOLD_DURATION = 2000;
   const TAP_WINDOW = 2600;
   const PANEL_DELAY = 480;
   const PANEL_TRANSITION = 340;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const localPreviewHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
-
-  if (storyLink && localPreviewHosts.has(window.location.hostname)) {
-    storyLink.href = `http://${window.location.hostname}:4173/`;
-    storyLink.setAttribute("data-local-preview", "");
-  }
 
   trigger.hidden = false;
   trigger.setAttribute("data-memory-ready", "");
@@ -31,6 +29,9 @@
   let isClosing = false;
   let ignoreClicksUntil = 0;
 
+  const keyInput = form ? form.querySelector('input[name="key"]') : null;
+  const submitButton = form ? form.querySelector('button[type="submit"]') : null;
+
   function clearHoldTimer() {
     if (!holdTimer) return;
     window.clearTimeout(holdTimer);
@@ -41,6 +42,12 @@
     tapTimes = [];
   }
 
+  function resetForm() {
+    if (keyInput) keyInput.value = "";
+    if (status) status.textContent = "";
+    if (submitButton) submitButton.disabled = false;
+  }
+
   function openInvitation() {
     revealTimer = 0;
 
@@ -49,7 +56,7 @@
     try {
       dialog.showModal();
     } catch (error) {
-      console.error("Unable to open the story invitation.", error);
+      console.error("Unable to open the dialog.", error);
       trigger.classList.remove("is-awakening");
       isRevealing = false;
       return;
@@ -71,7 +78,10 @@
       });
     }
 
-    window.setTimeout(() => trigger.classList.remove("is-awakening"), 760);
+    window.setTimeout(() => {
+      trigger.classList.remove("is-awakening");
+      if (dialog.open && keyInput) keyInput.focus({ preventScroll: true });
+    }, reducedMotion.matches ? 0 : PANEL_TRANSITION + 60);
   }
 
   function revealInvitation() {
@@ -81,7 +91,7 @@
     resetTapSequence();
     trigger.classList.remove("is-awakening");
 
-    // Restart the heart animation when the Easter egg is discovered again.
+    // Restart the animation when the trigger is discovered again.
     void trigger.offsetWidth;
     trigger.classList.add("is-awakening");
 
@@ -141,6 +151,43 @@
     }
   });
 
+  if (form && keyInput && submitButton) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const key = keyInput.value;
+      if (!key) return;
+
+      submitButton.disabled = true;
+      if (status) status.textContent = "";
+
+      try {
+        const response = await fetch(DOOR_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key }),
+        });
+        const result = await response.json().catch(() => null);
+        keyInput.value = "";
+
+        if (response.ok && result && typeof result.url === "string") {
+          window.location.assign(result.url);
+          return;
+        }
+
+        if (status) {
+          status.textContent = response.status === 429 ? "Too many tries. Wait a minute." : "That didn't open anything.";
+        }
+      } catch (_error) {
+        keyInput.value = "";
+        if (status) status.textContent = "Couldn't reach the door. Try again.";
+      } finally {
+        submitButton.disabled = false;
+        keyInput.focus({ preventScroll: true });
+      }
+    });
+  }
+
   closeButton.addEventListener("click", closeInvitation);
 
   dialog.addEventListener("click", (event) => {
@@ -161,6 +208,7 @@
     document.body.classList.remove("memory-dialog-open");
     trigger.classList.remove("is-awakening");
     trigger.setAttribute("aria-expanded", "false");
+    resetForm();
     isRevealing = false;
     isClosing = false;
     trigger.focus({ preventScroll: true });

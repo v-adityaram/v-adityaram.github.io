@@ -13,7 +13,7 @@ Live at https://vaditya.in (GitHub Pages, `CNAME` in this repo).
 - `style.css` — the "Blueprint" design system: light and dark themes, IBM Plex + Bricolage Grotesque.
 - `script.js` — theme toggle, mobile nav, scroll reveal, contact form (opens the visitor's mail app), clickable work rows.
 - `ask-widget.js` — the "Ask about Aditya" assistant widget; talks to a separate Cloudflare Worker at https://ask.vaditya.in (RAG over this site's content, Gemini with a Workers AI fallback).
-- `secret-entry.js` / `secret-entry.css` — a small hidden story. Leave it be.
+- `secret-entry.js` / `secret-entry.css` — a small hidden door. It asks for a key and hands it to the assistant Worker; the destination is not in this repo. Leave it be.
 
 No build step. Edit the HTML/CSS, push to `main`, GitHub Pages does the rest.
 
