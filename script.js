@@ -2,17 +2,17 @@ const header = document.querySelector("[data-header]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-nav]");
 const themeToggle = document.querySelector("[data-theme-toggle]");
-const themeLabel = document.querySelector("[data-theme-label]");
 const faviconLink = document.querySelector("[data-favicon-link]");
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
 
-  if (themeToggle && themeLabel) {
+  if (themeToggle) {
     const isLight = theme === "light";
+    const label = `Switch to ${isLight ? "dark" : "light"} mode`;
     themeToggle.setAttribute("aria-pressed", String(isLight));
-    themeToggle.setAttribute("aria-label", `Switch to ${isLight ? "dark" : "light"} mode`);
-    themeLabel.textContent = isLight ? "Light" : "Dark";
+    themeToggle.setAttribute("aria-label", label);
+    themeToggle.title = label;
   }
 
   if (faviconLink) {
