@@ -47,7 +47,11 @@
     opts = opts || {};
     const div = document.createElement("div");
     div.className = "ask-msg " + (role === "user" ? "ask-msg-user" : "ask-msg-bot") + (opts.typing ? " is-typing" : "") + (opts.error ? " is-error" : "");
-    div.textContent = text;
+    if (opts.typing) {
+      div.innerHTML = '<span class="typing-dots"><i></i><i></i><i></i></span>';
+    } else {
+      div.textContent = text;
+    }
     if (opts.sources && opts.sources.length) {
       const src = document.createElement("div");
       src.className = "ask-sources";
@@ -90,7 +94,7 @@
 
     busy = true;
     sendBtn.disabled = true;
-    const typingEl = addMessage("bot", "…", { typing: true });
+    const typingEl = addMessage("bot", "", { typing: true });
 
     try {
       const res = await fetch(API_URL, {
