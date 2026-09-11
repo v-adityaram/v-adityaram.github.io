@@ -84,7 +84,7 @@
           <p class="eyebrow">Architecture</p>
           <h2>Two front ends, one gate, five tools.</h2>
         </div>
-        <figure class="figure reveal">
+        <figure class="figure diagram reveal">
           <div class="figure-scroll">
           <svg viewBox="0 0 1000 500" role="img" aria-labelledby="arch-title arch-desc" xmlns="http://www.w3.org/2000/svg">
             <title id="arch-title">System architecture</title>
@@ -99,6 +99,11 @@
               .ln { stroke: var(--rule-strong); stroke-width: 1.2; fill: none; }
               .ln.hot { stroke: var(--signal); }
               .ln.dash { stroke-dasharray: 5 4; }
+              .ln:not(.dash) { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 900ms ease; }
+              .figure.is-drawn .ln:not(.dash) { stroke-dashoffset: 0; }
+              @media (prefers-reduced-motion: reduce) {
+                .ln:not(.dash) { stroke-dashoffset: 0; transition: none; }
+              }
             </style>
             <defs>
               <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
@@ -116,7 +121,7 @@
             <rect class="box hot" x="300" y="42" width="230" height="64" rx="3"/>
             <text class="lbl" x="316" y="68">Azure OpenAI Realtime</text>
             <text class="sub" x="316" y="88">speech in/out, decides tool calls</text>
-            <path class="ln hot" d="M109 162 V74 H298" marker-end="url(#ahh)" marker-start="url(#ahh)"/>
+            <path class="ln hot" pathLength="1" d="M109 162 V74 H298" marker-end="url(#ahh)" marker-start="url(#ahh)"/>
             <text class="sub" x="130" y="128">audio: browser &harr; Azure directly, never via the backend</text>
 
             <!-- the browser -->
@@ -128,14 +133,14 @@
             <rect class="box" x="24" y="300" width="170" height="64" rx="3"/>
             <text class="lbl" x="40" y="326">FastAPI gateway</text>
             <text class="sub" x="40" y="346">owns identity</text>
-            <path class="ln" d="M109 228 V298" marker-end="url(#ah)"/>
+            <path class="ln" pathLength="1" d="M109 228 V298" marker-end="url(#ah)"/>
             <text class="sub" x="120" y="268">chat turns &middot; voice token &middot; voice tool calls</text>
 
             <!-- router -->
             <rect class="box hot" x="300" y="300" width="230" height="64" rx="3"/>
             <text class="lbl" x="316" y="326">Intent router (LLM)</text>
             <text class="sub" x="316" y="346">intent &middot; confidence &middot; scope</text>
-            <path class="ln hot" d="M194 332 H298" marker-end="url(#ahh)"/>
+            <path class="ln hot" pathLength="1" d="M194 332 H298" marker-end="url(#ahh)"/>
 
             <!-- three outcomes -->
             <rect class="box" x="620" y="164" width="220" height="52" rx="3"/>
@@ -150,22 +155,22 @@
             <text class="lbl" x="636" y="324">LangGraph graph</text>
             <text class="sub" x="636" y="344">plan &rarr; parallel fetch &rarr; answer</text>
 
-            <path class="ln" d="M530 332 H575 V190 H618" marker-end="url(#ah)"/>
-            <path class="ln" d="M575 258 H618" marker-end="url(#ah)"/>
-            <path class="ln hot" d="M530 332 H618" marker-end="url(#ahh)"/>
+            <path class="ln" pathLength="1" d="M530 332 H575 V190 H618" marker-end="url(#ah)"/>
+            <path class="ln" pathLength="1" d="M575 258 H618" marker-end="url(#ah)"/>
+            <path class="ln hot" pathLength="1" d="M530 332 H618" marker-end="url(#ahh)"/>
 
             <!-- tool layer -->
             <rect class="box" x="620" y="400" width="220" height="56" rx="3"/>
             <text class="lbl" x="636" y="422">Allow-listed tool layer</text>
             <text class="sub" x="636" y="442">5 read-only tools, nothing else</text>
-            <path class="ln" d="M730 364 V398" marker-end="url(#ah)"/>
-            <path class="ln" d="M860 216 V232 M860 284 V300"/>
-            <path class="ln" d="M860 190 H852 V428 H842" marker-end="url(#ah)"/>
+            <path class="ln" pathLength="1" d="M730 364 V398" marker-end="url(#ah)"/>
+            <path class="ln" pathLength="1" d="M860 216 V232 M860 284 V300"/>
+            <path class="ln" pathLength="1" d="M860 190 H852 V428 H842" marker-end="url(#ah)"/>
 
             <rect class="box" x="880" y="400" width="100" height="56" rx="3"/>
             <text class="lbl" x="896" y="422">Telecom</text>
             <text class="lbl" x="896" y="440">APIs</text>
-            <path class="ln" d="M840 414 H878" marker-end="url(#ah)"/>
+            <path class="ln" pathLength="1" d="M840 414 H878" marker-end="url(#ah)"/>
 
             <!-- side services and the voice tool-call route, kept below the boxes -->
             <path class="ln dash" d="M109 364 V428 H298" marker-end="url(#ah)"/>

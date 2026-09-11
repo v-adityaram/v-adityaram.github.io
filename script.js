@@ -23,9 +23,14 @@ function setTheme(theme) {
 
 setTheme(storedTheme || "light");
 
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 function syncHeader() {
-  if (!header) return;
-  header.classList.toggle("is-scrolled", window.scrollY > 10);
+  if (header) header.classList.toggle("is-scrolled", window.scrollY > 10);
+  // A barely-perceptible drift on the dot background, for quiet depth while scrolling.
+  if (!reducedMotion.matches) {
+    document.body.style.backgroundPosition = `0 ${(window.scrollY * -0.04).toFixed(1)}px`;
+  }
 }
 
 syncHeader();
@@ -62,8 +67,10 @@ if ("IntersectionObserver" in window) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
-        const flowDiagram = entry.target.querySelector(".flow-diagram");
-        if (flowDiagram) requestAnimationFrame(() => flowDiagram.classList.add("is-drawn"));
+        // A diagram can either be the revealed element itself (a standalone
+        // figure) or nested inside it (the hero's board card) -- cover both.
+        const diagram = entry.target.matches(".diagram") ? entry.target : entry.target.querySelector(".diagram");
+        if (diagram) requestAnimationFrame(() => diagram.classList.add("is-drawn"));
         observer.unobserve(entry.target);
       }
     });
@@ -72,7 +79,7 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => observer.observe(item));
 } else {
   revealItems.forEach((item) => item.classList.add("is-visible"));
-  document.querySelectorAll(".flow-diagram").forEach((item) => item.classList.add("is-drawn"));
+  document.querySelectorAll(".diagram").forEach((item) => item.classList.add("is-drawn"));
 }
 
 const contactForm = document.querySelector("[data-contact-form]");
