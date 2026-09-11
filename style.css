@@ -21,7 +21,7 @@
   --signal-ink: #ffffff;
   --signal-soft: rgba(63, 109, 148, 0.1);
   --good: #15803d;
-  --grid: rgba(11, 18, 32, 0.06);
+  --grid: rgba(11, 18, 32, 0.14);
   --shadow: 0 1px 0 rgba(11, 18, 32, 0.04);
   --radius: 4px;
   --max: 1180px;
@@ -55,7 +55,7 @@
   --signal-ink: #0b1220;
   --signal-soft: rgba(240, 207, 148, 0.12);
   --good: #4ade80;
-  --grid: rgba(236, 233, 225, 0.05);
+  --grid: rgba(236, 233, 225, 0.1);
   --shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
   --violet: #a78bfa;
 }
@@ -73,10 +73,8 @@ body {
   font: 400 16px/1.6 var(--font-body);
   color: var(--ink);
   background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-image: radial-gradient(var(--grid) 1px, transparent 1.5px);
+  background-size: 28px 28px;
   -webkit-font-smoothing: antialiased;
 }
 
