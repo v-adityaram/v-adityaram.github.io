@@ -4,7 +4,6 @@ const nav = document.querySelector("[data-nav]");
 const themeToggle = document.querySelector("[data-theme-toggle]");
 const themeLabel = document.querySelector("[data-theme-label]");
 const faviconLink = document.querySelector("[data-favicon-link]");
-const storedTheme = localStorage.getItem("portfolio-theme");
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -21,7 +20,20 @@ function setTheme(theme) {
   }
 }
 
-setTheme(storedTheme || "light");
+// No stored choice follows the OS/browser preference and stays live if it changes;
+// the inline script in <head> already set the initial value before first paint.
+const themeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+function themeChoice() {
+  try { return localStorage.getItem("portfolio-theme") || "system"; } catch (_) { return "system"; }
+}
+function applyTheme() {
+  const choice = themeChoice();
+  setTheme(choice === "dark" || (choice === "system" && themeQuery.matches) ? "dark" : "light");
+}
+applyTheme();
+themeQuery.addEventListener("change", () => {
+  if (themeChoice() === "system") applyTheme();
+});
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 

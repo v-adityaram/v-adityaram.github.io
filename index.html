@@ -7,6 +7,16 @@
   <title>VSSV Aditya Ram</title>
   <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <script>
+    // Runs before first paint so there's no flash of the wrong theme.
+    // No stored choice follows the OS/browser preference.
+    (function () {
+      let pref = null;
+      try { pref = localStorage.getItem("portfolio-theme"); } catch (_) {}
+      const dark = pref === "dark" || (pref !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
