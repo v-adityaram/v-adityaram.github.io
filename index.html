@@ -57,7 +57,71 @@
         </div>
 
         <aside class="board reveal" aria-label="Current technology stack">
-          <div class="board-head"><b>Current stack</b><span>2026 &middot; built with, not listed</span></div>
+          <div class="board-head">
+            <span class="board-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <b>Current stack</b><span>2026 &middot; built with, not listed</span>
+          </div>
+
+          <figure class="flow-diagram" aria-label="Diagram: a request enters, a router decides, three tools run at once, a grounded answer comes back">
+            <svg viewBox="0 0 420 132" role="img">
+              <title>How a request becomes an answer</title>
+              <desc>A request reaches a router; the router sends it to whichever of several tools apply, running them at the same time; their results come back as one grounded answer.</desc>
+              <style>
+                .fd-box { fill: var(--panel); stroke: var(--rule-strong); stroke-width: 1.1; }
+                .fd-box.hot { fill: var(--signal-soft); stroke: var(--signal); }
+                .fd-lbl { font: 600 8.5px var(--font-mono); fill: var(--ink); }
+                .fd-ln { fill: none; stroke: var(--rule-strong); stroke-width: 1.1; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 900ms ease; }
+                .flow-diagram.is-drawn .fd-ln { stroke-dashoffset: 0; }
+                .fd-ln:nth-of-type(1) { transition-delay: 0ms; }
+                .fd-ln:nth-of-type(2) { transition-delay: 120ms; }
+                .fd-ln:nth-of-type(3) { transition-delay: 220ms; }
+                .fd-ln:nth-of-type(4) { transition-delay: 320ms; }
+                .fd-ln:nth-of-type(5) { transition-delay: 420ms; }
+                .fd-ln:nth-of-type(6) { transition-delay: 520ms; }
+                .fd-ln:nth-of-type(7) { transition-delay: 620ms; }
+                .fd-pulse { fill: var(--signal); }
+              </style>
+
+              <path class="fd-ln" pathLength="1" d="M62,66 H108"/>
+              <path class="fd-ln" pathLength="1" d="M178,58 C195,58 195,20 212,20"/>
+              <path class="fd-ln" pathLength="1" d="M178,66 H212"/>
+              <path class="fd-ln" pathLength="1" d="M178,74 C195,74 195,112 212,112"/>
+              <path class="fd-ln" pathLength="1" d="M292,20 C309,20 309,58 326,58"/>
+              <path class="fd-ln" pathLength="1" d="M292,66 H326"/>
+              <path class="fd-ln" pathLength="1" d="M292,112 C309,112 309,74 326,74"/>
+
+              <rect class="fd-box" x="10" y="52" width="52" height="28" rx="2"/>
+              <text class="fd-lbl" x="19" y="70">Request</text>
+
+              <rect class="fd-box hot" x="108" y="52" width="70" height="28" rx="2"/>
+              <text class="fd-lbl" x="121" y="70">Router</text>
+
+              <rect class="fd-box" x="212" y="6" width="80" height="28" rx="2"/>
+              <text class="fd-lbl" x="226" y="24">Balance</text>
+              <rect class="fd-box" x="212" y="52" width="80" height="28" rx="2"/>
+              <text class="fd-lbl" x="233" y="70">Device</text>
+              <rect class="fd-box" x="212" y="98" width="80" height="28" rx="2"/>
+              <text class="fd-lbl" x="228" y="116">Offers</text>
+
+              <rect class="fd-box hot" x="326" y="52" width="84" height="28" rx="2"/>
+              <text class="fd-lbl" x="341" y="70">Answer</text>
+
+              <circle class="fd-pulse" r="2.4">
+                <animateMotion dur="3.2s" repeatCount="indefinite" calcMode="linear"
+                  path="M14,66 H108 C130,66 150,58 178,58 C195,58 195,20 212,20 L292,20 C309,20 309,58 326,58 L410,58"/>
+              </circle>
+              <circle class="fd-pulse" r="2.4">
+                <animateMotion dur="3.2s" begin="0.15s" repeatCount="indefinite" calcMode="linear"
+                  path="M14,66 H108 L178,66 L212,66 L292,66 L326,66 L410,66"/>
+              </circle>
+              <circle class="fd-pulse" r="2.4">
+                <animateMotion dur="3.2s" begin="0.3s" repeatCount="indefinite" calcMode="linear"
+                  path="M14,66 H108 C130,66 150,74 178,74 C195,74 195,112 212,112 L292,112 C309,112 309,74 326,74 L410,74"/>
+              </circle>
+            </svg>
+            <figcaption>Deterministic router &middot; parallel tool calls &middot; one grounded answer &mdash; the shape behind the telecom assistant below.</figcaption>
+          </figure>
+
           <div class="board-body">
             <div class="board-group">
               <h3>Models</h3>

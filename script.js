@@ -62,6 +62,8 @@ if ("IntersectionObserver" in window) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
+        const flowDiagram = entry.target.querySelector(".flow-diagram");
+        if (flowDiagram) requestAnimationFrame(() => flowDiagram.classList.add("is-drawn"));
         observer.unobserve(entry.target);
       }
     });
@@ -70,6 +72,7 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => observer.observe(item));
 } else {
   revealItems.forEach((item) => item.classList.add("is-visible"));
+  document.querySelectorAll(".flow-diagram").forEach((item) => item.classList.add("is-drawn"));
 }
 
 const contactForm = document.querySelector("[data-contact-form]");
