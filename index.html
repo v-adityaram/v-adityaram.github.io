@@ -73,32 +73,39 @@
                 .fd-sub { font: 500 7.5px var(--font-mono); fill: var(--ink-3); }
                 .fd-ln { fill: none; stroke: var(--rule-strong); stroke-width: 1.1; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1100ms ease; }
                 .flow-diagram.is-drawn .fd-ln { stroke-dashoffset: 0; }
+                .fd-node { fill: var(--panel); stroke: var(--rule-strong); stroke-width: 1.1; }
+                .fd-node.hot { fill: var(--signal); stroke: var(--signal); }
                 .fd-pulse { fill: var(--signal); }
               </style>
 
-              <path class="fd-ln" pathLength="1" d="M34,23 V173"/>
+              <path class="fd-ln" pathLength="1" d="M26,23 V173"/>
 
-              <rect class="fd-box hot" x="16" y="6" width="348" height="34" rx="4"/>
-              <text class="fd-lbl" x="50" y="21">Models</text>
-              <text class="fd-sub" x="50" y="33">GPT-5 family &middot; Realtime voice &middot; Gemini</text>
+              <circle class="fd-node hot" cx="26" cy="23" r="3.2"/>
+              <circle class="fd-node" cx="26" cy="73" r="3.2"/>
+              <circle class="fd-node" cx="26" cy="123" r="3.2"/>
+              <circle class="fd-node" cx="26" cy="173" r="3.2"/>
 
-              <rect class="fd-box" x="16" y="56" width="348" height="34" rx="4"/>
-              <text class="fd-lbl" x="50" y="71">Agents &amp; orchestration</text>
-              <text class="fd-sub" x="50" y="83">AI Foundry &middot; Agent Framework &middot; LangGraph</text>
+              <rect class="fd-box hot" x="44" y="6" width="320" height="34" rx="4"/>
+              <text class="fd-lbl" x="62" y="21">Models</text>
+              <text class="fd-sub" x="62" y="33">GPT-5 family &middot; Realtime voice &middot; Gemini</text>
 
-              <rect class="fd-box" x="16" y="106" width="348" height="34" rx="4"/>
-              <text class="fd-lbl" x="50" y="121">Data &amp; retrieval</text>
-              <text class="fd-sub" x="50" y="133">Cosmos DB &middot; AI Search &middot; Vectorize + D1</text>
+              <rect class="fd-box" x="44" y="56" width="320" height="34" rx="4"/>
+              <text class="fd-lbl" x="62" y="71">Agents &amp; orchestration</text>
+              <text class="fd-sub" x="62" y="83">AI Foundry &middot; Agent Framework &middot; LangGraph</text>
 
-              <rect class="fd-box" x="16" y="156" width="348" height="34" rx="4"/>
-              <text class="fd-lbl" x="50" y="171">Runtime &amp; edge</text>
-              <text class="fd-sub" x="50" y="183">Azure VM &middot; Cloudflare Workers &middot; FastAPI</text>
+              <rect class="fd-box" x="44" y="106" width="320" height="34" rx="4"/>
+              <text class="fd-lbl" x="62" y="121">Data &amp; retrieval</text>
+              <text class="fd-sub" x="62" y="133">Cosmos DB &middot; AI Search &middot; Vectorize + D1</text>
+
+              <rect class="fd-box" x="44" y="156" width="320" height="34" rx="4"/>
+              <text class="fd-lbl" x="62" y="171">Runtime &amp; edge</text>
+              <text class="fd-sub" x="62" y="183">Azure VM &middot; Cloudflare Workers &middot; FastAPI</text>
 
               <circle class="fd-pulse" r="2.4">
-                <animateMotion dur="3.6s" repeatCount="indefinite" calcMode="linear" path="M34,23 V173"/>
+                <animateMotion dur="3.6s" repeatCount="indefinite" calcMode="linear" path="M26,23 V173"/>
               </circle>
               <circle class="fd-pulse" r="2.4">
-                <animateMotion dur="3.6s" begin="1.8s" repeatCount="indefinite" calcMode="linear" path="M34,23 V173"/>
+                <animateMotion dur="3.6s" begin="1.8s" repeatCount="indefinite" calcMode="linear" path="M26,23 V173"/>
               </circle>
             </svg>
             <figcaption>Four layers, top to bottom &mdash; the same four groups listed below, on every project on this page.</figcaption>
