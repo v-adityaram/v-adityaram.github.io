@@ -22,6 +22,12 @@ Live at https://vaditya.in (GitHub Pages, `CNAME` in this repo).
 
 No build step. Edit the HTML/CSS, push to `main`, GitHub Pages does the rest.
 
+## Background motion
+
+The shared CSS draws two faint contour surfaces and moves only their transforms. Screens up to 640px use one 360px surface. The dotted paper stays static, and there are no animation libraries, extra image requests, or JavaScript frame loops.
+
+The header's pause button remembers the visitor's preference across pages. Reduced-motion and data-saver preferences keep the contours still; hidden tabs pause them. Without JavaScript, the original static dotted background remains. The two inlined control icons are from Phosphor Icons under the MIT license in `assets/phosphor-LICENSE.txt`.
+
 ## Updating the assistant's knowledge
 
 The assistant answers only from a hand-written set of content chunks in the `portfolio-assistant` Worker's `src/content.ts`. When copy on this site changes materially, update those chunks and re-run the ingest endpoint so the embeddings match.

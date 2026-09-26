@@ -38,12 +38,58 @@ themeQuery.addEventListener("change", () => {
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+// CSS handles every animation frame. JavaScript only responds to preferences
+// and tab visibility; no pointer tracking, scroll parallax or rendering loop.
+if (header && themeToggle) {
+  const ambient = document.createElement("div");
+  ambient.className = "ambient-background";
+  ambient.setAttribute("aria-hidden", "true");
+  document.body.prepend(ambient);
+
+  const motionToggle = document.createElement("button");
+  motionToggle.className = "motion-toggle";
+  motionToggle.type = "button";
+  motionToggle.setAttribute("aria-label", "Background animation");
+  // Phosphor regular icons, inlined to avoid extra requests. See assets/phosphor-LICENSE.txt.
+  const motionPaths = {
+    pause: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z",
+    play: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"
+  };
+  const motionIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  motionIcon.setAttribute("viewBox", "0 0 256 256");
+  motionIcon.setAttribute("aria-hidden", "true");
+  const motionPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  motionIcon.append(motionPath);
+  motionToggle.append(motionIcon);
+  themeToggle.after(motionToggle);
+
+  let motionPaused = false;
+  try { motionPaused = localStorage.getItem("portfolio-motion") === "paused"; } catch (_) {}
+  const connection = navigator.connection;
+  function syncAmbientMotion() {
+    const limited = reducedMotion.matches || Boolean(connection?.saveData);
+    const enabled = !motionPaused && !limited;
+    document.documentElement.dataset.ambientMotion = enabled && !document.hidden ? "running" : "paused";
+    motionToggle.setAttribute("aria-pressed", String(enabled));
+    motionToggle.disabled = limited;
+    motionToggle.title = limited
+      ? "Background animation is off to respect your device preferences"
+      : `${enabled ? "Pause" : "Play"} background animation`;
+    motionPath.setAttribute("d", enabled ? motionPaths.pause : motionPaths.play);
+  }
+  motionToggle.addEventListener("click", () => {
+    motionPaused = !motionPaused;
+    try { localStorage.setItem("portfolio-motion", motionPaused ? "paused" : "running"); } catch (_) {}
+    syncAmbientMotion();
+  });
+  reducedMotion.addEventListener("change", syncAmbientMotion);
+  connection?.addEventListener("change", syncAmbientMotion);
+  document.addEventListener("visibilitychange", syncAmbientMotion);
+  syncAmbientMotion();
+}
+
 function syncHeader() {
   if (header) header.classList.toggle("is-scrolled", window.scrollY > 10);
-  // A barely-perceptible drift on the dot background, for quiet depth while scrolling.
-  if (!reducedMotion.matches) {
-    document.body.style.backgroundPosition = `0 ${(window.scrollY * -0.04).toFixed(1)}px`;
-  }
 }
 
 syncHeader();
