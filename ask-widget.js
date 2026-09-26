@@ -10,12 +10,15 @@
   const fab = document.createElement("button");
   fab.className = "ask-fab";
   fab.type = "button";
+  fab.setAttribute("aria-label", "Ask about Aditya");
+  fab.setAttribute("aria-controls", "ask-panel");
   fab.setAttribute("aria-haspopup", "dialog");
   fab.setAttribute("aria-expanded", "false");
-  fab.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>Ask about Aditya</span>`;
+  fab.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>Ask about Aditya</span>`;
 
   const panel = document.createElement("div");
   panel.className = "ask-panel";
+  panel.id = "ask-panel";
   panel.hidden = true;
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-label", "Ask about Aditya");
@@ -24,9 +27,11 @@
       <div><strong>Ask about Aditya</strong><span>AI assistant, grounded in this site &amp; resume</span></div>
       <button type="button" class="ask-panel-close" aria-label="Close">&times;</button>
     </div>
-    <div class="ask-messages" id="ask-messages"></div>
+    <div class="ask-messages" id="ask-messages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions text"></div>
+    <p class="sr-only" role="status" data-ask-status></p>
     <form class="ask-form" id="ask-form">
-      <input type="text" id="ask-input" placeholder="Ask about his projects, skills, experience..." maxlength="300" autocomplete="off">
+      <label class="sr-only" for="ask-input">Your question about Aditya</label>
+      <input type="text" id="ask-input" name="question" placeholder="Ask about projects or experience…" maxlength="300" autocomplete="off">
       <button type="submit">Ask</button>
     </form>
   `;
@@ -42,12 +47,14 @@
 
   let opened = false;
   let busy = false;
+  let returnFocus = fab;
 
   function addMessage(role, text, opts) {
     opts = opts || {};
     const div = document.createElement("div");
     div.className = "ask-msg " + (role === "user" ? "ask-msg-user" : "ask-msg-bot") + (opts.typing ? " is-typing" : "") + (opts.error ? " is-error" : "");
     if (opts.typing) {
+      div.setAttribute("aria-hidden", "true");
       div.innerHTML = '<span class="typing-dots"><i></i><i></i><i></i></span>';
     } else {
       div.textContent = text;
@@ -63,22 +70,28 @@
     return div;
   }
 
-  function open() {
+  function open(trigger = fab) {
+    returnFocus = trigger;
     panel.hidden = false;
     fab.setAttribute("aria-expanded", "true");
     if (!opened) {
       opened = true;
       addMessage("bot", "Hi! Ask me anything about Aditya's projects, skills, or experience — I'll answer from what's actually on this site and his resume.");
     }
-    setTimeout(() => inputEl.focus(), 50);
+    inputEl.focus({ preventScroll: true });
   }
 
   function close() {
     panel.hidden = true;
     fab.setAttribute("aria-expanded", "false");
+    if (returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
   }
 
   fab.addEventListener("click", () => (panel.hidden ? open() : close()));
+  document.addEventListener("click", (event) => {
+    const trigger = event.target instanceof Element ? event.target.closest("[data-open-ask]") : null;
+    if (trigger) open(trigger);
+  });
   closeBtn.addEventListener("click", close);
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !panel.hidden) close();
@@ -94,6 +107,7 @@
 
     busy = true;
     sendBtn.disabled = true;
+    panel.querySelector('[data-ask-status]').textContent = 'Looking through Aditya’s work…';
     const typingEl = addMessage("bot", "", { typing: true });
 
     try {
@@ -115,7 +129,9 @@
     }
 
     busy = false;
+    panel.querySelector('[data-ask-status]').textContent = '';
     sendBtn.disabled = false;
-    inputEl.focus();
+    // Do not steal focus if someone closed the panel or moved elsewhere while waiting.
+    if (!panel.hidden && panel.contains(document.activeElement)) inputEl.focus({ preventScroll: true });
   });
 })();

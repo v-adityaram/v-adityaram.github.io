@@ -18,6 +18,7 @@ function setTheme(theme) {
   if (faviconLink) {
     faviconLink.href = theme === "light" ? "assets/favicon-light.png" : "assets/favicon-dark.png";
   }
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0b1220' : '#f4f2ec');
 }
 
 // No stored choice follows the OS/browser preference and stays live if it changes;
@@ -49,6 +50,11 @@ syncHeader();
 window.addEventListener("scroll", syncHeader, { passive: true });
 
 if (navToggle && nav) {
+  const closeNav = (restoreFocus = false) => {
+    nav.classList.remove("is-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    if (restoreFocus) navToggle.focus();
+  };
   navToggle.addEventListener("click", () => {
     const isOpen = nav.classList.toggle("is-open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
@@ -56,9 +62,17 @@ if (navToggle && nav) {
 
   nav.addEventListener("click", (event) => {
     if (event.target instanceof HTMLAnchorElement) {
-      nav.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
+      closeNav();
     }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("is-open")) closeNav(true);
+  });
+  document.addEventListener("click", (event) => {
+    if (event.target instanceof Node && !nav.contains(event.target) && !navToggle.contains(event.target)) closeNav();
+  });
+  header?.addEventListener("focusout", (event) => {
+    if (event.relatedTarget && !header.contains(event.relatedTarget)) closeNav();
   });
 }
 
@@ -67,7 +81,7 @@ if (themeToggle) {
     const currentTheme = document.documentElement.dataset.theme || "light";
     const nextTheme = currentTheme === "light" ? "dark" : "light";
 
-    localStorage.setItem("portfolio-theme", nextTheme);
+    try { localStorage.setItem("portfolio-theme", nextTheme); } catch (_) {}
     setTheme(nextTheme);
   });
 }
@@ -115,31 +129,14 @@ if (contactForm) {
   });
 }
 
-document.querySelectorAll("[data-card-link]").forEach((card) => {
-  const href = card.getAttribute("data-card-link");
-  if (!href) return;
-
-  card.addEventListener("click", (event) => {
-    const target = event.target;
-    if (target instanceof Element && target.closest("a, button, input, select, textarea")) return;
-    window.location.href = href;
-  });
-
-  card.addEventListener("keydown", (event) => {
-    if (event.target !== card) return;
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      window.location.href = href;
+document.querySelectorAll('[data-copy-email]').forEach(button => {
+  button.addEventListener('click', async () => {
+    const status = document.querySelector('[data-copy-status]');
+    try {
+      await navigator.clipboard.writeText('vssv.aditya@gmail.com');
+      status.textContent = 'Email address copied.';
+    } catch (_) {
+      status.textContent = 'Copy this address: vssv.aditya@gmail.com';
     }
   });
-});
-
-// The Ask-about-Aditya FAB is injected by ask-widget.js after load, so resolve it at click time.
-document.addEventListener("click", (event) => {
-  const trigger = event.target instanceof Element ? event.target.closest("[data-open-ask]") : null;
-  if (!trigger) return;
-  const fab = document.querySelector(".ask-fab");
-  if (fab) {
-    fab.click();
-  }
 });

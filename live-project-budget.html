@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Budget - a daily expense tracker by VSSV Aditya Ram with daily allowances, monthly plans, account tracking, and a voice-enabled AI assistant.">
-  <title>Budget &middot; VSSV Aditya Ram</title>
+  <meta name="description" content="Preview Budget with sample data: daily allowances, expense tracking, and a text-and-voice assistant that asks before changing anything.">
+  <title>Budget Product Preview | VSSV Aditya Ram</title>
+  <link rel="canonical" href="https://vaditya.in/live-project-budget.html">
+  <meta name="theme-color" content="#f4f2ec">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VSSV Aditya Ram">
+  <meta property="og:title" content="Budget Product Preview | VSSV Aditya Ram">
+  <meta property="og:description" content="Preview Budget with sample data: daily allowances, expense tracking, and a text-and-voice assistant that asks before changing anything.">
+  <meta property="og:url" content="https://vaditya.in/live-project-budget.html">
+  <meta property="og:image" content="https://vaditya.in/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VSSV Aditya Ram. AI engineer building agents, voice assistants and useful products.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Budget Product Preview | VSSV Aditya Ram">
+  <meta name="twitter:description" content="Preview Budget with sample data: daily allowances, expense tracking, and a text-and-voice assistant that asks before changing anything.">
+  <meta name="twitter:image" content="https://vaditya.in/assets/social-preview.png">
   <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <script>
@@ -15,6 +30,7 @@
       try { pref = localStorage.getItem("portfolio-theme"); } catch (_) {}
       const dark = pref === "dark" || (pref !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
       document.documentElement.dataset.theme = dark ? "dark" : "light";
+      document.querySelector('meta[name="theme-color"]').content = dark ? "#0b1220" : "#f4f2ec";
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +39,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header" data-header>
     <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
       <span class="brand-mark" aria-hidden="true">
@@ -30,7 +47,7 @@
       </span>
       <span class="brand-name"><b>VSSV</b> Aditya Ram</span>
     </a>
-    <nav class="site-nav" id="site-nav" data-nav>
+    <nav aria-label="Main navigation" class="site-nav" id="site-nav" data-nav>
       <a href="index.html#work">Work</a>
       <a href="index.html#about">About</a>
       <a href="index.html#skills">Skills</a>
@@ -47,23 +64,48 @@
     </button>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="page-hero">
       <div class="wrap reveal">
         <span class="status live">Live &middot; budget.vaditya.in</span>
         <p class="eyebrow">Live product</p>
-        <h1>Budget &mdash; a daily expense tracker with an AI assistant.</h1>
-        <p class="lede">Set a monthly spending budget, get a daily allowance, and log expenses in one tap with favourites &mdash; or just tell the built-in assistant what you spent, by text or voice. Leftovers roll into tomorrow or straight into savings. Income, fixed commitments, bank balances, cards, loans and locked assets all live in one place &mdash; manually, or synced automatically once you turn it on.</p>
+        <h1>A daily budget.<br>A little more control.</h1>
+        <p class="lede">Budget turns a monthly plan into a daily allowance, with quick expense entry and an assistant that asks before making changes.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
+          <a class="btn btn-primary" href="#product-preview">See the product</a>
           <a class="btn btn-secondary" href="https://budget.vaditya.in/help" target="_blank" rel="noopener noreferrer">Read the guide</a>
           <a class="btn btn-secondary" href="index.html#work">&larr; Back to work</a>
         </div>
       </div>
     </section>
 
+
+    <section class="sec" id="product-preview" aria-labelledby="budget-preview-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="budget-preview-title">A look inside Budget.</h2>
+          <p class="lede">The real app interface, populated with sample data.</p>
+        </div>
+        <div class="preview-layout">
+          <figure class="product-preview">
+            <img src="assets/budget-preview.jpg" alt="Budget Today view: ₹215 left to spend, 125 spent, favourite expenses and quick entry, all sample data" width="1200" height="820" loading="lazy" decoding="async">
+            <figcaption>Sample account. A ₹300 daily budget plus ₹40 carried forward, minus ₹125 spent, leaves ₹215 for today.</figcaption>
+          </figure>
+          <div class="preview-notes">
+            <div><h3>See what is available today</h3><p>A daily allowance accounts for spending and carry-over. The monthly plan stays visible behind the daily decision.</p></div>
+            <div><h3>Log the things you repeat</h3><p>Saved favourites reduce entry to a tap. Amount, tag, date and account remain editable.</p></div>
+            <div><h3>You confirm the changes</h3><p>The text-and-voice assistant proposes an action before it changes your data. Common shorthand can be parsed without a model call.</p></div>
+            <a href="https://budget.vaditya.in/help#assistant" target="_blank" rel="noopener noreferrer">Read the assistant walkthrough &nearr;</a>
+            <a class="btn btn-secondary" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget sign-in</a>
+            <p>Live personal product. New accounts require an invitation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="sec">
       <div class="wrap">
+        <h2 class="h2-sm feature-heading">How the product fits together.</h2>
         <div class="panel-grid">
           <article class="card reveal">
             <p class="eyebrow">Today</p>

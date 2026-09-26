@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Case study: a chat and real-time voice customer assistant for a telecom operator, built on Azure OpenAI, LangGraph and WebRTC by VSSV Aditya Ram at TCS.">
-  <title>Telecom assistant &middot; VSSV Aditya Ram</title>
+  <meta name="description" content="A TCS client proof of concept combining chat, real-time voice, approved tools and LangGraph on Azure. Explore the architecture and an illustrative walkthrough.">
+  <title>Telecom AI Assistant Case Study | VSSV Aditya Ram</title>
+  <link rel="canonical" href="https://vaditya.in/project-telecom-assistant.html">
+  <meta name="theme-color" content="#f4f2ec">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VSSV Aditya Ram">
+  <meta property="og:title" content="Telecom AI Assistant Case Study | VSSV Aditya Ram">
+  <meta property="og:description" content="A TCS client proof of concept combining chat, real-time voice, approved tools and LangGraph on Azure. Explore the architecture and an illustrative walkthrough.">
+  <meta property="og:url" content="https://vaditya.in/project-telecom-assistant.html">
+  <meta property="og:image" content="https://vaditya.in/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VSSV Aditya Ram. AI engineer building agents, voice assistants and useful products.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Telecom AI Assistant Case Study | VSSV Aditya Ram">
+  <meta name="twitter:description" content="A TCS client proof of concept combining chat, real-time voice, approved tools and LangGraph on Azure. Explore the architecture and an illustrative walkthrough.">
+  <meta name="twitter:image" content="https://vaditya.in/assets/social-preview.png">
   <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <script>
@@ -15,6 +30,7 @@
       try { pref = localStorage.getItem("portfolio-theme"); } catch (_) {}
       const dark = pref === "dark" || (pref !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
       document.documentElement.dataset.theme = dark ? "dark" : "light";
+      document.querySelector('meta[name="theme-color"]').content = dark ? "#0b1220" : "#f4f2ec";
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +39,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header" data-header>
     <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
       <span class="brand-mark" aria-hidden="true">
@@ -30,7 +47,7 @@
       </span>
       <span class="brand-name"><b>VSSV</b> Aditya Ram</span>
     </a>
-    <nav class="site-nav" id="site-nav" data-nav>
+    <nav aria-label="Main navigation" class="site-nav" id="site-nav" data-nav>
       <a href="index.html#work">Work</a>
       <a href="index.html#about">About</a>
       <a href="index.html#skills">Skills</a>
@@ -47,15 +64,53 @@
     </button>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="page-hero">
       <div class="wrap reveal">
         <span class="status client">Client POC &middot; built at Tata Consultancy Services &middot; 2026</span>
         <p class="eyebrow">Case study</p>
-        <h1>A telecom customer assistant you can type to or talk to.</h1>
-        <p class="lede">A proof-of-concept for a telecom operator: customers ask about their plan, device, balance, purchases or offers in plain language &mdash; by chat, or by voice in a live call that switches language when they do. Built solo, architecture to deployment, with an AI coding assistant used heavily as a pair programmer &mdash; the judgment calls were mine; a lot of the typing wasn't. The client's name, its APIs and infrastructure details are withheld here; the engineering isn't.</p>
+        <h1>One assistant.<br>Chat or voice.</h1>
+        <p class="lede">A TCS client proof of concept for account questions across chat and four spoken languages. I owned the architecture, implementation and Azure deployment, using AI pair programming throughout.</p>
         <div class="hero-actions">
+          <a class="btn btn-primary" href="#walkthrough">Explore the flow</a>
           <a class="btn btn-secondary" href="index.html#work">&larr; Back to work</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="sec" id="walkthrough" aria-labelledby="walkthrough-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="walkthrough-title">Follow a question through the system.</h2>
+          <p class="lede">An illustrative walkthrough with synthetic examples. Choose a question to see why the route changes.</p>
+        </div>
+        <div class="walkthrough" data-telecom-preview>
+          <div class="walkthrough-controls" role="group" aria-label="Choose an illustrative scenario">
+            <button class="walkthrough-choice" type="button" data-preview-example="balance" aria-pressed="true" aria-controls="preview-result">Balance</button>
+            <button class="walkthrough-choice" type="button" data-preview-example="eligibility" aria-pressed="false" aria-controls="preview-result">5G eligibility</button>
+            <button class="walkthrough-choice" type="button" data-preview-example="clarify" aria-pressed="false" aria-controls="preview-result">Clarification</button>
+            <button class="walkthrough-choice" type="button" data-preview-example="voice" aria-pressed="false" aria-controls="preview-result">Voice language switch</button>
+          </div>
+          <div class="walkthrough-body" id="preview-result">
+            <div class="walkthrough-conversation">
+              <h3>Example conversation</h3>
+              <p class="demo-question" data-preview-question>What is my balance?</p>
+              <p class="demo-answer" data-preview-answer>Your available balance is R184.50.</p>
+              <p class="demo-source" data-preview-source>Sample source: account balance. One lookup; no multi-step graph.</p>
+            </div>
+            <div class="walkthrough-trace">
+              <h3>What happens behind the answer</h3>
+              <ol data-preview-steps>
+                <li>Route a clear balance question to the approved balance tool.</li>
+                <li>Fetch account data through the backend-owned customer identity.</li>
+                <li>Format the returned amount into a deterministic answer.</li>
+              </ol>
+            </div>
+          </div>
+          <p class="walkthrough-caption">Illustrative interface, based on the documented POC. The examples are synthetic; this preview does not connect to client systems or record audio.</p>
+          <noscript><p class="walkthrough-foot">JavaScript enables scenario switching. The balance example is shown above.</p></noscript>
+          <p class="sr-only" role="status" aria-live="polite" data-preview-announcement></p>
         </div>
       </div>
     </section>
@@ -328,6 +383,7 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="project-preview.js" defer></script>
   <script src="ask-widget.js" defer></script>
 </body>
 </html>

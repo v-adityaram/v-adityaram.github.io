@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the connections between Aditya’s AI projects: enterprise assistants, live products, retrieval, voice and human approval.">
-  <title>Work atlas &middot; VSSV Aditya Ram</title>
+  <meta name="description" content="Explore six AI projects by capability: agents, retrieval, real-time voice and human approval. Share a project or follow the connections.">
+  <title>Interactive Work Atlas | VSSV Aditya Ram</title>
+  <link rel="canonical" href="https://vaditya.in/work-atlas.html">
+  <meta name="theme-color" content="#f4f2ec">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VSSV Aditya Ram">
+  <meta property="og:title" content="Interactive Work Atlas | VSSV Aditya Ram">
+  <meta property="og:description" content="Explore six AI projects by capability: agents, retrieval, real-time voice and human approval. Share a project or follow the connections.">
+  <meta property="og:url" content="https://vaditya.in/work-atlas.html">
+  <meta property="og:image" content="https://vaditya.in/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VSSV Aditya Ram. AI engineer building agents, voice assistants and useful products.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Interactive Work Atlas | VSSV Aditya Ram">
+  <meta name="twitter:description" content="Explore six AI projects by capability: agents, retrieval, real-time voice and human approval. Share a project or follow the connections.">
+  <meta name="twitter:image" content="https://vaditya.in/assets/social-preview.png">
   <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <script>
@@ -15,6 +30,7 @@
       try { pref = localStorage.getItem("portfolio-theme"); } catch (_) {}
       const dark = pref === "dark" || (pref !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
       document.documentElement.dataset.theme = dark ? "dark" : "light";
+      document.querySelector('meta[name="theme-color"]').content = dark ? "#0b1220" : "#f4f2ec";
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +40,7 @@
   <link rel="stylesheet" href="work-atlas.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header" data-header>
     <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
       <span class="brand-mark" aria-hidden="true">
@@ -31,10 +48,10 @@
       </span>
       <span class="brand-name"><b>VSSV</b> Aditya Ram</span>
     </a>
-    <nav class="site-nav" id="site-nav" data-nav>
+    <nav aria-label="Main navigation" class="site-nav" id="site-nav" data-nav>
       <a href="index.html#work">Work</a>
       <a href="index.html#about">About</a>
-      <a href="work-atlas.html" aria-current="page">Atlas</a>
+      <a href="index.html#skills">Skills</a>
       <a href="index.html#experience">Experience</a>
       <a href="index.html#contact">Contact</a>
       <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
@@ -48,7 +65,7 @@
     </button>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="sec atlas" id="atlas" data-atlas aria-labelledby="atlas-heading">
       <div class="wrap">
         <a class="atlas-back" href="index.html">&larr; Back to the portfolio</a>
@@ -121,7 +138,7 @@
               <p class="atlas-hint">Select a node. Follow the connections.</p>
             </div>
 
-            <aside class="atlas-detail" id="atlas-detail" data-atlas-detail aria-labelledby="atlas-project-title">
+            <section class="atlas-detail" id="atlas-detail" data-atlas-detail aria-labelledby="atlas-project-title">
               <div class="atlas-detail-top"><span class="atlas-status" data-atlas-status>TCS &middot; Client proof of concept</span><span class="atlas-step" data-atlas-step>02 / 06</span></div>
               <h2 id="atlas-project-title" data-atlas-title>A conversation, in four languages.</h2>
               <p class="atlas-client" data-atlas-client>Africa&rsquo;s largest mobile network operator</p>
@@ -132,7 +149,7 @@
                 <a class="atlas-detail-link" data-atlas-link href="project-telecom-assistant.html">Explore the case study &nearr;</a>
                 <div class="atlas-pager" role="group" aria-label="Browse matching projects"><button type="button" data-atlas-direction="-1" aria-label="Previous project">&larr;</button><button type="button" data-atlas-direction="1" aria-label="Next project">&rarr;</button></div>
               </div>
-            </aside>
+            </section>
           </div>
           <div class="atlas-footer"><span>Connections show shared capabilities across projects.</span><span class="atlas-footer-links"><a href="assets/Resume.pdf" download>Resume PDF &darr;</a><a href="assets/Resume.docx" download>Word version &darr;</a></span></div>
         </div>

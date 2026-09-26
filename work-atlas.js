@@ -71,7 +71,7 @@
   const matches = (project) => activeFilter === 'all' || project.capabilities.includes(activeFilter);
   const visibleProjects = () => projects.filter(matches);
 
-  function select(id, announce = true) {
+  function select(id, announce = true, updateURL = true) {
     const project = projects.find((item) => item.id === id);
     if (!project) return;
     selectedId = id;
@@ -116,6 +116,13 @@
     const link = detail.querySelector('[data-atlas-link]');
     link.href = project.href;
     link.textContent = `${project.link} ↗`;
+    if (updateURL) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('project', selectedId);
+      if (activeFilter === 'all') url.searchParams.delete('filter');
+      else url.searchParams.set('filter', activeFilter);
+      if (url.href !== window.location.href) history.pushState(null, '', url);
+    }
     if (announce) status.textContent = `${project.title}. ${project.status}. ${visible.length} matching systems.`;
     if (announce && !reduced.matches) {
       detail.classList.remove('is-changing');
@@ -147,5 +154,14 @@
     const index = list.findIndex((item) => item.id === selectedId);
     select(list[(index + Number(button.dataset.atlasDirection) + list.length) % list.length].id);
   }));
-  select(selectedId, false);
+  function restoreFromURL(announce = false) {
+    const url = new URL(window.location.href);
+    const filter = url.searchParams.get('filter');
+    activeFilter = filters.some(button => button.dataset.atlasFilter === filter) ? filter : 'all';
+    const requested = projects.find(project => project.id === url.searchParams.get('project'));
+    const fallback = activeFilter === 'all' ? projects.find(project => project.id === 'telecom') : visibleProjects()[0];
+    select(requested && matches(requested) ? requested.id : fallback.id, announce, false);
+  }
+  window.addEventListener('popstate', () => restoreFromURL(true));
+  restoreFromURL();
 })();

@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Work by VSSV Aditya Ram: a telecom voice-and-chat assistant on Azure, two live products on Cloudflare, and earlier AI systems.">
-  <title>Work &middot; VSSV Aditya Ram</title>
+  <meta name="description" content="Explore TCS client prototypes and independent AI products: a telecom voice assistant, Budget, and a source-linked portfolio assistant.">
+  <title>AI Projects | VSSV Aditya Ram</title>
+  <link rel="canonical" href="https://vaditya.in/projects.html">
+  <meta name="theme-color" content="#f4f2ec">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VSSV Aditya Ram">
+  <meta property="og:title" content="AI Projects | VSSV Aditya Ram">
+  <meta property="og:description" content="Explore TCS client prototypes and independent AI products: a telecom voice assistant, Budget, and a source-linked portfolio assistant.">
+  <meta property="og:url" content="https://vaditya.in/projects.html">
+  <meta property="og:image" content="https://vaditya.in/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VSSV Aditya Ram. AI engineer building agents, voice assistants and useful products.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Projects | VSSV Aditya Ram">
+  <meta name="twitter:description" content="Explore TCS client prototypes and independent AI products: a telecom voice assistant, Budget, and a source-linked portfolio assistant.">
+  <meta name="twitter:image" content="https://vaditya.in/assets/social-preview.png">
   <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <script>
@@ -15,6 +30,7 @@
       try { pref = localStorage.getItem("portfolio-theme"); } catch (_) {}
       const dark = pref === "dark" || (pref !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
       document.documentElement.dataset.theme = dark ? "dark" : "light";
+      document.querySelector('meta[name="theme-color"]').content = dark ? "#0b1220" : "#f4f2ec";
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +39,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header" data-header>
     <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
       <span class="brand-mark" aria-hidden="true">
@@ -30,7 +47,7 @@
       </span>
       <span class="brand-name"><b>VSSV</b> Aditya Ram</span>
     </a>
-    <nav class="site-nav" id="site-nav" data-nav>
+    <nav aria-label="Main navigation" class="site-nav" id="site-nav" data-nav>
       <a href="index.html#work">Work</a>
       <a href="index.html#about">About</a>
       <a href="index.html#skills">Skills</a>
@@ -47,11 +64,11 @@
     </button>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="page-hero">
       <div class="wrap reveal">
         <p class="eyebrow">Work</p>
-        <h1>Everything here either runs for someone or ran for a client.</h1>
+        <h1>Built, tested,<br>and put to work.</h1>
         <p class="lede">Three pieces I'd want read first, then the earlier systems that taught me the parts I now take for granted. No mock-ups &mdash; each entry is something that was built and used.</p>
         <p class="mt-sm"><a href="work-atlas.html">Explore the interactive work atlas &nearr;</a></p>
       </div>
@@ -61,71 +78,53 @@
       <div class="wrap">
         <div class="sec-head reveal">
           <p class="eyebrow">Featured</p>
-          <h2>One enterprise system, two live products.</h2>
+          <h2>Enterprise prototypes. Independent products.</h2>
         </div>
 
         <div class="work-list">
-          <article class="work-row reveal" data-card-link="project-telecom-assistant.html" tabindex="0" aria-label="Open the telecom assistant case study">
+          <article class="work-row reveal">
             <div class="work-idx">01</div>
             <div>
               <span class="status client">Client POC &middot; built at TCS &middot; 2026</span>
-              <h3 class="work-title">Telecom customer assistant &mdash; chat and real-time voice</h3>
-              <p class="work-summary">A customer-service assistant for a telecom operator: plan, device, balance, purchases and offers, asked in plain language by chat or in a live voice call that switches language when the caller does. A confidence-gated router keeps most turns to one model call and a template; a LangGraph plan&rarr;fetch&rarr;answer graph handles only the questions that need several lookups at once; an allow-listed tool layer is the only way out to the telecom APIs. Four agent stacks &mdash; Azure AI Foundry prompt agents, Foundry hosted agents on the Microsoft Agent Framework, MAF self-hosted, LangGraph &mdash; were explored; the current build runs on LangGraph, with the self-hosted MAF version still in the running.</p>
-              <div class="work-tags">
-                <span class="tag">Azure OpenAI</span><span class="tag">Realtime voice / WebRTC</span><span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">Cosmos DB</span><span class="tag">Azure AI Search</span><span class="tag">Azure VM &middot; TURN</span>
-              </div>
-              <div class="work-cta">
-                <a class="btn btn-primary btn-sm" href="project-telecom-assistant.html">Read the case study <span class="arrow">&rarr;</span></a>
+              <h3 class="work-title"><a href="project-telecom-assistant.html">Telecom customer assistant</a></h3>
+              <p class="work-summary">Account questions across chat and voice. I built the routing, approved-tool layer and Azure deployment, with LangGraph for questions that need multiple lookups.</p>
+              <div class="work-tags"><span class="tag">Azure OpenAI</span><span class="tag">Realtime voice / WebRTC</span><span class="tag">LangGraph</span><span class="tag">FastAPI</span></div>
+              <div class="flow-summary" aria-label="Assistant flow"><span>Question</span><span aria-hidden="true">&rarr;</span><span>Approved tools</span><span aria-hidden="true">&rarr;</span><span>Grounded answer</span></div><div class="work-cta">
+                <a class="btn btn-primary btn-sm" href="project-telecom-assistant.html">Explore the case study <span class="arrow">&rarr;</span></a>
               </div>
             </div>
-            <dl class="work-spec">
-              <div><dt>Role</dt><dd>Solo build, AI pair-programmed</dd></div>
-              <div><dt>Shape</dt><dd>5 LLM call sites &middot; 149 unit tests &middot; 47-check live suite</dd></div>
-              <div><dt>Withheld</dt><dd>Client name, APIs, hosts</dd></div>
-            </dl>
+            <dl class="work-spec"><div><dt>Contribution</dt><dd>Architecture, backend, UI and Azure deployment</dd></div><div><dt>Evidence</dt><dd>149 mocked unit tests; 47-check live suite</dd></div><div><dt>Scope</dt><dd>TCS client POC; voice in 4 languages</dd></div></dl>
           </article>
 
-          <article class="work-row reveal" data-card-link="live-project-budget.html" tabindex="0" aria-label="Open the Budget project page">
+          <article class="work-row reveal">
             <div class="work-idx">02</div>
             <div>
               <span class="status live">Live &middot; budget.vaditya.in</span>
-              <h3 class="work-title">Budget &mdash; a daily expense tracker with an AI assistant</h3>
-              <p class="work-summary">A monthly spending budget becomes a daily allowance; unspent money rolls to tomorrow or into savings, overspending always carries forward. Tracks income, fixed commitments, bank and cash accounts, cards, loans and locked assets, with optional automatic balance sync and a reality-check reconciler. The assistant takes text or voice and proposes every change for a confirm tap: common shorthand ("200 uber hdfc") is parsed locally with typo-tolerant matching against real accounts and past tags, no model call; anything open-ended goes to Gemini with an automatic Cloudflare Workers AI fallback.</p>
-              <div class="work-tags">
-                <span class="tag">Cloudflare Workers</span><span class="tag">D1 (SQLite)</span><span class="tag">Workers AI</span><span class="tag">Gemini</span><span class="tag">PWA</span><span class="tag">TypeScript</span>
-              </div>
-              <div class="work-cta">
-                <a class="btn btn-primary btn-sm" href="https://budget.vaditya.in/" target="_blank" rel="noopener noreferrer">Open Budget</a>
+              <h3 class="work-title"><a href="live-project-budget.html">Budget, a daily finance app</a></h3>
+              <p class="work-summary">A monthly budget becomes a daily allowance. I designed, built and operate the app, including a text-and-voice assistant that asks before changing data.</p>
+              <div class="work-tags"><span class="tag">Cloudflare Workers</span><span class="tag">D1 (SQLite)</span><span class="tag">Workers AI</span><span class="tag">Gemini</span></div>
+              <a class="work-preview" href="live-project-budget.html#product-preview" aria-label="Preview Budget with sample data"><img src="assets/budget-preview.jpg" alt="Budget’s daily allowance and expense entry screen, shown with sample data" width="1200" height="820" loading="lazy" decoding="async"></a><div class="work-cta">
+                <a class="btn btn-primary btn-sm" href="live-project-budget.html#product-preview">Preview Budget</a>
                 <a class="btn btn-secondary btn-sm" href="live-project-budget.html">Project page</a>
                 <a class="btn btn-secondary btn-sm" href="https://budget.vaditya.in/help" target="_blank" rel="noopener noreferrer">User guide</a>
               </div>
             </div>
-            <dl class="work-spec">
-              <div><dt>Role</dt><dd>Designed, built, operate &mdash; used daily</dd></div>
-              <div><dt>Shape</dt><dd>API + PWA from one Worker; multi-user, invite-only</dd></div>
-              <div><dt>Notable</dt><dd>Confirm-before-write agent UX; Gemini &rarr; Workers AI fallback verified live</dd></div>
-            </dl>
+            <dl class="work-spec"><div><dt>Contribution</dt><dd>Designed, built and operated end to end</dd></div><div><dt>Evidence</dt><dd>Live product I use daily</dd></div><div><dt>Boundary</dt><dd>AI-proposed changes need confirmation</dd></div></dl>
           </article>
 
-          <article class="work-row reveal" id="ask-aditya" tabindex="0" aria-label="Ask about Aditya, the assistant on this site">
+          <article class="work-row reveal" id="ask-aditya">
             <div class="work-idx">03</div>
             <div>
               <span class="status live">Live &middot; the button at the bottom-right</span>
-              <h3 class="work-title">Ask about Aditya &mdash; a RAG assistant for this site</h3>
-              <p class="work-summary">Ask it anything about my work and it answers from what is actually on this site and my resume, citing where it looked. A small set of hand-written content chunks is embedded with a Workers AI model and stored in Cloudflare Vectorize; a question is embedded the same way, the corpus is ranked against it, and Gemini writes the answer under a strict rule: only from the context, in the third person, and say "that isn't on the site" rather than guess. Cloudflare Workers AI takes over automatically if Gemini is unavailable.</p>
+              <h3 class="work-title"><a href="projects.html#ask-aditya">Ask about Aditya</a></h3>
+              <p class="work-summary">A portfolio should answer follow-up questions. I built this assistant to answer from my published work, cite sources and say when the evidence is missing.</p>
               <p class="work-summary">The corpus is small enough that a top-K cutoff turned out to be a liability &mdash; the first version dropped the one chunk a recruiter's question needed. It now gives the model the whole corpus and uses the vector scores to rank citations against the answer that was actually written, which is a more honest source trail than similarity to the question.</p>
-              <div class="work-tags">
-                <span class="tag">Cloudflare Vectorize</span><span class="tag">Workers AI embeddings</span><span class="tag">Gemini</span><span class="tag">Cloudflare Workers</span><span class="tag">RAG</span>
-              </div>
+              <div class="work-tags"><span class="tag">Cloudflare Vectorize</span><span class="tag">Workers AI embeddings</span><span class="tag">Gemini</span><span class="tag">Cloudflare Workers</span></div>
               <div class="work-cta">
                 <button class="btn btn-primary btn-sm" type="button" data-open-ask>Try it now</button>
               </div>
             </div>
-            <dl class="work-spec">
-              <div><dt>Role</dt><dd>Designed, built, operate</dd></div>
-              <div><dt>Shape</dt><dd>Separate Worker at ask.vaditya.in, CORS-locked to this origin</dd></div>
-              <div><dt>Notable</dt><dd>Answer-overlap citation ranking; grounded refusal</dd></div>
-            </dl>
+            <dl class="work-spec"><div><dt>Contribution</dt><dd>Retrieval, API and accessible chat UI</dd></div><div><dt>Evidence</dt><dd>Try a real question on this page</dd></div><div><dt>Boundary</dt><dd>Source-linked answers; model fallback</dd></div></dl>
           </article>
         </div>
       </div>
