@@ -8,6 +8,8 @@ Live at https://vaditya.in (GitHub Pages, `CNAME` in this repo).
 
 - `index.html` — home: current stack, selected work, about, skills, experience, contact.
 - `projects.html` — all work: three featured pieces plus earlier systems.
+- `work-atlas.html` / `work-atlas.css` / `work-atlas.js` — interactive project map, linked from the homepage; filter by capability or select a project to see its details. Keyboard and mobile supported, with no external graph library.
+- `assets/Resume.pdf` / `assets/Resume.docx` — current resume downloads with TCS clients described by industry; other employer and project names are retained.
 - `project-telecom-assistant.html` — case study for a telecom chat + real-time voice assistant built at TCS (client name and infrastructure withheld).
 - `live-project-budget.html` — the Budget app, live at https://budget.vaditya.in (separate repo/Worker).
 - `style.css` — the "Blueprint" design system: light and dark themes, IBM Plex + Bricolage Grotesque.

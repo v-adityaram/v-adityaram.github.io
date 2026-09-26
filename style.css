@@ -419,6 +419,9 @@ button { font: inherit; color: inherit; }
 .recognition { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
 .recognition .card h3 { font-size: 1rem; margin-bottom: 6px; }
 .recognition .card p { font-size: 0.9rem; color: var(--ink-2); }
+.recognition .skill-badges { grid-column: span 2; }
+.skill-badges ul { display: grid; gap: 9px; padding-left: 18px; margin: 16px 0 0; font-size: .85rem; line-height: 1.5; }
+.skill-badges a { color: var(--signal); text-underline-offset: 3px; }
 
 /* ---------- contact ---------- */
 
@@ -597,6 +600,7 @@ button { font: inherit; color: inherit; }
   .work-spec { grid-column: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding-top: 0; }
   .job { grid-template-columns: 1fr; gap: 10px; }
   .recognition { grid-template-columns: 1fr; }
+  .recognition .skill-badges { grid-column: auto; }
 }
 
 @media (max-width: 860px) {

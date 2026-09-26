@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore the connections between Aditya’s AI projects: enterprise assistants, live products, retrieval, voice and human approval.">
+  <title>Work atlas &middot; VSSV Aditya Ram</title>
+  <link rel="icon" type="image/png" href="assets/favicon-light.png" data-favicon-link>
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <script>
+    // Runs before first paint so there's no flash of the wrong theme.
+    // No stored choice follows the OS/browser preference.
+    (function () {
+      let pref = null;
+      try { pref = localStorage.getItem("portfolio-theme"); } catch (_) {}
+      const dark = pref === "dark" || (pref !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="work-atlas.css">
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="VSSV Aditya Ram home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="22 12 46 40" focusable="false"><polygon points="40,14 50,14 34,50 24,50"/><polygon points="40,14 50,14 66,50 56,50"/><polygon class="signal" points="39.3,38 50.7,38 53.8,45 36.2,45"/></svg>
+      </span>
+      <span class="brand-name"><b>VSSV</b> Aditya Ram</span>
+    </a>
+    <nav class="site-nav" id="site-nav" data-nav>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="work-atlas.html" aria-current="page">Atlas</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-resume" href="assets/Resume.pdf" download>Resume</a>
+    </nav>
+    <button class="theme-toggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode" aria-pressed="true" data-theme-toggle>
+      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <section class="sec atlas" id="atlas" data-atlas aria-labelledby="atlas-heading">
+      <div class="wrap">
+        <a class="atlas-back" href="index.html">&larr; Back to the portfolio</a>
+        <div class="atlas-heading">
+          <div>
+            <p class="eyebrow">Work atlas / an interactive view</p>
+            <h1 id="atlas-heading">Different systems.<br><em>Connected thinking.</em></h1>
+          </div>
+          <p class="lede">Explore the ideas that connect my work. Pick a project, or follow a capability across client prototypes and products I build for myself.</p>
+        </div>
+
+        <div class="atlas-shell">
+          <div class="atlas-toolbar">
+            <span class="atlas-label">Explore by</span>
+            <div class="atlas-filters" role="group" aria-label="Filter projects by capability">
+              <button class="atlas-filter" type="button" data-atlas-filter="all" aria-pressed="true">All systems</button>
+              <button class="atlas-filter" type="button" data-atlas-filter="agents" aria-pressed="false">Agents &amp; tools</button>
+              <button class="atlas-filter" type="button" data-atlas-filter="retrieval" aria-pressed="false">Grounding</button>
+              <button class="atlas-filter" type="button" data-atlas-filter="voice" aria-pressed="false">Real-time voice</button>
+              <button class="atlas-filter" type="button" data-atlas-filter="approval" aria-pressed="false">Human approval</button>
+            </div>
+            <span class="atlas-counter" data-atlas-count>6 of 6 systems</span>
+          </div>
+
+          <div class="atlas-body">
+            <div class="atlas-map" role="group" aria-label="Project map. Select a project to explore its engineering. Arrow keys move between projects.">
+              <svg class="atlas-edges" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true">
+                <ellipse class="atlas-orbit" cx="500" cy="345" rx="138" ry="217"/>
+                <ellipse class="atlas-orbit" cx="500" cy="345" rx="215" ry="275"/>
+                <path class="atlas-edge" data-atlas-edge="incident" d="M210 169 C395 169 358 345 500 345"/>
+                <path class="atlas-edge is-selected" data-atlas-edge="telecom" d="M210 345 H500"/>
+                <path class="atlas-edge" data-atlas-edge="sales" d="M210 520 C395 520 358 345 500 345"/>
+                <path class="atlas-edge" data-atlas-edge="portfolio" d="M790 169 C605 169 642 345 500 345"/>
+                <path class="atlas-edge" data-atlas-edge="budget" d="M790 345 H500"/>
+                <path class="atlas-edge" data-atlas-edge="paperbrief" d="M790 520 C605 520 642 345 500 345"/>
+              </svg>
+              <div class="atlas-group"><b>At TCS</b><br>Client prototypes</div>
+              <div class="atlas-group"><b>Independent</b><br>Products &amp; experiments</div>
+
+              <button class="atlas-node" data-atlas-node="incident" data-side="left" type="button" style="--x:21%;--y:26%" aria-pressed="false" aria-controls="atlas-detail">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+                <strong>Incident AI</strong><small>Evidence &rarr; diagnosis</small>
+              </button>
+              <button class="atlas-node" data-atlas-node="telecom" data-side="left" type="button" style="--x:21%;--y:53%" aria-pressed="true" aria-controls="atlas-detail">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M9 22h6"/></svg>
+                <strong>Telecom voice</strong><small>Talk. Switch. Resolve.</small>
+              </button>
+              <button class="atlas-node" data-atlas-node="sales" data-side="left" type="button" style="--x:21%;--y:80%" aria-pressed="false" aria-controls="atlas-detail">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg>
+                <strong>Sales &amp; service</strong><small>Tools with boundaries</small>
+              </button>
+              <button class="atlas-node" data-atlas-node="portfolio" data-side="right" type="button" style="--x:79%;--y:26%" aria-pressed="false" aria-controls="atlas-detail">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H9l-5 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2Z M8 8h8M8 12h5"/></svg>
+                <strong>Ask Aditya</strong><small>Answers with sources</small>
+              </button>
+              <button class="atlas-node" data-atlas-node="budget" data-side="right" type="button" style="--x:79%;--y:53%" aria-pressed="false" aria-controls="atlas-detail">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 9h18M7 14h3M7 17h6M16 14h1"/></svg>
+                <strong>Budget</strong><small>A little more control</small>
+              </button>
+              <button class="atlas-node" data-atlas-node="paperbrief" data-side="right" type="button" style="--x:79%;--y:80%" aria-pressed="false" aria-controls="atlas-detail">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5ZM14 3v5h5M8 12h8M8 16h6"/></svg>
+                <strong>PaperBrief AI</strong><small>Read between papers</small>
+              </button>
+
+              <div class="atlas-core" aria-hidden="true"><strong>AI</strong><small>Engineering<br>with intent</small></div>
+              <span class="atlas-capability" style="--y:18%" data-atlas-capability="retrieval">Grounding</span>
+              <span class="atlas-capability" style="--y:33%" data-atlas-capability="agents">Tool calling</span>
+              <span class="atlas-capability" style="--y:73%" data-atlas-capability="approval">Human approval</span>
+              <span class="atlas-capability" style="--y:89%" data-atlas-capability="deployment">Deployment</span>
+              <p class="atlas-hint">Select a node. Follow the connections.</p>
+            </div>
+
+            <aside class="atlas-detail" id="atlas-detail" data-atlas-detail aria-labelledby="atlas-project-title">
+              <div class="atlas-detail-top"><span class="atlas-status" data-atlas-status>TCS &middot; Client proof of concept</span><span class="atlas-step" data-atlas-step>02 / 06</span></div>
+              <h2 id="atlas-project-title" data-atlas-title>A conversation, in four languages.</h2>
+              <p class="atlas-client" data-atlas-client>Africa&rsquo;s largest mobile network operator</p>
+              <p class="atlas-description" data-atlas-description>Account questions by chat or real-time voice. A confidence-gated router handles simple requests; LangGraph coordinates multiple lookups. Only approved tools can reach account data.</p>
+              <dl class="atlas-metrics" data-atlas-metrics><div><dt>4 languages</dt><dd>mid-call switching</dd></div><div><dt>~2.9 s</dt><dd>typical chat latency</dd></div></dl>
+              <div class="atlas-stack" data-atlas-stack><span>Azure OpenAI</span><span>LangGraph</span><span>FastAPI</span><span>WebRTC</span></div>
+              <div class="atlas-actions">
+                <a class="atlas-detail-link" data-atlas-link href="project-telecom-assistant.html">Explore the case study &nearr;</a>
+                <div class="atlas-pager" role="group" aria-label="Browse matching projects"><button type="button" data-atlas-direction="-1" aria-label="Previous project">&larr;</button><button type="button" data-atlas-direction="1" aria-label="Next project">&rarr;</button></div>
+              </div>
+            </aside>
+          </div>
+          <div class="atlas-footer"><span>Connections show shared capabilities across projects.</span><span class="atlas-footer-links"><a href="assets/Resume.pdf" download>Resume PDF &darr;</a><a href="assets/Resume.docx" download>Word version &darr;</a></span></div>
+        </div>
+        <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-atlas-announcement></p>
+        <noscript><style>.atlas-map,.atlas-toolbar,.atlas-pager{display:none}.atlas-body{grid-template-columns:1fr}</style><p class="mt-sm">Enable JavaScript to explore the map. You can also <a href="projects.html">browse all projects</a> or <a href="assets/Resume.pdf">read my resume</a>.</p></noscript>
+
+        <div class="atlas-note">
+          <p class="eyebrow">The thread through it all</p>
+          <p>Let the model interpret.<br><strong>Keep the important decisions explicit.</strong></p>
+          <a href="projects.html">Read the project stories <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>VSSV Aditya Ram &middot; vaditya.in</span>
+    <span><a href="index.html">Home</a> &nbsp;&middot;&nbsp; <a href="index.html#contact">Contact</a></span>
+  </footer>
+  <script src="script.js"></script>
+  <script src="work-atlas.js"></script>
+</body>
+</html>
