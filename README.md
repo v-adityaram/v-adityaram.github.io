@@ -8,6 +8,7 @@ Live at https://vaditya.in (GitHub Pages, `CNAME` in this repo).
 
 - `index.html` — compact introduction, selected work, about, skills, experience, contact. Detailed stack and credentials expand on demand.
 - `projects.html` — all work: three featured pieces plus earlier systems.
+- `arcade-preview.html` — a clearly labelled concept preview, linked from the homepage’s “After hours” row and footer. The three planned games are not yet playable.
 - `work-atlas.html` / `work-atlas.css` / `work-atlas.js` — interactive project map on a separate page. Project/filter state is shareable (`?project=paperbrief&filter=retrieval`) and supports Back/Forward. Small screens use a list; keyboard navigation is available throughout.
 - `assets/Resume.pdf` / `assets/Resume.docx` — current resume downloads with TCS clients described by industry; other employer and project names are retained.
 - `project-telecom-assistant.html` — case study for a telecom chat + real-time voice assistant built at TCS (client name and infrastructure withheld).
